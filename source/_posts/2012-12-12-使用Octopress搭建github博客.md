@@ -68,7 +68,7 @@ categories: [octopreess, github]
 2. 快乐的点东西
 3. rake generate
 4. rake deploy
-5. git push origin source     # 备份到source资源
+5. git add . && git commit -am 'blog' && git push origin source     # 把写的文件备份到source分支
 ```
 
 
