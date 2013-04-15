@@ -68,6 +68,7 @@ categories: [octopreess, github]
 2. 快乐的点东西
 3. rake generate
 4. rake deploy
+5. git push origin source     # 备份到source资源
 ```
 
 
