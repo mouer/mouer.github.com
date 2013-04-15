@@ -6,8 +6,10 @@ comments: true
 categories: [Octopress, github]
 ---
 
+因为gfw的原因，Google App Engine当真实蛋疼的紧，有不想花钱弄主机，就在这里搞的blog吧，记录下安装步骤。
+
 # 安装
-``` sh
+``` 
 bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer) # 安装RVM
 echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" ' >> ~/.bash_profile    # 添加环境变量到 ~/.bash_profile
 source ~/.bash_profile  # source 一下，让它起作用
@@ -28,7 +30,7 @@ rake preview  # 本地预览 （http://localhost:4000/）
 [taoBaoRuby](http://ruby.taobao.org/)
 
 # 把blog部署到github
-``` sh
+``` 
 cd octopress
 rake setup_github_pages # 和github创建关联
 git@github.com:your_username/your_username.github.com.git   # 提示输入github URL
@@ -45,7 +47,7 @@ git push origin source # 如果这一步出错，请再次检查仓库名称是�
 ```
 
 ## 更新Octopress
-``` sh
+```
 git pull octopress master     # Get the latest Octopress
 bundle install                # Keep gems updated
 rake update_source            # update the template's source
@@ -53,7 +55,7 @@ rake update_style             # update the template's style
 ```
 
 ## 新建文章
-```sh
+```
 rake new_post["title"]		   # yyyy-MM-dd-post-title.md
 ```
 
