@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[废纸君]]></title>
-  <link href="http://mouer.github.com/atom.xml" rel="self"/>
+  <title><![CDATA[Category: github | 废纸君]]></title>
+  <link href="http://mouer.github.com/blog/categories/github/atom.xml" rel="self"/>
   <link href="http://mouer.github.com/"/>
   <updated>2013-04-15T22:03:31+08:00</updated>
   <id>http://mouer.github.com/</id>
