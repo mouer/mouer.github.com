@@ -4,7 +4,7 @@
   <title><![CDATA[废纸君]]></title>
   <link href="http://mouer.github.com/atom.xml" rel="self"/>
   <link href="http://mouer.github.com/"/>
-  <updated>2013-04-15T23:26:35+08:00</updated>
+  <updated>2013-04-15T23:40:17+08:00</updated>
   <id>http://mouer.github.com/</id>
   <author>
     <name><![CDATA[Chen.Qi]]></name>
@@ -123,7 +123,7 @@
 </span><span class='line'>2. 快乐的点东西
 </span><span class='line'>3. rake generate
 </span><span class='line'>4. rake deploy
-</span><span class='line'>5. git push origin <span class="nb">source</span>     <span class="c"># 备份到source资源</span>
+</span><span class='line'>5. git add . <span class="o">&amp;&amp;</span> git commit -am <span class="s1">&#39;blog&#39;</span> <span class="o">&amp;&amp;</span> git push origin <span class="nb">source</span>     <span class="c"># 把写的文件备份到source分支</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
