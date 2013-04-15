@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Octopress | 废纸君]]></title>
   <link href="http://mouer.github.com/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://mouer.github.com/"/>
-  <updated>2013-04-15T22:03:31+08:00</updated>
+  <updated>2013-04-15T22:36:47+08:00</updated>
   <id>http://mouer.github.com/</id>
   <author>
     <name><![CDATA[Chen.Qi]]></name>
@@ -18,7 +18,78 @@
     <link href="http://mouer.github.com/blog/2013/04/15/%E4%BD%BF%E7%94%A8Octopress%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/"/>
     <updated>2013-04-15T21:53:00+08:00</updated>
     <id>http://mouer.github.com/blog/2013/04/15/使用Octopress搭建github博客</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<h1>安装</h1>
+
+<p>```
+bash -s stable &lt; &lt;(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer) # 安装RV
+echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; . "$HOME/.rvm/scripts/rvm" ' >> ~/.bash_profile    # 添加环境变量到 ~/.bash_profile
+source ~/.bash_profile  # source 一下，让它起作用
+rvm install 1.9.3    # 安装ruby1.9.3 (rvm install 1.9.3 --with-gcc=clang)
+rvm 1.9.3 --default  # 设置ruby默认版本为1.9.3
+ruby --version       # 查看当前ruby版本是否已经被设置1.9.3
+git clone git://github.com/imathis/octopress.git octopress  #从github clone octopress的源代码
+cd octopress</p>
+
+<h1>安装一些依赖</h1>
+
+<p>gem install bundler<br/>
+bundle install
+rake install  # 安装主题
+rake preview  # 本地预览 （http://localhost:4000/）
+```</p>
+
+<h2>注意</h2>
+
+<p>如果有同学觉得 <strong>gem</strong> 或者 <strong>rvm</strong> 使用缓慢可以尝试淘宝的ruby源。
+<a href="http://ruby.taobao.org/">taoBaoRuby</a></p>
+
+<h1>把blog部署到github</h1>
+
+<p><code>
+cd octopress
+rake setup_github_pages # 和github创建关联
+git@github.com:your_username/your_username.github.com.git   # 提示输入github URL
+rake generate # 把你所有编辑的内容生成你的Blog静态页面
+rake deploy   # 如果检查没有任何问题就可以 push 你的 blog 到 github master branch
+＃ 状态检查
+cd ~/octopress  
+git status   # 应该显示 On branch source
+cd _deploy/  # 应该显示 On branch master
+＃ 最后提交到source branch
+git add .
+git commit -m 'first commit'
+git push origin source # 如果这一步出错，请再次检查仓库名称是否按要求命名，同时检查Admin面板下Default Branch是否为 master
+</code></p>
+
+<h2>更新Octopress</h2>
+
+<p><code>
+git pull octopress master     # Get the latest Octopress
+bundle install                # Keep gems updated
+rake update_source            # update the template's source
+rake update_style             # update the template's style
+</code></p>
+
+<h2>新建文章</h2>
+
+<p><code>
+rake new_post["title"]         # yyyy-MM-dd-post-title.md
+</code></p>
+
+<h2>分类方式</h2>
+
+<p><code>
+categories: [octopreess, github]
+</code></p>
+
+<h2>一般操作</h2>
+
+<p><code>
+1. rake new_post["title"]
+2. 快乐的点东西
+3. rake generate
+4. rake deploy
+</code></p>
 ]]></content>
   </entry>
   
