@@ -6,7 +6,7 @@ comments: true
 categories: [Octopress, github]
 ---
 
-因为gfw的原因，Google App Engine当真实蛋疼的紧，有不想花钱弄主机，就在这里搞的blog吧，记录下安装步骤。
+ 因为gfw的原因，Google App Engine当真实蛋疼的紧，有不想花钱弄主机，就在这里搞的blog吧，记录下安装步骤。
 
 # 安装
 ``` 
