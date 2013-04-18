@@ -4,7 +4,7 @@
   <title><![CDATA[Category: github | 废纸君]]></title>
   <link href="http://mouer.github.com/blog/categories/github/atom.xml" rel="self"/>
   <link href="http://mouer.github.com/"/>
-  <updated>2013-04-18T01:34:21+08:00</updated>
+  <updated>2013-04-18T21:49:14+08:00</updated>
   <id>http://mouer.github.com/</id>
   <author>
     <name><![CDATA[Chen.Qi]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[使用Octopress搭建github博客]]></title>
-    <link href="http://mouer.github.com/blog/2013/04/15/%E4%BD%BF%E7%94%A8Octopress%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/"/>
-    <updated>2013-04-15T21:53:00+08:00</updated>
-    <id>http://mouer.github.com/blog/2013/04/15/使用Octopress搭建github博客</id>
+    <link href="http://mouer.github.com/blog/2013/01/15/%E4%BD%BF%E7%94%A8Octopress%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/"/>
+    <updated>2013-01-15T21:53:00+08:00</updated>
+    <id>http://mouer.github.com/blog/2013/01/15/使用Octopress搭建github博客</id>
     <content type="html"><![CDATA[<p> 因为gfw的原因，Google App Engine当真实蛋疼的紧，有不想花钱弄主机，就在这里搞的blog吧，记录下安装步骤。</p>
 
 <h1>安装</h1>
