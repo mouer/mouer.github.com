@@ -4,7 +4,7 @@
   <title><![CDATA[废纸君]]></title>
   <link href="http://mouer.github.com/atom.xml" rel="self"/>
   <link href="http://mouer.github.com/"/>
-  <updated>2013-04-18T22:03:09+08:00</updated>
+  <updated>2013-04-20T22:40:31+08:00</updated>
   <id>http://mouer.github.com/</id>
   <author>
     <name><![CDATA[Chen.Qi]]></name>
@@ -12,6 +12,47 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[oh-my-zsh安装使用]]></title>
+    <link href="http://mouer.github.com/blog/2013/04/20/oh-my-zsh-install/"/>
+    <updated>2013-04-20T22:23:00+08:00</updated>
+    <id>http://mouer.github.com/blog/2013/04/20/oh-my-zsh-install</id>
+    <content type="html"><![CDATA[<p><strong>无意中发现这个最近在github上很火爆的oh-my-zsh，又查询了下zsh，发现兼容bash，那果断升级了。</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># clone project</span>
+</span><span class='line'>git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+</span><span class='line'><span class="c"># 拷贝配置文件</span>
+</span><span class='line'>cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+</span><span class='line'><span class="c"># 设置默认是zsh</span>
+</span><span class='line'>chsh -s /bin/zsh
+</span><span class='line'><span class="c"># 修改默认更新时间</span>
+</span><span class='line'>vim ~/.zshrc
+</span><span class='line'><span class="nb">export </span><span class="nv">UPDATE_ZSH_DAYS</span><span class="o">=</span>1
+</span><span class='line'><span class="c"># 添加插件</span>
+</span><span class='line'>vim ~/.zshrc
+</span><span class='line'><span class="nv">plugins</span><span class="o">=(</span>git, brew, svn<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所有的主题接图： <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/themes">https://github.com/robbyrussell/oh-my-zsh/wiki/themes</a>
+所有的插件名字： <a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins">https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins</a></p>
+
+<p><img src="http://mouer.github.com/images/blog/oh-my-zsh/demo.png" alt="demo" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[关于Java虚拟机（JVM）]]></title>

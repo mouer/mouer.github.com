@@ -7,7 +7,20 @@
 	<meta name="author" content="Chen.Qi">
 
 	
-	<meta name="description" content="Java虚拟机 概述 JVM, 是让JAVA凌驾与操作系统之上的一个程序。大内总管的角色。 纵观历史，感觉Java的崛起JVM功不可没，很多大牛都是被那句对外声称的“编写一次，到处运行”勾引过来的。 近些年，JVM已经发展成一个生态圈，里面有众多语言，当然，如： Jython &gt; http &hellip;">
+	<meta name="description" content="无意中发现这个最近在github上很火爆的oh-my-zsh，又查询了下zsh，发现兼容bash，那果断升级了。 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+# clone project
+git clone git://github.com/robbyrussell/oh-my- &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -76,6 +89,81 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/04/20/oh-my-zsh-install/">
+		
+			Oh-my-zsh安装使用</a>
+	</h2>
+	<div class="entry-content">
+		<p><strong>无意中发现这个最近在github上很火爆的oh-my-zsh，又查询了下zsh，发现兼容bash，那果断升级了。</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># clone project</span>
+</span><span class='line'>git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+</span><span class='line'><span class="c"># 拷贝配置文件</span>
+</span><span class='line'>cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+</span><span class='line'><span class="c"># 设置默认是zsh</span>
+</span><span class='line'>chsh -s /bin/zsh
+</span><span class='line'><span class="c"># 修改默认更新时间</span>
+</span><span class='line'>vim ~/.zshrc
+</span><span class='line'><span class="nb">export </span><span class="nv">UPDATE_ZSH_DAYS</span><span class="o">=</span>1
+</span><span class='line'><span class="c"># 添加插件</span>
+</span><span class='line'>vim ~/.zshrc
+</span><span class='line'><span class="nv">plugins</span><span class="o">=(</span>git, brew, svn<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所有的主题接图： <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/themes">https://github.com/robbyrussell/oh-my-zsh/wiki/themes</a>
+所有的插件名字： <a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins">https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins</a></p>
+
+<p><img src="/images/blog/oh-my-zsh/demo.png" alt="demo" /></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-20T22:23:00+08:00" pubdate data-updated="true">Apr 20<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+</div>
+	
+		<div class="comments"><a href="/blog/2013/04/20/oh-my-zsh-install//index.html#disqus_thread">Comments</a></div>
+	
+	<div> <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=5&isTitle=0&noborder=0&isWeibo=1&isFans=0&uid=1199801651&verifier=1c7c4ebd&dpc=1"></iframe>
+ </div>
+	<div class="doubanBook"> <script type="text/javascript" src="http://www.douban.com/service/badge/60491943/?show=collection&amp;n=6&amp;columns=2&amp;hidelogo=yes&amp;cat=book" ></script>
+ </div>
+</div>
+</article>
 
 
     <article class="post">
