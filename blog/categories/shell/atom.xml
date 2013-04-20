@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: shell | 废纸君]]></title>
+  <link href="http://mouer.github.com/blog/categories/shell/atom.xml" rel="self"/>
+  <link href="http://mouer.github.com/"/>
+  <updated>2013-04-20T23:00:06+08:00</updated>
+  <id>http://mouer.github.com/</id>
+  <author>
+    <name><![CDATA[Chen.Qi]]></name>
+    <email><![CDATA[mouer73@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[oh-my-zsh安装使用]]></title>
+    <link href="http://mouer.github.com/blog/2013/04/20/oh-my-zsh-install/"/>
+    <updated>2013-04-20T22:23:00+08:00</updated>
+    <id>http://mouer.github.com/blog/2013/04/20/oh-my-zsh-install</id>
+    <content type="html"><![CDATA[<p><strong>无意中发现这个最近在github上很火爆的oh-my-zsh，又查询了下zsh，发现兼容bash，那果断升级了。</strong></p>
+
+<p>```sh</p>
+
+<h1>clone project</h1>
+
+<p>git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh</p>
+
+<h1>拷贝配置文件</h1>
+
+<p>cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc</p>
+
+<h1>设置默认是zsh</h1>
+
+<p>chsh -s /bin/zsh</p>
+
+<h1>修改默认更新时间</h1>
+
+<p>vim ~/.zshrc
+export UPDATE_ZSH_DAYS=1</p>
+
+<h1>添加插件</h1>
+
+<p>vim ~/.zshrc
+plugins=(git, brew, svn)
+```</p>
+
+<p>所有的主题接图： <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/themes">https://github.com/robbyrussell/oh-my-zsh/wiki/themes</a>
+所有的插件名字： <a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins">https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins</a>
+<strong>注意</strong> 别忘了导入自己定义的PATH.</p>
+
+<p><img src="/images/blog/oh-my-zsh/demo.png" alt="demo" /></p>
+]]></content>
+  </entry>
+  
+</feed>
