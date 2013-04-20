@@ -3,7 +3,7 @@ layout: post
 title: "oh-my-zsh安装使用"
 date: 2013-04-20 22:23
 comments: true
-categories: 
+categories: [shell]
 ---
 
 **无意中发现这个最近在github上很火爆的oh-my-zsh，又查询了下zsh，发现兼容bash，那果断升级了。**
@@ -24,6 +24,9 @@ plugins=(git, brew, svn)
 ```
 
 所有的主题接图： <https://github.com/robbyrussell/oh-my-zsh/wiki/themes>
+
 所有的插件名字： <https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins>
+
+**注意** 别忘了导入自己定义的PATH.
 
 ![demo](/images/blog/oh-my-zsh/demo.png)
