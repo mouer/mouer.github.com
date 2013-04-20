@@ -4,7 +4,7 @@
   <title><![CDATA[废纸君]]></title>
   <link href="http://mouer.github.com/atom.xml" rel="self"/>
   <link href="http://mouer.github.com/"/>
-  <updated>2013-04-20T23:01:22+08:00</updated>
+  <updated>2013-04-20T23:02:33+08:00</updated>
   <id>http://mouer.github.com/</id>
   <author>
     <name><![CDATA[Chen.Qi]]></name>
@@ -47,9 +47,11 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>所有的主题接图： <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/themes">https://github.com/robbyrussell/oh-my-zsh/wiki/themes</a>
-所有的插件名字： <a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins">https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins</a>
-<strong>注意</strong> 别忘了导入自己定义的PATH.</p>
+<p>所有的主题接图： <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/themes">https://github.com/robbyrussell/oh-my-zsh/wiki/themes</a></p>
+
+<p>所有的插件名字： <a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins">https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins</a></p>
+
+<p><strong>注意</strong> 别忘了导入自己定义的PATH.</p>
 
 <p><img src="http://mouer.github.com/images/blog/oh-my-zsh/demo.png" alt="demo" /></p>
 ]]></content>
