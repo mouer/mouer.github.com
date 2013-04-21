@@ -20,9 +20,6 @@
 <div class="meta">
 	<div class="date">{% include post/date.html %}{{ time }}</div>
 	<div class="tags">{% include post/categories.html %}</div>
-	{% if site.disqus_short_name and site.disqus_show_comment_count == true %}
-		<div class="comments"><a href="{{ root_url }}{{ post.url }}{{ page.url }}#disqus_thread">Comments</a></div>
-	{% endif %}
 	<div> {% include post/weibo.html %} </div>
 	<div class="doubanBook"> {% include post/douban.html %} </div>
 </div>

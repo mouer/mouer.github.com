@@ -30,3 +30,4 @@ plugins=(git, brew, svn)
 **注意** 别忘了导入自己定义的PATH.
 
 ![demo](/images/blog/oh-my-zsh/demo.png)
+![demo2](/images/blog/oh-my-zsh/demo2.png)

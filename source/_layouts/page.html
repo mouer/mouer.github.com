@@ -7,13 +7,10 @@ layout: default
     <h1 class="title">{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}</h1>
     {% endif %}
     <div class="entry-content">{{ content }}</div>
-</article>
-{% unless page.sharing == false %}
+	{% unless page.sharing == false %}
 	{% include post/sharing.html %}
-{% endunless %}
-{% if site.disqus_short_name and page.comments == true %}
-<section id="comment">
-    <h1 class="title">Comments</h1>
-    <div id="disqus_thread" aria-live="polite">{% include post/disqus_thread.html %}</div>
-</section>
-{% endif %}
+	{% endunless %}
+	{% if page.comments == true %}
+		{% include duoshuo.html %}
+	{% endif %}
+</article>
