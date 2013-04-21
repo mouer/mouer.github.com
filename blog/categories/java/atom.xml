@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 废纸君]]></title>
   <link href="http://mouer.github.com/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://mouer.github.com/"/>
-  <updated>2013-04-21T19:59:05+08:00</updated>
+  <updated>2013-04-21T23:50:59+08:00</updated>
   <id>http://mouer.github.com/</id>
   <author>
     <name><![CDATA[Chen.Qi]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[关于Java虚拟机（JVM）]]></title>
-    <link href="http://mouer.github.com/blog/2013/04/17/%E5%85%AC%E5%8F%B8%E5%9F%B9%E8%AE%AD%E4%B9%8BJvm/"/>
+    <link href="http://mouer.github.com/blog/2013/04/17/Jvm/"/>
     <updated>2013-04-17T21:53:00+08:00</updated>
-    <id>http://mouer.github.com/blog/2013/04/17/公司培训之Jvm</id>
+    <id>http://mouer.github.com/blog/2013/04/17/Jvm</id>
     <content type="html"><![CDATA[<h1>Java虚拟机</h1>
 
 <p><img src="/images/blog/jvm/jvm-logo.gif" alt="JVM" /></p>

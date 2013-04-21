@@ -4,7 +4,7 @@
   <title><![CDATA[废纸君]]></title>
   <link href="http://mouer.github.com/atom.xml" rel="self"/>
   <link href="http://mouer.github.com/"/>
-  <updated>2013-04-21T19:59:05+08:00</updated>
+  <updated>2013-04-21T23:50:59+08:00</updated>
   <id>http://mouer.github.com/</id>
   <author>
     <name><![CDATA[Chen.Qi]]></name>
@@ -53,15 +53,16 @@
 
 <p><strong>注意</strong> 别忘了导入自己定义的PATH.</p>
 
-<p><img src="http://mouer.github.com/images/blog/oh-my-zsh/demo.png" alt="demo" /></p>
+<p><img src="http://mouer.github.com/images/blog/oh-my-zsh/demo.png" alt="demo" />
+<img src="http://mouer.github.com/images/blog/oh-my-zsh/demo2.png" alt="demo2" /></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[关于Java虚拟机（JVM）]]></title>
-    <link href="http://mouer.github.com/blog/2013/04/17/%E5%85%AC%E5%8F%B8%E5%9F%B9%E8%AE%AD%E4%B9%8BJvm/"/>
+    <link href="http://mouer.github.com/blog/2013/04/17/Jvm/"/>
     <updated>2013-04-17T21:53:00+08:00</updated>
-    <id>http://mouer.github.com/blog/2013/04/17/公司培训之Jvm</id>
+    <id>http://mouer.github.com/blog/2013/04/17/Jvm</id>
     <content type="html"><![CDATA[<h1>Java虚拟机</h1>
 
 <p><img src="http://mouer.github.com/images/blog/jvm/jvm-logo.gif" alt="JVM" /></p>
@@ -447,9 +448,9 @@ $JAVA_ARGS .= " -Dresin.home=$SERVER_ROOT -server
   
   <entry>
     <title type="html"><![CDATA[使用Octopress搭建github博客]]></title>
-    <link href="http://mouer.github.com/blog/2013/01/15/%E4%BD%BF%E7%94%A8Octopress%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2/"/>
+    <link href="http://mouer.github.com/blog/2013/01/15/Octopress/"/>
     <updated>2013-01-15T21:53:00+08:00</updated>
-    <id>http://mouer.github.com/blog/2013/01/15/使用Octopress搭建github博客</id>
+    <id>http://mouer.github.com/blog/2013/01/15/Octopress</id>
     <content type="html"><![CDATA[<p> 因为gfw的原因，Google App Engine当真实蛋疼的紧，有不想花钱弄主机，就在这里搞的blog吧，记录下安装步骤。</p>
 
 <h1>安装</h1>
