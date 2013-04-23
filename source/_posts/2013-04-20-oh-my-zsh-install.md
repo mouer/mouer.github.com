@@ -20,7 +20,7 @@ vim ~/.zshrc
 export UPDATE_ZSH_DAYS=1
 # 添加插件
 vim ~/.zshrc
-plugins=(git, brew, svn)
+plugins=(git brew svn)
 ```
 
 所有的主题接图： <https://github.com/robbyrussell/oh-my-zsh/wiki/themes>
