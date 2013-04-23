@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: git | 废纸君]]></title>
+  <link href="http://mouer.github.com/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://mouer.github.com/"/>
+  <updated>2013-04-23T23:56:36+08:00</updated>
+  <id>http://mouer.github.com/</id>
+  <author>
+    <name><![CDATA[Chen.Qi]]></name>
+    <email><![CDATA[mouer73@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[git-flow的介绍及使用]]></title>
+    <link href="http://mouer.github.com/blog/2013/04/23/use-git-flow/"/>
+    <updated>2013-04-23T14:12:00+08:00</updated>
+    <id>http://mouer.github.com/blog/2013/04/23/use-git-flow</id>
+    <content type="html"><![CDATA[<h4>git-flow 简介</h4>
+
+<p>git-flow基于git，是根据实际经验设计出一套基于分支的开发/发布模型。</p>
+
+<p>项目地址： <a href="https://github.com/nvie/gitflow">https://github.com/nvie/gitflow</a></p>
+
+<p>模型概念如下图：</p>
+
+<p><img src="/images/blog/git-flow/git-flow-sketch.png" alt="demo2" /></p>
+
+<h4>安装使用纪录</h4>
+
+<p>因为公司服务器是svn，本地用git-svn + git-flow，所以hotfix功能一直没用</p>
+
+<p>用的是<code>git flow feature start xxx</code> 简单纪录如下：</p>
+
+<p>```sh</p>
+
+<h1>安装git-flow</h1>
+
+<p>brew install git-flow</p>
+
+<h1>开启zsh的git-flow插件</h1>
+
+<p>plugins=(git git-flow brew svn rake vim)</p>
+
+<h1>初始化以后的git目录, 一路回车下一步</h1>
+
+<p>cd xxx &amp;&amp; git flow init</p>
+
+<h1>开始做一个需求， 会自动切换到feature/task1分支，这时候可以写代码。</h1>
+
+<p>git flow feature start task1</p>
+
+<h1>当这个需求做完了。这时候会把task1的提交merge回develop中</h1>
+
+<p>git flow feature finish task1</p>
+
+<h1>对于git-svn用户，那么可以提交到svn了</h1>
+
+<p>git svn rebase;
+git svn dcommit;
+```</p>
+
+<p>很多方法正在摸索，不定时更新之。。</p>
+]]></content>
+  </entry>
+  
+</feed>

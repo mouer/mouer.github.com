@@ -4,7 +4,7 @@
   <title><![CDATA[废纸君]]></title>
   <link href="http://mouer.github.com/atom.xml" rel="self"/>
   <link href="http://mouer.github.com/"/>
-  <updated>2013-04-21T23:50:59+08:00</updated>
+  <updated>2013-04-23T23:56:36+08:00</updated>
   <id>http://mouer.github.com/</id>
   <author>
     <name><![CDATA[Chen.Qi]]></name>
@@ -12,6 +12,60 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[git-flow的介绍及使用]]></title>
+    <link href="http://mouer.github.com/blog/2013/04/23/use-git-flow/"/>
+    <updated>2013-04-23T14:12:00+08:00</updated>
+    <id>http://mouer.github.com/blog/2013/04/23/use-git-flow</id>
+    <content type="html"><![CDATA[<h4>git-flow 简介</h4>
+
+<p>git-flow基于git，是根据实际经验设计出一套基于分支的开发/发布模型。</p>
+
+<p>项目地址： <a href="https://github.com/nvie/gitflow">https://github.com/nvie/gitflow</a></p>
+
+<p>模型概念如下图：</p>
+
+<p><img src="http://mouer.github.com/images/blog/git-flow/git-flow-sketch.png" alt="demo2" /></p>
+
+<h4>安装使用纪录</h4>
+
+<p>因为公司服务器是svn，本地用git-svn + git-flow，所以hotfix功能一直没用</p>
+
+<p>用的是<code>git flow feature start xxx</code> 简单纪录如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># 安装git-flow</span>
+</span><span class='line'>brew install git-flow
+</span><span class='line'><span class="c"># 开启zsh的git-flow插件</span>
+</span><span class='line'><span class="nv">plugins</span><span class="o">=(</span>git git-flow brew svn rake vim<span class="o">)</span>
+</span><span class='line'><span class="c"># 初始化以后的git目录, 一路回车下一步</span>
+</span><span class='line'><span class="nb">cd </span>xxx <span class="o">&amp;&amp;</span> git flow init
+</span><span class='line'><span class="c"># 开始做一个需求， 会自动切换到feature/task1分支，这时候可以写代码。</span>
+</span><span class='line'>git flow feature start task1
+</span><span class='line'><span class="c"># 当这个需求做完了。这时候会把task1的提交merge回develop中</span>
+</span><span class='line'>git flow feature finish task1
+</span><span class='line'><span class="c"># 对于git-svn用户，那么可以提交到svn了</span>
+</span><span class='line'>git svn rebase;
+</span><span class='line'>git svn dcommit;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>很多方法正在摸索，不定时更新之。。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[oh-my-zsh安装使用]]></title>
@@ -43,7 +97,7 @@
 </span><span class='line'><span class="nb">export </span><span class="nv">UPDATE_ZSH_DAYS</span><span class="o">=</span>1
 </span><span class='line'><span class="c"># 添加插件</span>
 </span><span class='line'>vim ~/.zshrc
-</span><span class='line'><span class="nv">plugins</span><span class="o">=(</span>git, brew, svn<span class="o">)</span>
+</span><span class='line'><span class="nv">plugins</span><span class="o">=(</span>git brew svn<span class="o">)</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
