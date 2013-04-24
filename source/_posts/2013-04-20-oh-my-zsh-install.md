@@ -29,5 +29,5 @@ plugins=(git brew svn)
 
 **注意** 别忘了导入自己定义的PATH.
 
-![demo](/images/blog/oh-my-zsh/demo.png)
-![demo2](/images/blog/oh-my-zsh/demo2.png)
+![demo](http://ww4.sinaimg.cn/mw690/47838533jw1e40psv5eqrj20hl0bkwgf.jpg)
+![demo2](http://ww3.sinaimg.cn/mw690/47838533jw1e40psufltsj20ki0m642u.jpg)

@@ -14,7 +14,7 @@ git-flow基于git，是根据实际经验设计出一套基于分支的开发/�
 
 模型概念如下图：
 
-![demo2](/images/blog/git-flow/git-flow-sketch.png)
+![demo2](http://ww1.sinaimg.cn/mw690/47838533jw1e40pstu5toj20gz0mn0va.jpg)
 
 #### 安装使用纪录
 
