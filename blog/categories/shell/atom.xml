@@ -4,7 +4,7 @@
   <title><![CDATA[Category: shell | 废纸君]]></title>
   <link href="http://mouer.github.com/blog/categories/shell/atom.xml" rel="self"/>
   <link href="http://mouer.github.com/"/>
-  <updated>2013-04-24T00:07:01+08:00</updated>
+  <updated>2013-04-24T15:11:08+08:00</updated>
   <id>http://mouer.github.com/</id>
   <author>
     <name><![CDATA[Chen.Qi]]></name>
@@ -51,8 +51,8 @@ plugins=(git brew svn)
 
 <p><strong>注意</strong> 别忘了导入自己定义的PATH.</p>
 
-<p><img src="/images/blog/oh-my-zsh/demo.png" alt="demo" />
-<img src="/images/blog/oh-my-zsh/demo2.png" alt="demo2" /></p>
+<p><img src="http://ww4.sinaimg.cn/mw690/47838533jw1e40psv5eqrj20hl0bkwgf.jpg" alt="demo" />
+<img src="http://ww3.sinaimg.cn/mw690/47838533jw1e40psufltsj20ki0m642u.jpg" alt="demo2" /></p>
 ]]></content>
   </entry>
   
