@@ -9,19 +9,7 @@
   <meta name="author" content="Chen.Qi">
 
   
-  <meta name="description" content="从源码中得到的信息： 1 HashMap没最大容量限制，超出Integer.MAX_VALUE后，size不准确。 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-void resize(int newCapacity) { Entry[] oldTable = table; int &hellip;">
+  <meta name="description" content="昨天下午去参加了北京的GDG沙龙，有些收获，当然拿到T shirt是最大的收获。T_T!! golang golang的分享者是@许式伟，可能是我孤弱寡闻，或者脑残项目做多了，以前没有听说过，给我的感觉是，许老师在台上控场力不是很强，但是对golang，erlang，c++，java的特性顺手聂来 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -95,7 +83,7 @@ void resize(int newCapacity) { Entry[] oldTable = table; int &hellip;">
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/04/30/java-hashmap/">也来谈谈java-HashMap</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/05/06/google-developer-groups/">GDG语言沙龙</a></h1>
     
     
       <p class="meta">
@@ -111,182 +99,32 @@ void resize(int newCapacity) { Entry[] oldTable = table; int &hellip;">
   
 
 
-<time datetime="2013-04-30T22:35:00+08:00" pubdate data-updated="true">2013年04月30日</time>
+<time datetime="2013-05-06T10:12:00+08:00" pubdate data-updated="true">2013年05月06日</time>
         
-         | <a href="/blog/2013/04/30/java-hashmap/#disqus_thread">Comments</a>
+         | <a href="/blog/2013/05/06/google-developer-groups/#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>从源码中得到的信息：</p>
+  <div class="entry-content"><p>昨天下午去参加了北京的GDG沙龙，有些收获，当然拿到<code>T shirt</code>是最大的收获。T_T!!</p>
 
-<p>1 HashMap没最大容量限制，超出Integer.MAX_VALUE后，size不准确。</p>
+<h4>golang</h4>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kt">void</span> <span class="nf">resize</span><span class="o">(</span><span class="kt">int</span> <span class="n">newCapacity</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Entry</span><span class="o">[]</span> <span class="n">oldTable</span> <span class="o">=</span> <span class="n">table</span><span class="o">;</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">oldCapacity</span> <span class="o">=</span> <span class="n">oldTable</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">oldCapacity</span> <span class="o">==</span> <span class="n">MAXIMUM_CAPACITY</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">threshold</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
-</span><span class='line'>        <span class="k">return</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="n">Entry</span><span class="o">[]</span> <span class="n">newTable</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Entry</span><span class="o">[</span><span class="n">newCapacity</span><span class="o">];</span>
-</span><span class='line'>    <span class="n">transfer</span><span class="o">(</span><span class="n">newTable</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">table</span> <span class="o">=</span> <span class="n">newTable</span><span class="o">;</span>
-</span><span class='line'>    <span class="n">threshold</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)(</span><span class="n">newCapacity</span> <span class="o">*</span> <span class="n">loadFactor</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>golang的分享者是<a href="http://weibo.com/xushiweizh">@许式伟</a>，可能是我孤弱寡闻，或者脑残项目做多了，以前没有听说过，给我的感觉是，许老师在台上控场力不是很强，但是对golang，erlang，c++，java的特性顺手聂来，如数家珍，就《Go, 基于连接与组合的语言》的话题，把golang的组合和连接特性讲的十分透彻。对我而言感觉有些问题一下子想通了，回家查了下，许老师是前盛大资深研究员，前金山技术总监，WPS Office 2005首席架构，好吧，牛人表里面有多了一位。</p>
 
+<h4>erlang</h4>
 
-<p>2 HashMap的hash,hash的目的是使其均匀，当然，没有重复是做好状态，相信很多人看过这段代码：</p>
+<p>说实话，以前对erlang的了解少之又少，少到语法是什么样子的都不知道。以为是腐朽的，远古的，但是<a href="http://weibo.com/lianchengzju">连城404</a>的分享的《用Erlang构建容错系统》让我知道自己错的多么离谱，对于连同学，感觉是个很有意思的人，风趣幽默，这里推荐他的<a href="http://blog.liancheng.info/job-hunting-in-california/#.UYcLCFu-Nvd">加州求职记</a>， 有兴趣的同学可以看看，而对于erlang，看来我也有必要看看了。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">static</span> <span class="kt">int</span> <span class="nf">hash</span><span class="o">(</span><span class="kt">int</span> <span class="n">h</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="c1">// This function ensures that hashCodes that differ only by</span>
-</span><span class='line'>    <span class="c1">// constant multiples at each bit position have a bounded</span>
-</span><span class='line'>    <span class="c1">// number of collisions (approximately 8 at default load factor).</span>
-</span><span class='line'>    <span class="n">h</span> <span class="o">^=</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">20</span><span class="o">)</span> <span class="o">^</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">12</span><span class="o">);</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">h</span> <span class="o">^</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">7</span><span class="o">)</span> <span class="o">^</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">4</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<h4>dart</h4>
 
+<p>在<a href="http://weibo.com/hanguokai">Jackie Han</a>上台之前，我一直以为这哥们是个健身教练呢，目测是所有已知程序员里面胳膊最粗的一只。因为个人原因，对dart不太感冒，随意听了听语法，完事。</p>
 
-<p>猛一看，瞬间吓尿了。。我们来分析一下： <a href="http://stackoverflow.com/questions/9335169/understanding-strange-java-hash-function">也可以看这里</a></p>
+<p>事后趁合影时候偷摸跑掉，鲁串喝酒去了。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span> <span class="o">(</span> <span class="n">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="mh">0xffffffff</span><span class="o">;</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">h1</span> <span class="o">=</span> <span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">20</span><span class="o">;</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">h2</span> <span class="o">=</span> <span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">12</span><span class="o">;</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">h3</span> <span class="o">=</span> <span class="n">h1</span> <span class="o">^</span> <span class="n">h2</span><span class="o">;</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">h4</span> <span class="o">=</span> <span class="n">h</span> <span class="o">^</span> <span class="n">h3</span><span class="o">;</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">h5</span> <span class="o">=</span> <span class="n">h4</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">7</span><span class="o">;</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">h6</span> <span class="o">=</span> <span class="n">h4</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">4</span><span class="o">;</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">h7</span> <span class="o">=</span> <span class="n">h5</span> <span class="o">^</span> <span class="n">h6</span><span class="o">;</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">h8</span> <span class="o">=</span> <span class="n">h4</span> <span class="o">^</span> <span class="n">h7</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h</span> <span class="o">);</span>
-</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h1</span> <span class="o">);</span>
-</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h2</span> <span class="o">);</span>
-</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h3</span> <span class="o">);</span>
-</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h4</span> <span class="o">);</span>
-</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h5</span> <span class="o">);</span>
-</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h6</span> <span class="o">);</span>
-</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h7</span> <span class="o">);</span>
-</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h8</span> <span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">static</span> <span class="kt">void</span> <span class="nf">printBin</span> <span class="o">(</span> <span class="kt">int</span> <span class="n">h</span> <span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span> <span class="o">(</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span> <span class="o">(</span> <span class="s">&quot;%32s&quot;</span><span class="o">,</span>
-</span><span class='line'>                <span class="n">Integer</span><span class="o">.</span><span class="na">toBinaryString</span> <span class="o">(</span> <span class="n">h</span> <span class="o">)</span> <span class="o">).</span><span class="na">replace</span> <span class="o">(</span> <span class="sc">&#39; &#39;</span><span class="o">,</span> <span class="sc">&#39;0&#39;</span> <span class="o">)</span> <span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>prints:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="mi">11111111111111111111111111111111</span>
-</span><span class='line'><span class="mi">00000000000000000000111111111111</span>
-</span><span class='line'><span class="mi">00000000000011111111111111111111</span>
-</span><span class='line'><span class="mi">00000000000011111111000000000000</span>
-</span><span class='line'><span class="mi">11111111111100000000111111111111</span>
-</span><span class='line'><span class="mi">00000001111111111110000000011111</span>
-</span><span class='line'><span class="mi">00001111111111110000000011111111</span>
-</span><span class='line'><span class="mi">00001110000000001110000011100000</span>
-</span><span class='line'><span class="mi">11110001111100001110111100011111</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>3 存储结构：</p>
-
-<p>table&amp;entry满足下面等式：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="c1">// 如果, 其中length是hashmap的长度，默认是1&lt;&lt;30</span>
-</span><span class='line'><span class="n">hash</span><span class="o">(</span><span class="n">entryA</span><span class="o">.</span><span class="na">key</span><span class="o">)</span> <span class="o">=</span> <span class="n">hash</span><span class="o">(</span><span class="n">entryB</span><span class="o">.</span><span class="na">key</span><span class="o">)</span>
-</span><span class='line'><span class="n">i</span> <span class="o">=</span> <span class="n">hash</span><span class="o">(</span><span class="n">entryA</span><span class="o">.</span><span class="na">key</span><span class="o">)</span> <span class="o">&amp;</span> <span class="o">(</span><span class="n">length</span><span class="o">)</span>
-</span><span class='line'><span class="c1">// 那么, 其中-&gt;表示指向,A.B的谁后添加，谁在前面</span>
-</span><span class='line'><span class="n">table</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">-&gt;</span> <span class="n">enrtyA</span> <span class="o">&amp;</span> <span class="n">entryA</span><span class="o">.</span><span class="na">next</span> <span class="o">-&gt;</span> <span class="n">entryB</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>4 cpu百分百问题：</p>
-
-<p>真是挺纳闷为什么有那么多蛋疼的人包括自己在研究hashMap的这个问题，在不正当的使用情况下，如多个线程有些插入，有些读取，会出现cpu 100%的情况，有可能是get，有可能是put。</p>
-
-<p>其中<a href="http://code.alibabatech.com/blog/dev_related_969/hashmap-result-in-improper-use-cpu-100-of-the-problem-investigated.html">淘宝大牛</a>应该分析出了一些情况，但是感觉有些片面。因为扩容之后，以前同一个table[i]下的节点，不一定映射到新table的同一个i上，加之java内存屏障的存在，非线程安全的方法，线程间同步共享变量的时机模糊不定。</p>
-
-<p>在自己做的试验里面：</p>
-
-<ul>
-<li>把hashMap源码copy出一份，在扩容后打印 entry entry.next entry.next.next。</li>
-<li>有出现 entry = entry.next.next 的情况。</li>
-<li>但更多100%的情况无迹可循。</li>
-</ul>
-
-
-<p>所以大家知道会出问题就好，不要乱折腾这个了，说不定不同版本的jdk的源码都不一样呢。</p>
-
-<p>絮絮叨叨一大堆。说给自己吧。看《蛇蝎美人》去了。</p>
+<p>PS：文中列出这次沙龙的分享着的weibo，有兴趣的同学看看吧，师兄只能帮你到这里了。。。。</p>
 </div>
   
   
@@ -311,6 +149,10 @@ void resize(int newCapacity) { Entry[] oldTable = table; int &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/05/11/introduce-java-rpc/">当java遇上rpc</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/06/google-developer-groups/">GDG语言沙龙</a>
       </li>
     
@@ -326,10 +168,6 @@ void resize(int newCapacity) { Entry[] oldTable = table; int &hellip;">
         <a href="/blog/2013/04/23/use-git-flow/">git-flow的介绍及使用</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/04/20/oh-my-zsh-install/">oh-my-zsh安装使用</a>
-      </li>
-    
   </ul>
 </section>
 <section>
@@ -340,8 +178,9 @@ void resize(int newCapacity) { Entry[] oldTable = table; int &hellip;">
 <li class='category'><a href='/blog/categories/gc/'>gc (1)</a></li>
 <li class='category'><a href='/blog/categories/git/'>git (1)</a></li>
 <li class='category'><a href='/blog/categories/github/'>github (1)</a></li>
-<li class='category'><a href='/blog/categories/java/'>java (3)</a></li>
+<li class='category'><a href='/blog/categories/java/'>java (4)</a></li>
 <li class='category'><a href='/blog/categories/jvm/'>jvm (1)</a></li>
+<li class='category'><a href='/blog/categories/rpc/'>rpc (1)</a></li>
 <li class='category'><a href='/blog/categories/shell/'>shell (1)</a></li>
 <li class='category'><a href='/blog/categories/spi/'>spi (1)</a></li>
 

@@ -5,11 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: Octopress - 废纸君</title>
+  <title>当java遇上rpc - 废纸君</title>
   <meta name="author" content="Chen.Qi">
 
   
-  <meta name="description" content="Category: Octopress">
+  <meta name="description" content="rpc 和 mq 要说rpc就不得不提提mq，两个家伙分工完美，系统才后完美，简单的说，下面几种情况，那么请使用rpc： 不需要返回值
+不依赖执行顺序
+不想受限与服务端的处理速度 RPC 是什么 远程过程调用 Remote Procedure Call key : 远程 过程 远程 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mouer.github.comblog/categories/octopress/">
+  <link rel="canonical" href="http://mouer.github.com/blog/2013/05/11/introduce-java-rpc/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -76,36 +78,170 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Octopress</h1>
+    
+      <h1 class="entry-title">当java遇上rpc</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-11T14:44:00+08:00" pubdate data-updated="true">2013年05月11日</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><h3>rpc 和 mq</h3>
 
-  
-  <h2>2012</h2>
+<p>要说rpc就不得不提提mq，两个家伙分工完美，系统才后完美，简单的说，下面几种情况，那么请使用rpc：</p>
 
-<article>
-  
-<h1><a href="/blog/2012/12/15/Octopress/">使用Octopress搭建github博客</a></h1>
-<time datetime="2012-12-15T21:53:00+08:00" pubdate><span class='year'>2012</span> <span class='month'>12</span> <span class='day'>15</span> </time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/octopress/'>Octopress</a>, <a class='category' href='/blog/categories/github/'>github</a></span>
-</footer>
+<ul>
+<li>不需要返回值</li>
+<li>不依赖执行顺序</li>
+<li>不想受限与服务端的处理速度</li>
+</ul>
 
 
-</article>
+<h3>RPC 是什么</h3>
+
+<p>远程过程调用 Remote Procedure Call</p>
+
+<p>key : <code>远程</code> <code>过程</code></p>
+
+<h4>远程</h4>
+
+<ul>
+<li>相对本地调用函数来说，被调用方法处于独立的进程、地址空间、主机，可能跨语言，硬件体系结构也可能不一样</li>
+</ul>
+
+
+<h4>过程</h4>
+
+<ul>
+<li>以函数调用的语法出现，看起来像本地。</li>
+</ul>
+
+
+<h4>如何得到接口</h4>
+
+<ul>
+<li>跨语言 ：IDL （ICE，THRIFT..一般生成stub/skeleton）</li>
+<li>java ： 提供service包，实际调用是个代理类</li>
+</ul>
+
+
+<h4>如何描述对象</h4>
+
+<ul>
+<li>序列化 （XML，JSON，brinary，hessian，protobuf&#8230;）</li>
+</ul>
+
+
+<h4>如何传递</h4>
+
+<ul>
+<li>可以基于各种传输协议</li>
+<li>可以基于应用层协议</li>
+</ul>
+
+
+<h4>如何工作</h4>
+
+<ul>
+<li>client->序列化->传输->反序列化->service</li>
+</ul>
+
+
+<h1>纯java实现RpcFramework</h1>
+
+<div><script src='https://gist.github.com/5559211.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Chen.Qi</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-11T14:44:00+08:00" pubdate data-updated="true">2013年05月11日</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/java/'>java</a>, <a class='category' href='/blog/categories/rpc/'>rpc</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/06/google-developer-groups/" title="Previous Post: GDG语言沙龙">&laquo; GDG语言沙龙</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <div id="disqus_thread" aria-live="polite"><!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"mouer"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = 'http://static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0] 
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- Duoshuo Comment END -->
+</div>
+  </section>
 
 </div>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 废纸君]]></title>
   <link href="http://mouer.github.com/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://mouer.github.com/"/>
-  <updated>2013-05-06T10:14:19+08:00</updated>
+  <updated>2013-05-11T15:40:04+08:00</updated>
   <id>http://mouer.github.com/</id>
   <author>
     <name><![CDATA[Chen.Qi]]></name>
@@ -12,6 +12,80 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[当java遇上rpc]]></title>
+    <link href="http://mouer.github.com/blog/2013/05/11/introduce-java-rpc/"/>
+    <updated>2013-05-11T14:44:00+08:00</updated>
+    <id>http://mouer.github.com/blog/2013/05/11/introduce-java-rpc</id>
+    <content type="html"><![CDATA[<h3>rpc 和 mq</h3>
+
+<p>要说rpc就不得不提提mq，两个家伙分工完美，系统才后完美，简单的说，下面几种情况，那么请使用rpc：</p>
+
+<ul>
+<li>不需要返回值</li>
+<li>不依赖执行顺序</li>
+<li>不想受限与服务端的处理速度</li>
+</ul>
+
+
+<h3>RPC 是什么</h3>
+
+<p>远程过程调用 Remote Procedure Call</p>
+
+<p>key : <code>远程</code> <code>过程</code></p>
+
+<h4>远程</h4>
+
+<ul>
+<li>相对本地调用函数来说，被调用方法处于独立的进程、地址空间、主机，可能跨语言，硬件体系结构也可能不一样</li>
+</ul>
+
+
+<h4>过程</h4>
+
+<ul>
+<li>以函数调用的语法出现，看起来像本地。</li>
+</ul>
+
+
+<h4>如何得到接口</h4>
+
+<ul>
+<li>跨语言 ：IDL （ICE，THRIFT..一般生成stub/skeleton）</li>
+<li>java ： 提供service包，实际调用是个代理类</li>
+</ul>
+
+
+<h4>如何描述对象</h4>
+
+<ul>
+<li>序列化 （XML，JSON，brinary，hessian，protobuf...）</li>
+</ul>
+
+
+<h4>如何传递</h4>
+
+<ul>
+<li>可以基于各种传输协议</li>
+<li>可以基于应用层协议</li>
+</ul>
+
+
+<h4>如何工作</h4>
+
+<ul>
+<li>client->序列化->传输->反序列化->service</li>
+</ul>
+
+
+<h1>纯java实现RpcFramework</h1>
+
+<p><div><script src='https://gist.github.com/5559211.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[也来谈谈java-HashMap]]></title>

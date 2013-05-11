@@ -9,20 +9,7 @@
   <meta name="author" content="Chen.Qi">
 
   
-  <meta name="description" content="无意中发现这个最近在github上很火爆的oh-my-zsh，又查询了下zsh，发现兼容bash，那果断升级了。 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-# clone project
-git clone git://github.com/robbyrussell/oh-my-zsh &hellip;">
+  <meta name="description" content="git-flow 简介 git-flow基于git，是根据实际经验设计出一套基于分支的开发/发布模型。 项目地址： https://github.com/nvie/gitflow 模型概念如下图： 安装使用纪录 因为公司服务器是svn，本地用git-svn + git-flow， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,7 +83,7 @@ git clone git://github.com/robbyrussell/oh-my-zsh &hellip;">
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/04/20/oh-my-zsh-install/">Oh-my-zsh安装使用</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/04/23/use-git-flow/">Git-flow的介绍及使用</a></h1>
     
     
       <p class="meta">
@@ -112,16 +99,30 @@ git clone git://github.com/robbyrussell/oh-my-zsh &hellip;">
   
 
 
-<time datetime="2013-04-20T22:23:00+08:00" pubdate data-updated="true">2013年04月20日</time>
+<time datetime="2013-04-23T14:12:00+08:00" pubdate data-updated="true">2013年04月23日</time>
         
-         | <a href="/blog/2013/04/20/oh-my-zsh-install/#disqus_thread">Comments</a>
+         | <a href="/blog/2013/04/23/use-git-flow/#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><strong>无意中发现这个最近在github上很火爆的oh-my-zsh，又查询了下zsh，发现兼容bash，那果断升级了。</strong></p>
+  <div class="entry-content"><h4>git-flow 简介</h4>
+
+<p>git-flow基于git，是根据实际经验设计出一套基于分支的开发/发布模型。</p>
+
+<p>项目地址： <a href="https://github.com/nvie/gitflow">https://github.com/nvie/gitflow</a></p>
+
+<p>模型概念如下图：</p>
+
+<p><img src="http://ww1.sinaimg.cn/mw690/47838533jw1e40pstu5toj20gz0mn0va.jpg" alt="git-flow-sketch" /></p>
+
+<h4>安装使用纪录</h4>
+
+<p>因为公司服务器是svn，本地用git-svn + git-flow，所以hotfix功能一直没用</p>
+
+<p>用的是<code>git flow feature start xxx</code> 简单纪录如下：</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -135,29 +136,24 @@ git clone git://github.com/robbyrussell/oh-my-zsh &hellip;">
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># clone project</span>
-</span><span class='line'>git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-</span><span class='line'><span class="c"># 拷贝配置文件</span>
-</span><span class='line'>cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-</span><span class='line'><span class="c"># 设置默认是zsh</span>
-</span><span class='line'>chsh -s /bin/zsh
-</span><span class='line'><span class="c"># 修改默认更新时间</span>
-</span><span class='line'>vim ~/.zshrc
-</span><span class='line'><span class="nb">export </span><span class="nv">UPDATE_ZSH_DAYS</span><span class="o">=</span>1
-</span><span class='line'><span class="c"># 添加插件</span>
-</span><span class='line'>vim ~/.zshrc
-</span><span class='line'><span class="nv">plugins</span><span class="o">=(</span>git brew svn<span class="o">)</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># 安装git-flow</span>
+</span><span class='line'>brew install git-flow
+</span><span class='line'><span class="c"># 开启zsh的git-flow插件</span>
+</span><span class='line'><span class="nv">plugins</span><span class="o">=(</span>git git-flow brew svn rake vim<span class="o">)</span>
+</span><span class='line'><span class="c"># 初始化以后的git目录, 一路回车下一步</span>
+</span><span class='line'><span class="nb">cd </span>xxx <span class="o">&amp;&amp;</span> git flow init
+</span><span class='line'><span class="c"># 开始做一个需求， 会自动切换到feature/task1分支，这时候可以写代码。</span>
+</span><span class='line'>git flow feature start task1
+</span><span class='line'><span class="c"># 当这个需求做完了。这时候会把task1的提交merge回develop中</span>
+</span><span class='line'>git flow feature finish task1
+</span><span class='line'><span class="c"># 对于git-svn用户，那么可以提交到svn了</span>
+</span><span class='line'>git svn rebase;
+</span><span class='line'>git svn dcommit;
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>所有的主题接图： <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/themes">https://github.com/robbyrussell/oh-my-zsh/wiki/themes</a></p>
-
-<p>所有的插件名字： <a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins">https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins</a></p>
-
-<p><strong>注意</strong> 别忘了导入自己定义的PATH.</p>
-
-<p><img src="http://ww4.sinaimg.cn/mw690/47838533jw1e40psv5eqrj20hl0bkwgf.jpg" alt="zsh-demo1" />
-<img src="http://ww3.sinaimg.cn/mw690/47838533jw1e40psufltsj20ki0m642u.jpg" alt="zsh-demo2" /></p>
+<p>很多方法正在摸索，不定时更新之。。</p>
 </div>
   
   
@@ -182,6 +178,10 @@ git clone git://github.com/robbyrussell/oh-my-zsh &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/05/11/introduce-java-rpc/">当java遇上rpc</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/06/google-developer-groups/">GDG语言沙龙</a>
       </li>
     
@@ -197,10 +197,6 @@ git clone git://github.com/robbyrussell/oh-my-zsh &hellip;">
         <a href="/blog/2013/04/23/use-git-flow/">git-flow的介绍及使用</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/04/20/oh-my-zsh-install/">oh-my-zsh安装使用</a>
-      </li>
-    
   </ul>
 </section>
 <section>
@@ -211,8 +207,9 @@ git clone git://github.com/robbyrussell/oh-my-zsh &hellip;">
 <li class='category'><a href='/blog/categories/gc/'>gc (1)</a></li>
 <li class='category'><a href='/blog/categories/git/'>git (1)</a></li>
 <li class='category'><a href='/blog/categories/github/'>github (1)</a></li>
-<li class='category'><a href='/blog/categories/java/'>java (3)</a></li>
+<li class='category'><a href='/blog/categories/java/'>java (4)</a></li>
 <li class='category'><a href='/blog/categories/jvm/'>jvm (1)</a></li>
+<li class='category'><a href='/blog/categories/rpc/'>rpc (1)</a></li>
 <li class='category'><a href='/blog/categories/shell/'>shell (1)</a></li>
 <li class='category'><a href='/blog/categories/spi/'>spi (1)</a></li>
 
