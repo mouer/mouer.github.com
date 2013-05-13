@@ -9,7 +9,19 @@
   <meta name="author" content="Chen.Qi">
 
   
-  <meta name="description" content="SPI指Service Provider Interface，在开源项目中常常能看到，主要是定义好接口，让别人去完善这个功能。 如要开发一个文本编辑器，已经实现了现在市面上所有的文件类型，但过了一阵子忽然冒出来个新的文件类型，就不能用了。 如果通过Java SPI开发的解析接口（com.edit. &hellip;">
+  <meta name="description" content="从源码中得到的信息： 1 HashMap没最大容量限制，超出Integer.MAX_VALUE后，size不准确。 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+void resize(int newCapacity) { Entry[] oldTable = table; int &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,7 +95,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/04/24/java-spi/">Java-spi机制介绍</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/04/30/java-hashmap/">也来谈谈java-HashMap</a></h1>
     
     
       <p class="meta">
@@ -99,28 +111,18 @@
   
 
 
-<time datetime="2013-04-24T22:20:00+08:00" pubdate data-updated="true">2013年04月24日</time>
+<time datetime="2013-04-30T22:35:00+08:00" pubdate data-updated="true">2013年04月30日</time>
         
-         | <a href="/blog/2013/04/24/java-spi/#disqus_thread">Comments</a>
+         | <a href="/blog/2013/04/30/java-hashmap/#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>SPI指<code>Service Provider Interface</code>，在开源项目中常常能看到，主要是定义好接口，让别人去完善这个功能。</p>
+  <div class="entry-content"><p>从源码中得到的信息：</p>
 
-<p>如要开发一个文本编辑器，已经实现了现在市面上所有的文件类型，但过了一阵子忽然冒出来个新的文件类型，就不能用了。</p>
-
-<p>如果通过<code>Java SPI</code>开发的解析接口（<code>com.edit.service.ParseFile</code>），那么给用户一个补丁包，这个补丁包仅仅包括一个jar包：</p>
-
-<ul>
-<li>一个解析新文件类型的实现(com.edit.service.impl.ParseXXXFileImpl)</li>
-<li>META-INF/services/com.edit.service.ParseFile 写入 com.edit.service.impl.ParseXXXFileImpl</li>
-</ul>
-
-
-<p>把补丁包放入class path 里就可以了。</p>
+<p>1 HashMap没最大容量限制，超出Integer.MAX_VALUE后，size不准确。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -134,30 +136,22 @@
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">ohoo</span><span class="o">.</span><span class="na">spi</span><span class="o">.</span><span class="na">service</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.util.ServiceLoader</span><span class="o">;</span>
-</span><span class='line'><span class="cm">/**</span>
-</span><span class='line'><span class="cm"> * User: chen.qi</span>
-</span><span class='line'><span class="cm"> * Date: 13-4-24</span>
-</span><span class='line'><span class="cm"> * Time: 下午9:54</span>
-</span><span class='line'><span class="cm"> */</span>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestSPI</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">ServiceLoader</span><span class="o">&lt;</span><span class="n">ContainerService</span><span class="o">&gt;</span> <span class="n">serviceLoader</span> <span class="o">=</span> <span class="n">ServiceLoader</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">ContainerService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="n">ContainerService</span> <span class="n">containerService</span> <span class="o">:</span> <span class="n">serviceLoader</span><span class="o">){</span>
-</span><span class='line'>            <span class="n">containerService</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-</span><span class='line'>            <span class="n">containerService</span><span class="o">.</span><span class="na">stop</span><span class="o">();</span>
-</span><span class='line'>        <span class="o">}</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kt">void</span> <span class="nf">resize</span><span class="o">(</span><span class="kt">int</span> <span class="n">newCapacity</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Entry</span><span class="o">[]</span> <span class="n">oldTable</span> <span class="o">=</span> <span class="n">table</span><span class="o">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">oldCapacity</span> <span class="o">=</span> <span class="n">oldTable</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">oldCapacity</span> <span class="o">==</span> <span class="n">MAXIMUM_CAPACITY</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">threshold</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">return</span><span class="o">;</span>
 </span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="n">Entry</span><span class="o">[]</span> <span class="n">newTable</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Entry</span><span class="o">[</span><span class="n">newCapacity</span><span class="o">];</span>
+</span><span class='line'>    <span class="n">transfer</span><span class="o">(</span><span class="n">newTable</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">table</span> <span class="o">=</span> <span class="n">newTable</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">threshold</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)(</span><span class="n">newCapacity</span> <span class="o">*</span> <span class="n">loadFactor</span><span class="o">);</span>
 </span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
+<p>2 HashMap的hash,hash的目的是使其均匀，当然，没有重复是做好状态，相信很多人看过这段代码：</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -166,23 +160,17 @@
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">ohoo</span><span class="o">.</span><span class="na">spi</span><span class="o">.</span><span class="na">service</span><span class="o">;</span>
-</span><span class='line'><span class="cm">/**</span>
-</span><span class='line'><span class="cm"> * User: chen.qi</span>
-</span><span class='line'><span class="cm"> * Date: 13-4-24</span>
-</span><span class='line'><span class="cm"> * Time: 下午9:49</span>
-</span><span class='line'><span class="cm"> */</span>
-</span><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ContainerService</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">();</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">stop</span><span class="o">();</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">static</span> <span class="kt">int</span> <span class="nf">hash</span><span class="o">(</span><span class="kt">int</span> <span class="n">h</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="c1">// This function ensures that hashCodes that differ only by</span>
+</span><span class='line'>    <span class="c1">// constant multiples at each bit position have a bounded</span>
+</span><span class='line'>    <span class="c1">// number of collisions (approximately 8 at default load factor).</span>
+</span><span class='line'>    <span class="n">h</span> <span class="o">^=</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">20</span><span class="o">)</span> <span class="o">^</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">12</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">h</span> <span class="o">^</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">7</span><span class="o">)</span> <span class="o">^</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">4</span><span class="o">);</span>
 </span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
+<p>猛一看，瞬间吓尿了。。我们来分析一下： <a href="http://stackoverflow.com/questions/9335169/understanding-strange-java-hash-function">也可以看这里</a></p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -201,36 +189,104 @@
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
 <span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">ohoo</span><span class="o">.</span><span class="na">spi</span><span class="o">.</span><span class="na">service</span><span class="o">.</span><span class="na">impl</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">com.ohoo.spi.service.ContainerService</span><span class="o">;</span>
-</span><span class='line'><span class="cm">/**</span>
-</span><span class='line'><span class="cm"> * User: chen.qi</span>
-</span><span class='line'><span class="cm"> * Date: 13-4-24</span>
-</span><span class='line'><span class="cm"> * Time: 下午9:51</span>
-</span><span class='line'><span class="cm"> */</span>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CContainerServiceImpl</span> <span class="kd">implements</span> <span class="n">ContainerService</span> <span class="o">{</span>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;c start ...&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">stop</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;c stop ...&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span> <span class="o">(</span> <span class="n">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="mh">0xffffffff</span><span class="o">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">h1</span> <span class="o">=</span> <span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">20</span><span class="o">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">h2</span> <span class="o">=</span> <span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">12</span><span class="o">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">h3</span> <span class="o">=</span> <span class="n">h1</span> <span class="o">^</span> <span class="n">h2</span><span class="o">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">h4</span> <span class="o">=</span> <span class="n">h</span> <span class="o">^</span> <span class="n">h3</span><span class="o">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">h5</span> <span class="o">=</span> <span class="n">h4</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">7</span><span class="o">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">h6</span> <span class="o">=</span> <span class="n">h4</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">4</span><span class="o">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">h7</span> <span class="o">=</span> <span class="n">h5</span> <span class="o">^</span> <span class="n">h6</span><span class="o">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">h8</span> <span class="o">=</span> <span class="n">h4</span> <span class="o">^</span> <span class="n">h7</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h</span> <span class="o">);</span>
+</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h1</span> <span class="o">);</span>
+</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h2</span> <span class="o">);</span>
+</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h3</span> <span class="o">);</span>
+</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h4</span> <span class="o">);</span>
+</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h5</span> <span class="o">);</span>
+</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h6</span> <span class="o">);</span>
+</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h7</span> <span class="o">);</span>
+</span><span class='line'>    <span class="n">printBin</span> <span class="o">(</span> <span class="n">h8</span> <span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">static</span> <span class="kt">void</span> <span class="nf">printBin</span> <span class="o">(</span> <span class="kt">int</span> <span class="n">h</span> <span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span> <span class="o">(</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span> <span class="o">(</span> <span class="s">&quot;%32s&quot;</span><span class="o">,</span>
+</span><span class='line'>                <span class="n">Integer</span><span class="o">.</span><span class="na">toBinaryString</span> <span class="o">(</span> <span class="n">h</span> <span class="o">)</span> <span class="o">).</span><span class="na">replace</span> <span class="o">(</span> <span class="sc">&#39; &#39;</span><span class="o">,</span> <span class="sc">&#39;0&#39;</span> <span class="o">)</span> <span class="o">);</span>
 </span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><code>META-INF/services/com.ohoo.spi.service.ContainerService</code></p>
+<p>prints:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">com</span><span class="o">.</span><span class="na">ohoo</span><span class="o">.</span><span class="na">spi</span><span class="o">.</span><span class="na">service</span><span class="o">.</span><span class="na">impl</span><span class="o">.</span><span class="na">AContainerServiceImpl</span>
-</span><span class='line'><span class="n">com</span><span class="o">.</span><span class="na">ohoo</span><span class="o">.</span><span class="na">spi</span><span class="o">.</span><span class="na">service</span><span class="o">.</span><span class="na">impl</span><span class="o">.</span><span class="na">BContainerServiceImpl</span>
-</span><span class='line'><span class="n">com</span><span class="o">.</span><span class="na">ohoo</span><span class="o">.</span><span class="na">spi</span><span class="o">.</span><span class="na">service</span><span class="o">.</span><span class="na">impl</span><span class="o">.</span><span class="na">CContainerServiceImpl</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="mi">11111111111111111111111111111111</span>
+</span><span class='line'><span class="mi">00000000000000000000111111111111</span>
+</span><span class='line'><span class="mi">00000000000011111111111111111111</span>
+</span><span class='line'><span class="mi">00000000000011111111000000000000</span>
+</span><span class='line'><span class="mi">11111111111100000000111111111111</span>
+</span><span class='line'><span class="mi">00000001111111111110000000011111</span>
+</span><span class='line'><span class="mi">00001111111111110000000011111111</span>
+</span><span class='line'><span class="mi">00001110000000001110000011100000</span>
+</span><span class='line'><span class="mi">11110001111100001110111100011111</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p>3 存储结构：</p>
+
+<p>table&amp;entry满足下面等式：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="c1">// 如果, 其中length是hashmap的长度，默认是1&lt;&lt;30</span>
+</span><span class='line'><span class="n">hash</span><span class="o">(</span><span class="n">entryA</span><span class="o">.</span><span class="na">key</span><span class="o">)</span> <span class="o">=</span> <span class="n">hash</span><span class="o">(</span><span class="n">entryB</span><span class="o">.</span><span class="na">key</span><span class="o">)</span>
+</span><span class='line'><span class="n">i</span> <span class="o">=</span> <span class="n">hash</span><span class="o">(</span><span class="n">entryA</span><span class="o">.</span><span class="na">key</span><span class="o">)</span> <span class="o">&amp;</span> <span class="o">(</span><span class="n">length</span><span class="o">)</span>
+</span><span class='line'><span class="c1">// 那么, 其中-&gt;表示指向,A.B的谁后添加，谁在前面</span>
+</span><span class='line'><span class="n">table</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">-&gt;</span> <span class="n">enrtyA</span> <span class="o">&amp;</span> <span class="n">entryA</span><span class="o">.</span><span class="na">next</span> <span class="o">-&gt;</span> <span class="n">entryB</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>4 cpu百分百问题：</p>
+
+<p>真是挺纳闷为什么有那么多蛋疼的人包括自己在研究hashMap的这个问题，在不正当的使用情况下，如多个线程有些插入，有些读取，会出现cpu 100%的情况，有可能是get，有可能是put。</p>
+
+<p>其中<a href="http://code.alibabatech.com/blog/dev_related_969/hashmap-result-in-improper-use-cpu-100-of-the-problem-investigated.html">淘宝大牛</a>应该分析出了一些情况，但是感觉有些片面。因为扩容之后，以前同一个table[i]下的节点，不一定映射到新table的同一个i上，加之java内存屏障的存在，非线程安全的方法，线程间同步共享变量的时机模糊不定。</p>
+
+<p>在自己做的试验里面：</p>
+
+<ul>
+<li>把hashMap源码copy出一份，在扩容后打印 entry entry.next entry.next.next。</li>
+<li>有出现 entry = entry.next.next 的情况。</li>
+<li>但更多100%的情况无迹可循。</li>
+</ul>
+
+
+<p>所以大家知道会出问题就好，不要乱折腾这个了，说不定不同版本的jdk的源码都不一样呢。</p>
+
+<p>絮絮叨叨一大堆。说给自己吧。看《蛇蝎美人》去了。</p>
 </div>
   
   
@@ -255,6 +311,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/05/14/bae-weixin-flask-xiaohuangji/">bae上面搭建微信版本小黄鸡</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/11/introduce-java-rpc/">当java遇上rpc</a>
       </li>
     
@@ -268,10 +328,6 @@
     
       <li class="post">
         <a href="/blog/2013/04/24/java-spi/">java-spi机制介绍</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/23/use-git-flow/">git-flow的介绍及使用</a>
       </li>
     
   </ul>

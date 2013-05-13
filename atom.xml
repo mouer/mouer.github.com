@@ -4,7 +4,7 @@
   <title><![CDATA[废纸君]]></title>
   <link href="http://mouer.github.com/atom.xml" rel="self"/>
   <link href="http://mouer.github.com/"/>
-  <updated>2013-05-11T15:40:04+08:00</updated>
+  <updated>2013-05-14T00:40:41+08:00</updated>
   <id>http://mouer.github.com/</id>
   <author>
     <name><![CDATA[Chen.Qi]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[bae上面搭建微信版本小黄鸡]]></title>
+    <link href="http://mouer.github.com/blog/2013/05/14/bae-weixin-flask-xiaohuangji/"/>
+    <updated>2013-05-14T00:32:00+08:00</updated>
+    <id>http://mouer.github.com/blog/2013/05/14/bae-weixin-flask-xiaohuangji</id>
+    <content type="html"><![CDATA[<p>前端时间人人<code>小黄鸡</code>火极一时，贱贱的回复热心喜爱，看了github上面的源码，是调用的simsimi，那好，用微信公共帐号实现一个吧。</p>
+
+<p>服务端是BAE平台 <code>python</code> + <code>flask</code></p>
+
+<p>requests包请自行上传，sae不晓得，bae上面木有～，gist如下：</p>
+
+<div><script src='https://gist.github.com/5569623.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+
+<p>玩的愉快～</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[当java遇上rpc]]></title>

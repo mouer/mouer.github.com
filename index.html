@@ -9,9 +9,8 @@
   <meta name="author" content="Chen.Qi">
 
   
-  <meta name="description" content="rpc 和 mq 要说rpc就不得不提提mq，两个家伙分工完美，系统才后完美，简单的说，下面几种情况，那么请使用rpc： 不需要返回值
-不依赖执行顺序
-不想受限与服务端的处理速度 RPC 是什么 远程过程调用 Remote Procedure Call key : 远程 过程 远程 &hellip;">
+  <meta name="description" content="前端时间人人小黄鸡火极一时，贱贱的回复热心喜爱，看了github上面的源码，是调用的simsimi，那好，用微信公共帐号实现一个吧。 服务端是BAE平台 python + flask requests包请自行上传，sae不晓得，bae上面木有～，gist如下： 玩的愉快～
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,7 +84,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/05/11/introduce-java-rpc/">当java遇上rpc</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/05/14/bae-weixin-flask-xiaohuangji/">Bae上面搭建微信版本小黄鸡</a></h1>
     
     
       <p class="meta">
@@ -101,83 +100,26 @@
   
 
 
-<time datetime="2013-05-11T14:44:00+08:00" pubdate data-updated="true">2013年05月11日</time>
+<time datetime="2013-05-14T00:32:00+08:00" pubdate data-updated="true">2013年05月14日</time>
         
-         | <a href="/blog/2013/05/11/introduce-java-rpc/#disqus_thread">Comments</a>
+         | <a href="/blog/2013/05/14/bae-weixin-flask-xiaohuangji/#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h3>rpc 和 mq</h3>
+  <div class="entry-content"><p>前端时间人人<code>小黄鸡</code>火极一时，贱贱的回复热心喜爱，看了github上面的源码，是调用的simsimi，那好，用微信公共帐号实现一个吧。</p>
 
-<p>要说rpc就不得不提提mq，两个家伙分工完美，系统才后完美，简单的说，下面几种情况，那么请使用rpc：</p>
+<p>服务端是BAE平台 <code>python</code> + <code>flask</code></p>
 
-<ul>
-<li>不需要返回值</li>
-<li>不依赖执行顺序</li>
-<li>不想受限与服务端的处理速度</li>
-</ul>
+<p>requests包请自行上传，sae不晓得，bae上面木有～，gist如下：</p>
 
-
-<h3>RPC 是什么</h3>
-
-<p>远程过程调用 Remote Procedure Call</p>
-
-<p>key : <code>远程</code> <code>过程</code></p>
-
-<h4>远程</h4>
-
-<ul>
-<li>相对本地调用函数来说，被调用方法处于独立的进程、地址空间、主机，可能跨语言，硬件体系结构也可能不一样</li>
-</ul>
-
-
-<h4>过程</h4>
-
-<ul>
-<li>以函数调用的语法出现，看起来像本地。</li>
-</ul>
-
-
-<h4>如何得到接口</h4>
-
-<ul>
-<li>跨语言 ：IDL （ICE，THRIFT..一般生成stub/skeleton）</li>
-<li>java ： 提供service包，实际调用是个代理类</li>
-</ul>
-
-
-<h4>如何描述对象</h4>
-
-<ul>
-<li>序列化 （XML，JSON，brinary，hessian，protobuf&#8230;）</li>
-</ul>
-
-
-<h4>如何传递</h4>
-
-<ul>
-<li>可以基于各种传输协议</li>
-<li>可以基于应用层协议</li>
-</ul>
-
-
-<h4>如何工作</h4>
-
-<ul>
-<li>client->序列化->传输->反序列化->service</li>
-</ul>
-
-
-<h1>纯java实现RpcFramework</h1>
-
-<div><script src='https://gist.github.com/5559211.js'></script>
+<div><script src='https://gist.github.com/5569623.js'></script>
 <noscript><pre><code></code></pre></noscript></div>
 
 
-
+<p>玩的愉快～</p>
 </div>
   
   
@@ -200,6 +142,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/05/14/bae-weixin-flask-xiaohuangji/">bae上面搭建微信版本小黄鸡</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/11/introduce-java-rpc/">当java遇上rpc</a>
       </li>
     
@@ -213,10 +159,6 @@
     
       <li class="post">
         <a href="/blog/2013/04/24/java-spi/">java-spi机制介绍</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/23/use-git-flow/">git-flow的介绍及使用</a>
       </li>
     
   </ul>
