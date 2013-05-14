@@ -46,4 +46,136 @@ key : <code>远程</code> <code>过程</code>
 
 # 纯java实现RpcFramework
 
-{% gist 5559211 %}
+<code>RpcFramework.java</code>
+
+```java
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+/**
+ * User: chen.qi
+ * Date: 13-4-19
+ * Time: 上午11:26
+ */
+public class RpcFramework {
+    /**
+     * 暴露服务接口
+     * @param service 服务实现类
+     * @param port 服务暴露端口
+     * @throws Exception
+     */
+    public static void expose(final Object service, int port) throws Exception {
+        ServerSocket server = new ServerSocket(port);
+        ExecutorService es = Executors.newCachedThreadPool();
+        while(true) {
+            final Socket socket = server.accept();
+            es.execute(new Runnable() {
+                @Override
+                public void run() {
+                    ObjectInputStream input = null;
+                    ObjectOutputStream output = null;
+                    try {
+                        // 读入输入
+                        input = new ObjectInputStream(socket.getInputStream());
+                        String methodName = input.readUTF();
+                        Class[] parameterTypes = (Class[])input.readObject();
+                        Object[] arguments = (Object[])input.readObject();
+                        output = new ObjectOutputStream(socket.getOutputStream());
+                        // 运行方法
+                        Method method = service.getClass().getMethod(methodName, parameterTypes);
+                        Object result = method.invoke(service, arguments);
+                        // 返回结果
+                        output.writeObject(result);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        org.apache.commons.io.IOUtils.closeQuietly(input);
+                        org.apache.commons.io.IOUtils.closeQuietly(output);
+                    }
+                }
+            });
+        }
+    }
+    /**
+     * 取得代理对象
+     * @param interfaceClass 代理class
+     * @param host 主机名
+     * @param port 端口
+     * @return o
+     * @throws Exception
+     */
+    public static Object getProxy(final Class interfaceClass, final String host, final int port) throws Exception {
+        return Proxy.newProxyInstance(interfaceClass.getClassLoader(), new Class[]{interfaceClass}, new InvocationHandler() {
+            public Object invoke(Object proxy, Method method, Object[] arguments) throws Throwable {
+                Socket socket = new Socket(host, port);
+                try {
+                    ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
+                    try {
+                        output.writeUTF(method.getName());
+                        output.writeObject(method.getParameterTypes());
+                        output.writeObject(arguments);
+                        ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+                        try {
+                            Object result = input.readObject();
+                            if (result instanceof Throwable) {
+                                throw (Throwable) result;
+                            }
+                            return result;
+                        } finally {
+                            org.apache.commons.io.IOUtils.closeQuietly(input);
+                        }
+                    } finally {
+                        org.apache.commons.io.IOUtils.closeQuietly(output);
+                    }
+                } finally {
+                    org.apache.commons.io.IOUtils.closeQuietly(socket);
+                }
+            }
+        });
+    }
+}
+```
+
+<code>ServerMain.java</code>
+
+```java
+import org.mouer.framework.RpcFramework;
+import test.service.impl.TestHelloServiceImpl;
+/**
+ * User: chen.qi
+ * Date: 13-4-19
+ * Time: 下午12:03
+ */
+public class ServerMain {
+    public static void main(String[] args) throws Exception {
+        RpcFramework.expose(new TestHelloServiceImpl(), 7373);
+    }
+}
+```
+
+<code>ClientMain.java</code>
+
+```java
+import org.mouer.framework.RpcFramework;
+import test.service.TestHelloService;
+/**
+ * User: chen.qi
+ * Date: 13-4-19
+ * Time: 下午12:03
+ */
+public class ClientMain {
+    public static void main(String[] args) throws Exception {
+        TestHelloService testHelloService = (TestHelloService)RpcFramework.getProxy(TestHelloService.class, "127.0.0.1", 7373);
+        for (int i = 1; i < 11; i++) {
+            Hello hello = testHelloService.sayHello();
+            System.out.println("第" + i + "次：" + hello.getMessge());
+        }
+    }
+}
+```
