@@ -173,10 +173,257 @@
 
 <h1>纯java实现RpcFramework</h1>
 
-<div><script src='https://gist.github.com/5559211.js'></script>
-<noscript><pre><code></code></pre></noscript></div>
+<p><code>RpcFramework.java</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">java.io.ObjectInputStream</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.ObjectOutputStream</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.lang.reflect.InvocationHandler</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.lang.reflect.Method</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.lang.reflect.Proxy</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.net.ServerSocket</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.net.Socket</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.util.concurrent.ExecutorService</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.util.concurrent.Executors</span><span class="o">;</span>
+</span><span class='line'><span class="cm">/**</span>
+</span><span class='line'><span class="cm"> * User: chen.qi</span>
+</span><span class='line'><span class="cm"> * Date: 13-4-19</span>
+</span><span class='line'><span class="cm"> * Time: 上午11:26</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RpcFramework</span> <span class="o">{</span>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * 暴露服务接口</span>
+</span><span class='line'><span class="cm">     * @param service 服务实现类</span>
+</span><span class='line'><span class="cm">     * @param port 服务暴露端口</span>
+</span><span class='line'><span class="cm">     * @throws Exception</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">expose</span><span class="o">(</span><span class="kd">final</span> <span class="n">Object</span> <span class="n">service</span><span class="o">,</span> <span class="kt">int</span> <span class="n">port</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">ServerSocket</span> <span class="n">server</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServerSocket</span><span class="o">(</span><span class="n">port</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">ExecutorService</span> <span class="n">es</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newCachedThreadPool</span><span class="o">();</span>
+</span><span class='line'>        <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="kd">final</span> <span class="n">Socket</span> <span class="n">socket</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="na">accept</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">es</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>                <span class="nd">@Override</span>
+</span><span class='line'>                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>                    <span class="n">ObjectInputStream</span> <span class="n">input</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>                    <span class="n">ObjectOutputStream</span> <span class="n">output</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>                    <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>                        <span class="c1">// 读入输入</span>
+</span><span class='line'>                        <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="n">socket</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">());</span>
+</span><span class='line'>                        <span class="n">String</span> <span class="n">methodName</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">readUTF</span><span class="o">();</span>
+</span><span class='line'>                        <span class="n">Class</span><span class="o">[]</span> <span class="n">parameterTypes</span> <span class="o">=</span> <span class="o">(</span><span class="n">Class</span><span class="o">[])</span><span class="n">input</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+</span><span class='line'>                        <span class="n">Object</span><span class="o">[]</span> <span class="n">arguments</span> <span class="o">=</span> <span class="o">(</span><span class="n">Object</span><span class="o">[])</span><span class="n">input</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+</span><span class='line'>                        <span class="n">output</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="n">socket</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">());</span>
+</span><span class='line'>                        <span class="c1">// 运行方法</span>
+</span><span class='line'>                        <span class="n">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getMethod</span><span class="o">(</span><span class="n">methodName</span><span class="o">,</span> <span class="n">parameterTypes</span><span class="o">);</span>
+</span><span class='line'>                        <span class="n">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">service</span><span class="o">,</span> <span class="n">arguments</span><span class="o">);</span>
+</span><span class='line'>                        <span class="c1">// 返回结果</span>
+</span><span class='line'>                        <span class="n">output</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+</span><span class='line'>                    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span><span class='line'>                    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span><span class='line'>                        <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">commons</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOUtils</span><span class="o">.</span><span class="na">closeQuietly</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
+</span><span class='line'>                        <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">commons</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOUtils</span><span class="o">.</span><span class="na">closeQuietly</span><span class="o">(</span><span class="n">output</span><span class="o">);</span>
+</span><span class='line'>                    <span class="o">}</span>
+</span><span class='line'>                <span class="o">}</span>
+</span><span class='line'>            <span class="o">});</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * 取得代理对象</span>
+</span><span class='line'><span class="cm">     * @param interfaceClass 代理class</span>
+</span><span class='line'><span class="cm">     * @param host 主机名</span>
+</span><span class='line'><span class="cm">     * @param port 端口</span>
+</span><span class='line'><span class="cm">     * @return o</span>
+</span><span class='line'><span class="cm">     * @throws Exception</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Object</span> <span class="nf">getProxy</span><span class="o">(</span><span class="kd">final</span> <span class="n">Class</span> <span class="n">interfaceClass</span><span class="o">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">host</span><span class="o">,</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">port</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">Proxy</span><span class="o">.</span><span class="na">newProxyInstance</span><span class="o">(</span><span class="n">interfaceClass</span><span class="o">.</span><span class="na">getClassLoader</span><span class="o">(),</span> <span class="k">new</span> <span class="n">Class</span><span class="o">[]{</span><span class="n">interfaceClass</span><span class="o">},</span> <span class="k">new</span> <span class="n">InvocationHandler</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>            <span class="kd">public</span> <span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">proxy</span><span class="o">,</span> <span class="n">Method</span> <span class="n">method</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">arguments</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">Socket</span> <span class="n">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Socket</span><span class="o">(</span><span class="n">host</span><span class="o">,</span> <span class="n">port</span><span class="o">);</span>
+</span><span class='line'>                <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>                    <span class="n">ObjectOutputStream</span> <span class="n">output</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="n">socket</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">());</span>
+</span><span class='line'>                    <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>                        <span class="n">output</span><span class="o">.</span><span class="na">writeUTF</span><span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+</span><span class='line'>                        <span class="n">output</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">getParameterTypes</span><span class="o">());</span>
+</span><span class='line'>                        <span class="n">output</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">arguments</span><span class="o">);</span>
+</span><span class='line'>                        <span class="n">ObjectInputStream</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="n">socket</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">());</span>
+</span><span class='line'>                        <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>                            <span class="n">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+</span><span class='line'>                            <span class="k">if</span> <span class="o">(</span><span class="n">result</span> <span class="k">instanceof</span> <span class="n">Throwable</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                                <span class="k">throw</span> <span class="o">(</span><span class="n">Throwable</span><span class="o">)</span> <span class="n">result</span><span class="o">;</span>
+</span><span class='line'>                            <span class="o">}</span>
+</span><span class='line'>                            <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+</span><span class='line'>                        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span><span class='line'>                            <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">commons</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOUtils</span><span class="o">.</span><span class="na">closeQuietly</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
+</span><span class='line'>                        <span class="o">}</span>
+</span><span class='line'>                    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span><span class='line'>                        <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">commons</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOUtils</span><span class="o">.</span><span class="na">closeQuietly</span><span class="o">(</span><span class="n">output</span><span class="o">);</span>
+</span><span class='line'>                    <span class="o">}</span>
+</span><span class='line'>                <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span><span class='line'>                    <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">commons</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOUtils</span><span class="o">.</span><span class="na">closeQuietly</span><span class="o">(</span><span class="n">socket</span><span class="o">);</span>
+</span><span class='line'>                <span class="o">}</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>        <span class="o">});</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
+<p><code>ServerMain.java</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">org.mouer.framework.RpcFramework</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">test.service.impl.TestHelloServiceImpl</span><span class="o">;</span>
+</span><span class='line'><span class="cm">/**</span>
+</span><span class='line'><span class="cm"> * User: chen.qi</span>
+</span><span class='line'><span class="cm"> * Date: 13-4-19</span>
+</span><span class='line'><span class="cm"> * Time: 下午12:03</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServerMain</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">RpcFramework</span><span class="o">.</span><span class="na">expose</span><span class="o">(</span><span class="k">new</span> <span class="n">TestHelloServiceImpl</span><span class="o">(),</span> <span class="mi">7373</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>ClientMain.java</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">org.mouer.framework.RpcFramework</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">test.service.TestHelloService</span><span class="o">;</span>
+</span><span class='line'><span class="cm">/**</span>
+</span><span class='line'><span class="cm"> * User: chen.qi</span>
+</span><span class='line'><span class="cm"> * Date: 13-4-19</span>
+</span><span class='line'><span class="cm"> * Time: 下午12:03</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClientMain</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">TestHelloService</span> <span class="n">testHelloService</span> <span class="o">=</span> <span class="o">(</span><span class="n">TestHelloService</span><span class="o">)</span><span class="n">RpcFramework</span><span class="o">.</span><span class="na">getProxy</span><span class="o">(</span><span class="n">TestHelloService</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="o">,</span> <span class="mi">7373</span><span class="o">);</span>
+</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">11</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">Hello</span> <span class="n">hello</span> <span class="o">=</span> <span class="n">testHelloService</span><span class="o">.</span><span class="na">sayHello</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;第&quot;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">&quot;次：&quot;</span> <span class="o">+</span> <span class="n">hello</span><span class="o">.</span><span class="na">getMessge</span><span class="o">());</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 </div>
   
