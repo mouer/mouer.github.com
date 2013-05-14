@@ -62,7 +62,7 @@ def say():
  
  
 def auth():
-    token = "mouer"
+    token = "xxx" # xxx为微信添加的token，每个人可能不一样
     signature = request.args['signature']
     timestamp = request.args['timestamp']
     nonce = request.args['nonce']
