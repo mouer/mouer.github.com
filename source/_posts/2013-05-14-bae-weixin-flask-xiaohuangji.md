@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "bae上面搭建微信版本小黄鸡"
+title: "BAE上面搭建微信版本小黄鸡"
 date: 2013-05-14 00:32
 comments: true
 categories: [python]
