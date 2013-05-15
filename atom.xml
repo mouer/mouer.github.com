@@ -4,7 +4,7 @@
   <title><![CDATA[废纸君]]></title>
   <link href="http://mouer.github.com/atom.xml" rel="self"/>
   <link href="http://mouer.github.com/"/>
-  <updated>2013-05-14T16:43:04+08:00</updated>
+  <updated>2013-05-15T10:14:37+08:00</updated>
   <id>http://mouer.github.com/</id>
   <author>
     <name><![CDATA[Chen.Qi]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[bae上面搭建微信版本小黄鸡]]></title>
+    <title type="html"><![CDATA[BAE上面搭建微信版本小黄鸡]]></title>
     <link href="http://mouer.github.com/blog/2013/05/14/bae-weixin-flask-xiaohuangji/"/>
     <updated>2013-05-14T00:32:00+08:00</updated>
     <id>http://mouer.github.com/blog/2013/05/14/bae-weixin-flask-xiaohuangji</id>
