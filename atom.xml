@@ -4,7 +4,7 @@
   <title><![CDATA[废纸君]]></title>
   <link href="http://mouer.github.com/atom.xml" rel="self"/>
   <link href="http://mouer.github.com/"/>
-  <updated>2013-05-15T10:14:37+08:00</updated>
+  <updated>2013-05-16T18:57:45+08:00</updated>
   <id>http://mouer.github.com/</id>
   <author>
     <name><![CDATA[Chen.Qi]]></name>
@@ -12,6 +12,100 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[排序方式]]></title>
+    <link href="http://mouer.github.com/blog/2013/05/16/sort-method/"/>
+    <updated>2013-05-16T12:18:00+08:00</updated>
+    <id>http://mouer.github.com/blog/2013/05/16/sort-method</id>
+    <content type="html"><![CDATA[<p>看到一些奇异的排序方式，记录下：</p>
+
+<h5>一， 珠排序：</h5>
+
+<p>在珠排序中，一行表示一个数字。如果一行里有2颗珠子，该行代表数字2；如果一行里有4颗珠子，该行代表数字4。给定一个数组，数组里有多少个数字，就要有多少行；数组里最大的数字是几，就要准备多少根杆子。</p>
+
+<p>第一步，将珠子悬挂在垂直竹竿上</p>
+
+<p><img src="http://mouer.github.com/images/blog/sort/BeadSort-1.png" alt="BeadSort-1.png" /></p>
+
+<p>第二步，让珠子掉落</p>
+
+<p><img src="http://mouer.github.com/images/blog/sort/BeadSort-2.png" alt="BeadSort-2.png" /></p>
+
+<p>实现需矩阵</p>
+
+<h5>二， Bogo排序（又称囧排序-扯淡）：</h5>
+
+<p>在计算机科学中，Bogo排序（bogo-sort）是个既不实用又原始的排序算法，其原理等同将一堆卡片抛起，落在桌上后检查卡片是否已整齐排列好，若非就再抛一次。其名字源自Quantum bogodynamics，又称bozo sort、blort sort或猴子排序。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Random</span> <span class="n">random</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">bogoSort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">while</span><span class="o">(!</span><span class="n">inOrder</span><span class="o">(</span><span class="n">n</span><span class="o">))</span><span class="n">shuffle</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">shuffle</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kt">int</span> <span class="n">swapPosition</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>
+</span><span class='line'>        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">n</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+</span><span class='line'>        <span class="n">n</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">n</span><span class="o">[</span><span class="n">swapPosition</span><span class="o">];</span>
+</span><span class='line'>        <span class="n">n</span><span class="o">[</span><span class="n">swapPosition</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">inOrder</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">n</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">n</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">])</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>五雷轰顶。。</p>
+
+<p>PS：</p>
+
+<p>附上一些排序GIF图片：</p>
+
+<p>鸡尾酒排序：</p>
+
+<p><img src="http://mouer.github.com/images/blog/sort/Sorting-shaker-sort-anim.gif" alt="Sorting-shaker-sort-anim.gif" /></p>
+
+<p>希尔排序：</p>
+
+<p><img src="http://mouer.github.com/images/blog/sort/Sorting_shellsort_anim.gif" alt="Sorting_shellsort_anim.gif" /></p>
+
+<p>堆排序(堆排序算法的演示。首先，将元素进行重排，以符合堆的条件。图中排序过程之前简单的绘出了堆树的结构。)：</p>
+
+<p><img src="http://mouer.github.com/images/blog/sort/Sorting_heapsort_anim.gif" alt="Sorting_heapsort_anim.gif" /></p>
+
+<p>快速排序：</p>
+
+<p><img src="http://mouer.github.com/images/blog/sort/Sorting_quicksort_anim.gif" alt="Sorting_quicksort_anim.gif" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[BAE上面搭建微信版本小黄鸡]]></title>

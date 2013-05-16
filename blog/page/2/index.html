@@ -9,9 +9,11 @@
   <meta name="author" content="Chen.Qi">
 
   
-  <meta name="description" content="rpc 和 mq 要说rpc就不得不提提mq，两个家伙分工完美，系统才后完美，简单的说，下面几种情况，那么请使用rpc： 不需要返回值
-不依赖执行顺序
-不想受限与服务端的处理速度 RPC 是什么 远程过程调用 Remote Procedure Call key : 远程 过程 远程 &hellip;">
+  <meta name="description" content="前端时间人人小黄鸡火极一时，贱贱的回复热心喜爱，看了github上面的源码，是调用的simsimi，那好，用微信公共帐号实现一个吧。 服务端是BAE平台 python + flask requests包请自行上传，sae不晓得，bae上面木有～，gist如下： index.py 1
+2
+3
+4
+5 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,7 +87,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/05/11/introduce-java-rpc/">当java遇上rpc</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/05/14/bae-weixin-flask-xiaohuangji/">BAE上面搭建微信版本小黄鸡</a></h1>
     
     
       <p class="meta">
@@ -101,79 +103,22 @@
   
 
 
-<time datetime="2013-05-11T14:44:00+08:00" pubdate data-updated="true">2013年05月11日</time>
+<time datetime="2013-05-14T00:32:00+08:00" pubdate data-updated="true">2013年05月14日</time>
         
-         | <a href="/blog/2013/05/11/introduce-java-rpc/#disqus_thread">Comments</a>
+         | <a href="/blog/2013/05/14/bae-weixin-flask-xiaohuangji/#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h3>rpc 和 mq</h3>
+  <div class="entry-content"><p>前端时间人人<code>小黄鸡</code>火极一时，贱贱的回复热心喜爱，看了github上面的源码，是调用的simsimi，那好，用微信公共帐号实现一个吧。</p>
 
-<p>要说rpc就不得不提提mq，两个家伙分工完美，系统才后完美，简单的说，下面几种情况，那么请使用rpc：</p>
+<p>服务端是BAE平台 <code>python</code> + <code>flask</code></p>
 
-<ul>
-<li>不需要返回值</li>
-<li>不依赖执行顺序</li>
-<li>不想受限与服务端的处理速度</li>
-</ul>
+<p>requests包请自行上传，sae不晓得，bae上面木有～，gist如下：</p>
 
-
-<h3>RPC 是什么</h3>
-
-<p>远程过程调用 Remote Procedure Call</p>
-
-<p>key : <code>远程</code> <code>过程</code></p>
-
-<h4>远程</h4>
-
-<ul>
-<li>相对本地调用函数来说，被调用方法处于独立的进程、地址空间、主机，可能跨语言，硬件体系结构也可能不一样</li>
-</ul>
-
-
-<h4>过程</h4>
-
-<ul>
-<li>以函数调用的语法出现，看起来像本地。</li>
-</ul>
-
-
-<h4>如何得到接口</h4>
-
-<ul>
-<li>跨语言 ：IDL （ICE，THRIFT..一般生成stub/skeleton）</li>
-<li>java ： 提供service包，实际调用是个代理类</li>
-</ul>
-
-
-<h4>如何描述对象</h4>
-
-<ul>
-<li>序列化 （XML，JSON，brinary，hessian，protobuf&#8230;）</li>
-</ul>
-
-
-<h4>如何传递</h4>
-
-<ul>
-<li>可以基于各种传输协议</li>
-<li>可以基于应用层协议</li>
-</ul>
-
-
-<h4>如何工作</h4>
-
-<ul>
-<li>client->序列化->传输->反序列化->service</li>
-</ul>
-
-
-<h1>纯java实现RpcFramework</h1>
-
-<p><code>RpcFramework.java</code></p>
+<p><code>index.py</code></p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -242,154 +187,77 @@
 <span class='line-number'>65</span>
 <span class='line-number'>66</span>
 <span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">java.io.ObjectInputStream</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.ObjectOutputStream</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.lang.reflect.InvocationHandler</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.lang.reflect.Method</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.lang.reflect.Proxy</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.net.ServerSocket</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.net.Socket</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.util.concurrent.ExecutorService</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.util.concurrent.Executors</span><span class="o">;</span>
-</span><span class='line'><span class="cm">/**</span>
-</span><span class='line'><span class="cm"> * User: chen.qi</span>
-</span><span class='line'><span class="cm"> * Date: 13-4-19</span>
-</span><span class='line'><span class="cm"> * Time: 上午11:26</span>
-</span><span class='line'><span class="cm"> */</span>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RpcFramework</span> <span class="o">{</span>
-</span><span class='line'>    <span class="cm">/**</span>
-</span><span class='line'><span class="cm">     * 暴露服务接口</span>
-</span><span class='line'><span class="cm">     * @param service 服务实现类</span>
-</span><span class='line'><span class="cm">     * @param port 服务暴露端口</span>
-</span><span class='line'><span class="cm">     * @throws Exception</span>
-</span><span class='line'><span class="cm">     */</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">expose</span><span class="o">(</span><span class="kd">final</span> <span class="n">Object</span> <span class="n">service</span><span class="o">,</span> <span class="kt">int</span> <span class="n">port</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">ServerSocket</span> <span class="n">server</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServerSocket</span><span class="o">(</span><span class="n">port</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">ExecutorService</span> <span class="n">es</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newCachedThreadPool</span><span class="o">();</span>
-</span><span class='line'>        <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="kd">final</span> <span class="n">Socket</span> <span class="n">socket</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="na">accept</span><span class="o">();</span>
-</span><span class='line'>            <span class="n">es</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>                <span class="nd">@Override</span>
-</span><span class='line'>                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>                    <span class="n">ObjectInputStream</span> <span class="n">input</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>                    <span class="n">ObjectOutputStream</span> <span class="n">output</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>                    <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>                        <span class="c1">// 读入输入</span>
-</span><span class='line'>                        <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="n">socket</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">());</span>
-</span><span class='line'>                        <span class="n">String</span> <span class="n">methodName</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">readUTF</span><span class="o">();</span>
-</span><span class='line'>                        <span class="n">Class</span><span class="o">[]</span> <span class="n">parameterTypes</span> <span class="o">=</span> <span class="o">(</span><span class="n">Class</span><span class="o">[])</span><span class="n">input</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
-</span><span class='line'>                        <span class="n">Object</span><span class="o">[]</span> <span class="n">arguments</span> <span class="o">=</span> <span class="o">(</span><span class="n">Object</span><span class="o">[])</span><span class="n">input</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
-</span><span class='line'>                        <span class="n">output</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="n">socket</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">());</span>
-</span><span class='line'>                        <span class="c1">// 运行方法</span>
-</span><span class='line'>                        <span class="n">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getMethod</span><span class="o">(</span><span class="n">methodName</span><span class="o">,</span> <span class="n">parameterTypes</span><span class="o">);</span>
-</span><span class='line'>                        <span class="n">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">service</span><span class="o">,</span> <span class="n">arguments</span><span class="o">);</span>
-</span><span class='line'>                        <span class="c1">// 返回结果</span>
-</span><span class='line'>                        <span class="n">output</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
-</span><span class='line'>                    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>                        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-</span><span class='line'>                    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-</span><span class='line'>                        <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">commons</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOUtils</span><span class="o">.</span><span class="na">closeQuietly</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
-</span><span class='line'>                        <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">commons</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOUtils</span><span class="o">.</span><span class="na">closeQuietly</span><span class="o">(</span><span class="n">output</span><span class="o">);</span>
-</span><span class='line'>                    <span class="o">}</span>
-</span><span class='line'>                <span class="o">}</span>
-</span><span class='line'>            <span class="o">});</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="cm">/**</span>
-</span><span class='line'><span class="cm">     * 取得代理对象</span>
-</span><span class='line'><span class="cm">     * @param interfaceClass 代理class</span>
-</span><span class='line'><span class="cm">     * @param host 主机名</span>
-</span><span class='line'><span class="cm">     * @param port 端口</span>
-</span><span class='line'><span class="cm">     * @return o</span>
-</span><span class='line'><span class="cm">     * @throws Exception</span>
-</span><span class='line'><span class="cm">     */</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Object</span> <span class="nf">getProxy</span><span class="o">(</span><span class="kd">final</span> <span class="n">Class</span> <span class="n">interfaceClass</span><span class="o">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">host</span><span class="o">,</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">port</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">Proxy</span><span class="o">.</span><span class="na">newProxyInstance</span><span class="o">(</span><span class="n">interfaceClass</span><span class="o">.</span><span class="na">getClassLoader</span><span class="o">(),</span> <span class="k">new</span> <span class="n">Class</span><span class="o">[]{</span><span class="n">interfaceClass</span><span class="o">},</span> <span class="k">new</span> <span class="n">InvocationHandler</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>            <span class="kd">public</span> <span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">proxy</span><span class="o">,</span> <span class="n">Method</span> <span class="n">method</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">arguments</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
-</span><span class='line'>                <span class="n">Socket</span> <span class="n">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Socket</span><span class="o">(</span><span class="n">host</span><span class="o">,</span> <span class="n">port</span><span class="o">);</span>
-</span><span class='line'>                <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>                    <span class="n">ObjectOutputStream</span> <span class="n">output</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="n">socket</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">());</span>
-</span><span class='line'>                    <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>                        <span class="n">output</span><span class="o">.</span><span class="na">writeUTF</span><span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
-</span><span class='line'>                        <span class="n">output</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">getParameterTypes</span><span class="o">());</span>
-</span><span class='line'>                        <span class="n">output</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">arguments</span><span class="o">);</span>
-</span><span class='line'>                        <span class="n">ObjectInputStream</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="n">socket</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">());</span>
-</span><span class='line'>                        <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>                            <span class="n">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
-</span><span class='line'>                            <span class="k">if</span> <span class="o">(</span><span class="n">result</span> <span class="k">instanceof</span> <span class="n">Throwable</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>                                <span class="k">throw</span> <span class="o">(</span><span class="n">Throwable</span><span class="o">)</span> <span class="n">result</span><span class="o">;</span>
-</span><span class='line'>                            <span class="o">}</span>
-</span><span class='line'>                            <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-</span><span class='line'>                        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-</span><span class='line'>                            <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">commons</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOUtils</span><span class="o">.</span><span class="na">closeQuietly</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
-</span><span class='line'>                        <span class="o">}</span>
-</span><span class='line'>                    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-</span><span class='line'>                        <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">commons</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOUtils</span><span class="o">.</span><span class="na">closeQuietly</span><span class="o">(</span><span class="n">output</span><span class="o">);</span>
-</span><span class='line'>                    <span class="o">}</span>
-</span><span class='line'>                <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-</span><span class='line'>                    <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">commons</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOUtils</span><span class="o">.</span><span class="na">closeQuietly</span><span class="o">(</span><span class="n">socket</span><span class="o">);</span>
-</span><span class='line'>                <span class="o">}</span>
-</span><span class='line'>            <span class="o">}</span>
-</span><span class='line'>        <span class="o">});</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#-*- coding:utf-8 -*-</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">from</span> <span class="nn">bae.api</span> <span class="kn">import</span> <span class="n">logging</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">make_response</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">simsimi</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="kn">as</span> <span class="nn">ET</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">hashlib</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+</span><span class='line'><span class="n">app</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="bp">True</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">return</span> <span class="s">&#39;您进错页面了亲～&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/connect&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;GET&#39;</span><span class="p">,</span> <span class="s">&#39;POST&#39;</span><span class="p">])</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">site_connect</span><span class="p">():</span>
+</span><span class='line'>    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;into connect </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;GET&#39;</span><span class="p">:</span><span class="c"># 网站接入，参看微信官方wiki</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">auth</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">:</span> <span class="c"># 获取用户发送过来的消息，并且echo</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">say</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">say</span><span class="p">():</span>
+</span><span class='line'>    <span class="n">xml</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">data</span>
+</span><span class='line'>    <span class="n">xml_recv</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">to_user_name</span> <span class="o">=</span> <span class="n">xml_recv</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;ToUserName&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+</span><span class='line'>    <span class="n">from_user_name</span> <span class="o">=</span> <span class="n">xml_recv</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;FromUserName&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+</span><span class='line'>    <span class="n">content</span> <span class="o">=</span> <span class="n">xml_recv</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;Content&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;to_user_name : </span><span class="si">%s</span><span class="s">, from_user_name : </span><span class="si">%s</span><span class="s">, content : </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">to_user_name</span><span class="p">,</span> <span class="n">from_user_name</span><span class="p">,</span> <span class="n">content</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">content</span> <span class="o">=</span> <span class="n">handle</span><span class="p">({</span><span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">content</span><span class="p">)},</span> <span class="bp">None</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">reply</span> <span class="o">=</span> <span class="s">&quot;&lt;xml&gt;&lt;ToUserName&gt;&lt;![CDATA[</span><span class="si">%s</span><span class="s">]]&gt;&lt;/ToUserName&gt;&lt;FromUserName&gt;&lt;![CDATA[</span><span class="si">%s</span><span class="s">]]&gt;&lt;/FromUserName&gt;&lt;CreateTime&gt;</span><span class="si">%d</span><span class="s">&lt;/CreateTime&gt;&lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;&lt;Content&gt;&lt;![CDATA[</span><span class="si">%s</span><span class="s">]]&gt;&lt;/Content&gt;&lt;FuncFlag&gt;0&lt;/FuncFlag&gt;&lt;/xml&gt;&quot;</span>  <span class="o">%</span> <span class="p">(</span><span class="n">from_user_name</span><span class="p">,</span> <span class="n">to_user_name</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()),</span> <span class="n">content</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;reply : </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">reply</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">reponse</span> <span class="o">=</span> <span class="n">make_response</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">reponse</span><span class="o">.</span><span class="n">content_type</span> <span class="o">=</span> <span class="s">&#39;application/xml&#39;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">reponse</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">auth</span><span class="p">():</span>
+</span><span class='line'>    <span class="n">token</span> <span class="o">=</span> <span class="s">&quot;xxx&quot;</span> <span class="c"># xxx为微信添加的token，每个人可能不一样</span>
+</span><span class='line'>    <span class="n">signature</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s">&#39;signature&#39;</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s">&#39;timestamp&#39;</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">nonce</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s">&#39;nonce&#39;</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">echostr</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s">&#39;echostr&#39;</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;signature : </span><span class="si">%s</span><span class="s">, timestamp : </span><span class="si">%s</span><span class="s">, nonce : </span><span class="si">%s</span><span class="s">, echostr : </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">signature</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="n">echostr</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">tmp_arr</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">nonce</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">tmp_arr</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">tmp_str</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp_arr</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">code</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="n">tmp_str</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="n">signature</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">echostr</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="s">&#39;&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">from</span> <span class="nn">bae.core.wsgi</span> <span class="kn">import</span> <span class="n">WSGIApplication</span>
+</span><span class='line'><span class="n">application</span> <span class="o">=</span> <span class="n">WSGIApplication</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><code>ServerMain.java</code></p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">org.mouer.framework.RpcFramework</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">test.service.impl.TestHelloServiceImpl</span><span class="o">;</span>
-</span><span class='line'><span class="cm">/**</span>
-</span><span class='line'><span class="cm"> * User: chen.qi</span>
-</span><span class='line'><span class="cm"> * Date: 13-4-19</span>
-</span><span class='line'><span class="cm"> * Time: 下午12:03</span>
-</span><span class='line'><span class="cm"> */</span>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServerMain</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">RpcFramework</span><span class="o">.</span><span class="na">expose</span><span class="o">(</span><span class="k">new</span> <span class="n">TestHelloServiceImpl</span><span class="o">(),</span> <span class="mi">7373</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>ClientMain.java</code></p>
+<p><code>simsimi.py</code></p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -407,24 +275,135 @@
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">org.mouer.framework.RpcFramework</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">test.service.TestHelloService</span><span class="o">;</span>
-</span><span class='line'><span class="cm">/**</span>
-</span><span class='line'><span class="cm"> * User: chen.qi</span>
-</span><span class='line'><span class="cm"> * Date: 13-4-19</span>
-</span><span class='line'><span class="cm"> * Time: 下午12:03</span>
-</span><span class='line'><span class="cm"> */</span>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClientMain</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">TestHelloService</span> <span class="n">testHelloService</span> <span class="o">=</span> <span class="o">(</span><span class="n">TestHelloService</span><span class="o">)</span><span class="n">RpcFramework</span><span class="o">.</span><span class="na">getProxy</span><span class="o">(</span><span class="n">TestHelloService</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="o">,</span> <span class="mi">7373</span><span class="o">);</span>
-</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">11</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Hello</span> <span class="n">hello</span> <span class="o">=</span> <span class="n">testHelloService</span><span class="o">.</span><span class="na">sayHello</span><span class="o">();</span>
-</span><span class='line'>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;第&quot;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">&quot;次：&quot;</span> <span class="o">+</span> <span class="n">hello</span><span class="o">.</span><span class="na">getMessge</span><span class="o">());</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#-*-coding:utf-8-*-</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># 从simsimi读数据</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">requests</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">cookielib</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">socket</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">random</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">SIMSIMI_KEY</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">SimSimi</span><span class="p">:</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">chat_url</span> <span class="o">=</span> <span class="s">&#39;http://www.simsimi.com/func/req?lc=ch&amp;msg=</span><span class="si">%s</span><span class="s">&#39;</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">api_url</span> <span class="o">=</span> <span class="s">&#39;http://api.simsimi.com/request.p?key=</span><span class="si">%s</span><span class="s">&amp;lc=ch&amp;ft=1.0&amp;text=</span><span class="si">%s</span><span class="s">&#39;</span>
+</span><span class='line'>        <span class="k">if</span> <span class="ow">not</span> <span class="n">SIMSIMI_KEY</span><span class="p">:</span>
+</span><span class='line'>            <span class="bp">self</span><span class="o">.</span><span class="n">initSimSimiCookie</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">initSimSimiCookie</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s">&#39;Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:18.0) Gecko/20100101 Firefox/18.0&#39;</span><span class="p">})</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;http://www.simsimi.com/talk.htm&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;Referer&#39;</span><span class="p">:</span> <span class="s">&#39;http://www.simsimi.com/talk.htm&#39;</span><span class="p">})</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;http://www.simsimi.com/talk.htm?lc=ch&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;Referer&#39;</span><span class="p">:</span> <span class="s">&#39;http://www.simsimi.com/talk.htm?lc=ch&#39;</span><span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">getSimSimiResult</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;normal&#39;</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s">&#39;normal&#39;</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chat_url</span> <span class="o">%</span> <span class="n">message</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_url</span> <span class="o">%</span> <span class="p">(</span><span class="n">SIMSIMI_KEY</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">r</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">chat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">message</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSimSimiResult</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s">&#39;normal&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">SIMSIMI_KEY</span> <span class="k">else</span> <span class="s">&#39;api&#39;</span><span class="p">)</span>
+</span><span class='line'>            <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>                <span class="n">answer</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;response&#39;</span><span class="p">]</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">answer</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+</span><span class='line'>            <span class="k">except</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s">&#39;呵呵&#39;</span><span class="p">,</span> <span class="s">&#39;。。。&#39;</span><span class="p">,</span> <span class="s">&#39;= =&#39;</span><span class="p">,</span> <span class="s">&#39;=。=&#39;</span><span class="p">])</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">return</span> <span class="s">&#39;叫我干嘛&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">simsimi</span> <span class="o">=</span> <span class="n">SimSimi</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">bot</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">simsimi</span><span class="o">.</span><span class="n">chat</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;message&#39;</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">print</span> <span class="n">handle</span><span class="p">({</span><span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;最后一个问题&#39;</span><span class="p">},</span> <span class="bp">None</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">print</span> <span class="n">handle</span><span class="p">({</span><span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;还有一个问题&#39;</span><span class="p">},</span> <span class="bp">None</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">print</span> <span class="n">handle</span><span class="p">({</span><span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;其实我有三个问题&#39;</span><span class="p">},</span> <span class="bp">None</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p><code>app.conf</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="n">handlers</span><span class="p">:</span>
+</span><span class='line'>  <span class="o">-</span> <span class="n">url</span> <span class="p">:</span> <span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="p">(</span><span class="o">.*</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">script</span><span class="p">:</span> <span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="err">$</span><span class="mi">1</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">-</span> <span class="n">url</span> <span class="p">:</span> <span class="o">/.*</span>
+</span><span class='line'>    <span class="n">script</span><span class="p">:</span> <span class="n">index</span><span class="o">.</span><span class="n">py</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">-</span> <span class="n">expire</span> <span class="p">:</span> <span class="o">.</span><span class="n">jpg</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
+</span><span class='line'>  <span class="o">-</span> <span class="n">expire</span> <span class="p">:</span> <span class="o">.</span><span class="n">swf</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
+</span><span class='line'>  <span class="o">-</span> <span class="n">expire</span> <span class="p">:</span> <span class="o">.</span><span class="n">png</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
+</span><span class='line'>  <span class="o">-</span> <span class="n">expire</span> <span class="p">:</span> <span class="o">.</span><span class="n">gif</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
+</span><span class='line'>  <span class="o">-</span> <span class="n">expire</span> <span class="p">:</span> <span class="o">.</span><span class="n">JPG</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
+</span><span class='line'>  <span class="o">-</span> <span class="n">expire</span> <span class="p">:</span> <span class="o">.</span><span class="n">ico</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>玩的愉快～</p>
 </div>
   
   
@@ -449,6 +428,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/05/16/sort-method/">排序方式</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/14/bae-weixin-flask-xiaohuangji/">BAE上面搭建微信版本小黄鸡</a>
       </li>
     
@@ -462,10 +445,6 @@
     
       <li class="post">
         <a href="/blog/2013/04/30/java-hashmap/">也来谈谈java-HashMap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/24/java-spi/">java-spi机制介绍</a>
       </li>
     
   </ul>
@@ -483,6 +462,7 @@
 <li class='category'><a href='/blog/categories/python/'>python (1)</a></li>
 <li class='category'><a href='/blog/categories/rpc/'>rpc (1)</a></li>
 <li class='category'><a href='/blog/categories/shell/'>shell (1)</a></li>
+<li class='category'><a href='/blog/categories/sort/'>sort (1)</a></li>
 <li class='category'><a href='/blog/categories/spi/'>spi (1)</a></li>
 
 	</ul>

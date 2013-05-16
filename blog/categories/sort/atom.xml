@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: sort | 废纸君]]></title>
+  <link href="http://mouer.github.com/blog/categories/sort/atom.xml" rel="self"/>
+  <link href="http://mouer.github.com/"/>
+  <updated>2013-05-16T18:57:45+08:00</updated>
+  <id>http://mouer.github.com/</id>
+  <author>
+    <name><![CDATA[Chen.Qi]]></name>
+    <email><![CDATA[mouer73@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[排序方式]]></title>
+    <link href="http://mouer.github.com/blog/2013/05/16/sort-method/"/>
+    <updated>2013-05-16T12:18:00+08:00</updated>
+    <id>http://mouer.github.com/blog/2013/05/16/sort-method</id>
+    <content type="html"><![CDATA[<p>看到一些奇异的排序方式，记录下：</p>
+
+<h5>一， 珠排序：</h5>
+
+<p>在珠排序中，一行表示一个数字。如果一行里有2颗珠子，该行代表数字2；如果一行里有4颗珠子，该行代表数字4。给定一个数组，数组里有多少个数字，就要有多少行；数组里最大的数字是几，就要准备多少根杆子。</p>
+
+<p>第一步，将珠子悬挂在垂直竹竿上</p>
+
+<p><img src="/images/blog/sort/BeadSort-1.png" alt="BeadSort-1.png" /></p>
+
+<p>第二步，让珠子掉落</p>
+
+<p><img src="/images/blog/sort/BeadSort-2.png" alt="BeadSort-2.png" /></p>
+
+<p>实现需矩阵</p>
+
+<h5>二， Bogo排序（又称囧排序-扯淡）：</h5>
+
+<p>在计算机科学中，Bogo排序（bogo-sort）是个既不实用又原始的排序算法，其原理等同将一堆卡片抛起，落在桌上后检查卡片是否已整齐排列好，若非就再抛一次。其名字源自Quantum bogodynamics，又称bozo sort、blort sort或猴子排序。</p>
+
+<p>```java
+Random random = new Random();</p>
+
+<p>public void bogoSort(int[] n) {</p>
+
+<pre><code>while(!inOrder(n))shuffle(n);
+</code></pre>
+
+<p>}</p>
+
+<p>public void shuffle(int[] n) {</p>
+
+<pre><code>for (int i = 0; i &lt; n.length; i++) {
+    int swapPosition = random.nextInt(i + 1);
+    int temp = n[i];
+    n[i] = n[swapPosition];
+    n[swapPosition] = temp;
+}
+</code></pre>
+
+<p>}</p>
+
+<p>public boolean inOrder(int[] n) {</p>
+
+<pre><code>for (int i = 0; i &lt; n.length-1; i++) {
+    if (n[i] &gt; n[i+1]) return false;
+}
+return true;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>五雷轰顶。。</p>
+
+<p>PS：</p>
+
+<p>附上一些排序GIF图片：</p>
+
+<p>鸡尾酒排序：</p>
+
+<p><img src="/images/blog/sort/Sorting-shaker-sort-anim.gif" alt="Sorting-shaker-sort-anim.gif" /></p>
+
+<p>希尔排序：</p>
+
+<p><img src="/images/blog/sort/Sorting_shellsort_anim.gif" alt="Sorting_shellsort_anim.gif" /></p>
+
+<p>堆排序(堆排序算法的演示。首先，将元素进行重排，以符合堆的条件。图中排序过程之前简单的绘出了堆树的结构。)：</p>
+
+<p><img src="/images/blog/sort/Sorting_heapsort_anim.gif" alt="Sorting_heapsort_anim.gif" /></p>
+
+<p>快速排序：</p>
+
+<p><img src="/images/blog/sort/Sorting_quicksort_anim.gif" alt="Sorting_quicksort_anim.gif" /></p>
+]]></content>
+  </entry>
+  
+</feed>
