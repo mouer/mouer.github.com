@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://mouer.github.com/sitemap.xml 
+Sitemap: http://mouer.github.io/sitemap.xml 
