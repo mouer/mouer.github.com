@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="{{ AUTHOR }}">
+    <link href="/favicon.ico" rel="icon">
+    <link rel="stylesheet" href="/theme/css/code.css" />
+    <link rel="stylesheet" type="text/css" href="/theme/css/main.css" />
+    <link href="/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME  }} ATOM Feed" />
+    {% include "disqus.html" %}
+  </head>
+  <body>
+    <h1>Morse Code</h1>
+    {% block content %}{% endblock %}
+    <div id="disqus_thread"></div>
+    <hr/>
+    <footer>
+    Powered by Pelican © 2014 Mouer
+    </footer>
+  </body>
+</html>
