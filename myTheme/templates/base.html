@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>{% block windowtitle %}{{ SITENAME  }}{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="{{ AUTHOR }}">
@@ -14,9 +15,8 @@
     <h1>Morse Code</h1>
     {% block content %}{% endblock %}
     <div id="disqus_thread"></div>
-    <hr/>
     <footer>
-    Powered by Pelican © 2014 Mouer
+      Powered by Pelican © 2014 <a href="/author/mouer.html">Mouer</a>
     </footer>
   </body>
 </html>
