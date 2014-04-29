@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="Mouer">
+    <link href="/favicon.ico" rel="icon">
+    <link rel="stylesheet" href="/theme/css/code.css" />
+    <link rel="stylesheet" type="text/css" href="/theme/css/main.css" />
+    <link href="/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Morse Code ATOM Feed" />
+<script type="text/javascript">
+	var disqus_identifier = "posts/2013/05/baeshang-mian-da-jian-wei-xin-ban-ben-xiao-huang-ji/";
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://mouer73.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+  </head>
+  <body>
+    <h1>Morse Code</h1>
+<section id="content" class="body">
+  <header>
+    <h2 class="entry-title">
+      <a href="/posts/2013/05/baeshang-mian-da-jian-wei-xin-ban-ben-xiao-huang-ji/" rel="bookmark"
+         title="Permalink to BAE上面搭建微信版本小黄鸡">BAE上面搭建微信版本小黄鸡</a></h2>
+ 
+  </header>
+  <footer class="post-info">
+    <abbr class="published" title="2013-05-14T00:32:00">
+      Tue 14 May 2013
+    </abbr>
+    <address class="vcard author">
+      By           <a class="url fn" href="/author/mouer.html">Mouer</a>
+    </address>
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>前端时间人人<code>小黄鸡</code>火极一时，贱贱的回复热心喜爱，看了github上面的源码，是调用的simsimi，那好，用微信公共帐号实现一个吧。</p>
+<p>服务端是BAE平台 <code>python</code> + <code>flask</code></p>
+<p>requests包请自行上传，sae不晓得，bae上面木有～，gist如下：</p>
+<p><code>index.py</code></p>
+<div class="highlight"><pre><span class="c">#-*- coding:utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">bae.api</span> <span class="kn">import</span> <span class="n">logging</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">make_response</span>
+<span class="kn">from</span> <span class="nn">simsimi</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="kn">as</span> <span class="nn">ET</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s">&#39;您进错页面了亲～&#39;</span><span class="p">;</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/connect&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;GET&#39;</span><span class="p">,</span> <span class="s">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">site_connect</span><span class="p">():</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;into connect </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;GET&#39;</span><span class="p">:</span><span class="c"># 网站接入，参看微信官方wiki</span>
+        <span class="k">return</span> <span class="n">auth</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c"># 获取用户发送过来的消息，并且echo</span>
+        <span class="k">return</span> <span class="n">say</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">say</span><span class="p">():</span>
+    <span class="n">xml</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">xml_recv</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+    <span class="n">to_user_name</span> <span class="o">=</span> <span class="n">xml_recv</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;ToUserName&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">from_user_name</span> <span class="o">=</span> <span class="n">xml_recv</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;FromUserName&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">xml_recv</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;Content&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;to_user_name : </span><span class="si">%s</span><span class="s">, from_user_name : </span><span class="si">%s</span><span class="s">, content : </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">to_user_name</span><span class="p">,</span> <span class="n">from_user_name</span><span class="p">,</span> <span class="n">content</span><span class="p">))</span>
+
+    <span class="n">content</span> <span class="o">=</span> <span class="n">handle</span><span class="p">({</span><span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">content</span><span class="p">)},</span> <span class="bp">None</span><span class="p">)</span>
+
+    <span class="n">reply</span> <span class="o">=</span> <span class="s">&quot;&lt;xml&gt;&lt;ToUserName&gt;&lt;![CDATA[</span><span class="si">%s</span><span class="s">]]&gt;&lt;/ToUserName&gt;&lt;FromUserName&gt;&lt;![CDATA[</span><span class="si">%s</span><span class="s">]]&gt;&lt;/FromUserName&gt;&lt;CreateTime&gt;</span><span class="si">%d</span><span class="s">&lt;/CreateTime&gt;&lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;&lt;Content&gt;&lt;![CDATA[</span><span class="si">%s</span><span class="s">]]&gt;&lt;/Content&gt;&lt;FuncFlag&gt;0&lt;/FuncFlag&gt;&lt;/xml&gt;&quot;</span>  <span class="o">%</span> <span class="p">(</span><span class="n">from_user_name</span><span class="p">,</span> <span class="n">to_user_name</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()),</span> <span class="n">content</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;reply : </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">reply</span><span class="p">))</span>
+
+    <span class="n">reponse</span> <span class="o">=</span> <span class="n">make_response</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
+    <span class="n">reponse</span><span class="o">.</span><span class="n">content_type</span> <span class="o">=</span> <span class="s">&#39;application/xml&#39;</span>
+    <span class="k">return</span> <span class="n">reponse</span>
+
+
+<span class="k">def</span> <span class="nf">auth</span><span class="p">():</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="s">&quot;xxx&quot;</span> <span class="c"># xxx为微信添加的token，每个人可能不一样</span>
+    <span class="n">signature</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s">&#39;signature&#39;</span><span class="p">]</span>
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s">&#39;timestamp&#39;</span><span class="p">]</span>
+    <span class="n">nonce</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s">&#39;nonce&#39;</span><span class="p">]</span>
+    <span class="n">echostr</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s">&#39;echostr&#39;</span><span class="p">]</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;signature : </span><span class="si">%s</span><span class="s">, timestamp : </span><span class="si">%s</span><span class="s">, nonce : </span><span class="si">%s</span><span class="s">, echostr : </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">signature</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="n">echostr</span><span class="p">))</span>
+
+    <span class="n">tmp_arr</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">nonce</span><span class="p">]</span>
+    <span class="n">tmp_arr</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="n">tmp_str</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp_arr</span><span class="p">)</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="n">tmp_str</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="n">signature</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">echostr</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">bae.core.wsgi</span> <span class="kn">import</span> <span class="n">WSGIApplication</span>
+<span class="n">application</span> <span class="o">=</span> <span class="n">WSGIApplication</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+</pre></div>
+
+
+<p><code>simsimi.py</code></p>
+<div class="highlight"><pre><span class="c">#-*-coding:utf-8-*-</span>
+
+<span class="c"># 从simsimi读数据</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">cookielib</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">SIMSIMI_KEY</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+
+<span class="k">class</span> <span class="nc">SimSimi</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chat_url</span> <span class="o">=</span> <span class="s">&#39;http://www.simsimi.com/func/req?lc=ch&amp;msg=</span><span class="si">%s</span><span class="s">&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api_url</span> <span class="o">=</span> <span class="s">&#39;http://api.simsimi.com/request.p?key=</span><span class="si">%s</span><span class="s">&amp;lc=ch&amp;ft=1.0&amp;text=</span><span class="si">%s</span><span class="s">&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">SIMSIMI_KEY</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initSimSimiCookie</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">initSimSimiCookie</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s">&#39;Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:18.0) Gecko/20100101 Firefox/18.0&#39;</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;http://www.simsimi.com/talk.htm&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;Referer&#39;</span><span class="p">:</span> <span class="s">&#39;http://www.simsimi.com/talk.htm&#39;</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;http://www.simsimi.com/talk.htm?lc=ch&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;Referer&#39;</span><span class="p">:</span> <span class="s">&#39;http://www.simsimi.com/talk.htm?lc=ch&#39;</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">getSimSimiResult</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;normal&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s">&#39;normal&#39;</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chat_url</span> <span class="o">%</span> <span class="n">message</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_url</span> <span class="o">%</span> <span class="p">(</span><span class="n">SIMSIMI_KEY</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">r</span>
+
+    <span class="k">def</span> <span class="nf">chat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">message</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSimSimiResult</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s">&#39;normal&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">SIMSIMI_KEY</span> <span class="k">else</span> <span class="s">&#39;api&#39;</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">answer</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;response&#39;</span><span class="p">]</span>
+                <span class="k">return</span> <span class="n">answer</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s">&#39;呵呵&#39;</span><span class="p">,</span> <span class="s">&#39;。。。&#39;</span><span class="p">,</span> <span class="s">&#39;= =&#39;</span><span class="p">,</span> <span class="s">&#39;=。=&#39;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s">&#39;叫我干嘛&#39;</span>
+
+<span class="n">simsimi</span> <span class="o">=</span> <span class="n">SimSimi</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">bot</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">simsimi</span><span class="o">.</span><span class="n">chat</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;message&#39;</span><span class="p">])</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">handle</span><span class="p">({</span><span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;最后一个问题&#39;</span><span class="p">},</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">handle</span><span class="p">({</span><span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;还有一个问题&#39;</span><span class="p">},</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">handle</span><span class="p">({</span><span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;其实我有三个问题&#39;</span><span class="p">},</span> <span class="bp">None</span><span class="p">)</span>
+</pre></div>
+
+
+<p><code>app.conf</code></p>
+<div class="highlight"><pre><span class="nl">handlers:</span>
+  <span class="o">-</span> <span class="n">url</span> <span class="o">:</span> <span class="o">/</span><span class="k">static</span><span class="o">/</span><span class="p">(.</span><span class="o">*</span><span class="p">)</span>
+    <span class="nl">script:</span> <span class="o">/</span><span class="k">static</span><span class="o">/</span><span class="err">$</span><span class="mi">1</span>
+
+  <span class="o">-</span> <span class="n">url</span> <span class="o">:</span> <span class="o">/</span><span class="p">.</span><span class="o">*</span>
+    <span class="nl">script:</span> <span class="n">index</span><span class="p">.</span><span class="n">py</span>
+
+  <span class="o">-</span> <span class="n">expire</span> <span class="o">:</span> <span class="p">.</span><span class="n">jpg</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
+  <span class="o">-</span> <span class="n">expire</span> <span class="o">:</span> <span class="p">.</span><span class="n">swf</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
+  <span class="o">-</span> <span class="n">expire</span> <span class="o">:</span> <span class="p">.</span><span class="n">png</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
+  <span class="o">-</span> <span class="n">expire</span> <span class="o">:</span> <span class="p">.</span><span class="n">gif</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
+  <span class="o">-</span> <span class="n">expire</span> <span class="o">:</span> <span class="p">.</span><span class="n">JPG</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
+  <span class="o">-</span> <span class="n">expire</span> <span class="o">:</span> <span class="p">.</span><span class="n">ico</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
+</pre></div>
+
+
+<p>玩的愉快～</p>
+  </div><!-- /.entry-content -->
+</section>
+    <div id="disqus_thread"></div>
+    <hr/>
+    <footer>
+    Powered by Pelican © 2014 Mouer
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="Mouer">
+    <link href="/favicon.ico" rel="icon">
+    <link rel="stylesheet" href="/theme/css/code.css" />
+    <link rel="stylesheet" type="text/css" href="/theme/css/main.css" />
+    <link href="/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Morse Code ATOM Feed" />
+<script type="text/javascript">
+	var disqus_identifier = "posts/2013/04/oh-my-zshan-zhuang-shi-yong/";
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://mouer73.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+  </head>
+  <body>
+    <h1>Morse Code</h1>
+<section id="content" class="body">
+  <header>
+    <h2 class="entry-title">
+      <a href="/posts/2013/04/oh-my-zshan-zhuang-shi-yong/" rel="bookmark"
+         title="Permalink to oh-my-zsh安装使用">oh-my-zsh安装使用</a></h2>
+ 
+  </header>
+  <footer class="post-info">
+    <abbr class="published" title="2013-04-20T22:23:00">
+      Sat 20 April 2013
+    </abbr>
+    <address class="vcard author">
+      By           <a class="url fn" href="/author/mouer.html">Mouer</a>
+    </address>
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p><strong>无意中发现这个最近在github上很火爆的oh-my-zsh，又查询了下zsh，发现兼容bash，那果断升级了。</strong></p>
+<div class="highlight"><pre><span class="c"># clone project</span>
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+<span class="c"># 拷贝配置文件</span>
+cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+<span class="c"># 设置默认是zsh</span>
+chsh -s /bin/zsh
+<span class="c"># 修改默认更新时间</span>
+vim ~/.zshrc
+<span class="nb">export </span><span class="nv">UPDATE_ZSH_DAYS</span><span class="o">=</span>1
+<span class="c"># 添加插件</span>
+vim ~/.zshrc
+<span class="nv">plugins</span><span class="o">=(</span>git brew svn<span class="o">)</span>
+</pre></div>
+
+
+<p>所有的主题接图： <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/themes">https://github.com/robbyrussell/oh-my-zsh/wiki/themes</a></p>
+<p>所有的插件名字： <a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins">https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins</a></p>
+<p><strong>注意</strong> 别忘了导入自己定义的PATH.</p>
+<p><img alt="zsh-demo1" src="/pic/oh-my-zsh/oh-my-zsh-1.jpg" />
+<img alt="zsh-demo2" src="/pic/oh-my-zsh/oh-my-zsh-2.jpg" /></p>
+  </div><!-- /.entry-content -->
+</section>
+    <div id="disqus_thread"></div>
+    <hr/>
+    <footer>
+    Powered by Pelican © 2014 Mouer
+    </footer>
+  </body>
+</html>
