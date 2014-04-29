@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Morse Code</title><link href="/" rel="alternate"></link><link href="/feeds/shell.atom.xml" rel="self"></link><id>/</id><updated>2014-03-13T10:00:00+08:00</updated><entry><title>常用shell备忘录</title><link href="/posts/2014/03/chang-yong-shellbei-wang-lu/" rel="alternate"></link><updated>2014-03-13T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-03-13:posts/2014/03/chang-yong-shellbei-wang-lu/</id><summary type="html">&lt;p&gt;不定时更新中&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# 查看http链接状态&lt;/span&gt;
+netstat -n | awk &lt;span class="s1"&gt;&amp;#39;/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}&amp;#39;&lt;/span&gt;
+
+&lt;span class="c"&gt;# 查看80使用情况&lt;/span&gt;
+netstat -an -t | grep &lt;span class="s1"&gt;&amp;#39;:80&amp;#39;&lt;/span&gt; | grep ESTABLISHED | awk &lt;span class="s1"&gt;&amp;#39;{printf &amp;quot;%s %s\n&amp;quot;, $5, $6}&amp;#39;&lt;/span&gt; | uniq | sort
+
+&lt;span class="c"&gt;# cpu数量&lt;/span&gt;
+cat /proc/cpuinfo | grep -c processor
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="shell"></category></entry></feed>

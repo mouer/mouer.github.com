@@ -13,7 +13,16 @@ git clone git://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
 &lt;p&gt;进入vim
 :BundleInstall&lt;/p&gt;
-&lt;p&gt;5分钟搞定，over～&lt;/p&gt;</summary><category term="vim"></category></entry><entry><title>排序方式</title><link href="/posts/2013/05/pai-xu-fang-shi/" rel="alternate"></link><updated>2013-05-16T12:18:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2013-05-16:posts/2013/05/pai-xu-fang-shi/</id><summary type="html">&lt;p&gt;看到一些奇异的排序方式，记录下：&lt;/p&gt;
+&lt;p&gt;5分钟搞定，over～&lt;/p&gt;</summary><category term="vim"></category></entry><entry><title>常用shell备忘录</title><link href="/posts/2014/03/chang-yong-shellbei-wang-lu/" rel="alternate"></link><updated>2014-03-13T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-03-13:posts/2014/03/chang-yong-shellbei-wang-lu/</id><summary type="html">&lt;p&gt;不定时更新中&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# 查看http链接状态&lt;/span&gt;
+netstat -n | awk &lt;span class="s1"&gt;&amp;#39;/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}&amp;#39;&lt;/span&gt;
+
+&lt;span class="c"&gt;# 查看80使用情况&lt;/span&gt;
+netstat -an -t | grep &lt;span class="s1"&gt;&amp;#39;:80&amp;#39;&lt;/span&gt; | grep ESTABLISHED | awk &lt;span class="s1"&gt;&amp;#39;{printf &amp;quot;%s %s\n&amp;quot;, $5, $6}&amp;#39;&lt;/span&gt; | uniq | sort
+
+&lt;span class="c"&gt;# cpu数量&lt;/span&gt;
+cat /proc/cpuinfo | grep -c processor
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="shell"></category></entry><entry><title>排序方式</title><link href="/posts/2013/05/pai-xu-fang-shi/" rel="alternate"></link><updated>2013-05-16T12:18:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2013-05-16:posts/2013/05/pai-xu-fang-shi/</id><summary type="html">&lt;p&gt;看到一些奇异的排序方式，记录下：&lt;/p&gt;
 &lt;h5&gt;一， 珠排序：&lt;/h5&gt;
 &lt;p&gt;在珠排序中，一行表示一个数字。如果一行里有2颗珠子，该行代表数字2；如果一行里有4颗珠子，该行代表数字4。给定一个数组，数组里有多少个数字，就要有多少行；数组里最大的数字是几，就要准备多少根杆子。&lt;/p&gt;
 &lt;p&gt;第一步，将珠子悬挂在垂直竹竿上&lt;/p&gt;
