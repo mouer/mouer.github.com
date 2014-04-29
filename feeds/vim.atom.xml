@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Morse Code</title><link href="/" rel="alternate"></link><link href="/feeds/vim.atom.xml" rel="self"></link><id>/</id><updated>2014-04-29T22:00:00+08:00</updated><entry><title>快速设置vim</title><link href="/posts/2014/04/kuai-su-she-zhi-vim/" rel="alternate"></link><updated>2014-04-29T22:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-04-29:posts/2014/04/kuai-su-she-zhi-vim/</id><summary type="html">&lt;p&gt;作为一个伪vimer，重装电脑后，第一件事就是配置vim。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# 需要先安装brew&lt;/span&gt;
+brew install macvim
+git clone git://github.com/ywjno/vundle-vimfiles.git
+ln -s vundle-vimfiles
+&lt;span class="c"&gt;# vimfiles项目给我们提供了几个版本的vimrc&lt;/span&gt;
+ln -s ~/.vim/vimrc ~/.vimrc
+ln -s ~/.vim/gvimrc ~/.gvimrc
+git clone git://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;进入vim
+:BundleInstall&lt;/p&gt;
+&lt;p&gt;5分钟搞定，over～&lt;/p&gt;</summary><category term="vim"></category></entry></feed>
