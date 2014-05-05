@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Morse Code</title>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="Mouer">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/theme/css/code.css" />
+    <link rel="stylesheet" type="text/css" href="/theme/css/main.css" />
+    <link href="/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Morse Code ATOM Feed" />
+<script type="text/javascript">
+	var disqus_identifier = "posts/2014/05/yi-chang-chu-li/";
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://mouer73.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+  </head>
+  <body>
+    <h1>Morse Code</h1>
+<section id="content" class="body">
+  <header>
+    <h2 class="entry-title">
+      <a href="/posts/2014/05/yi-chang-chu-li/" rel="bookmark"
+         title="Permalink to 异常处理">异常处理</a></h2>
+ 
+  </header>
+  <footer class="post-info">
+    <abbr class="published" title="2014-05-05T10:00:00">
+      Mon 05 May 2014
+    </abbr>
+    <address class="vcard author">
+      By           <a class="url fn" href="/author/mouer.html">Mouer</a>
+    </address>
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <hr />
+<p>近期接触新的项目，发现原有异常设计是这样的，每个层抛出自己的 <em>checked exception</em> （可能包含异常信息，而且信息的格式五花八门）。
+如分为4层 Action -&gt; Service -&gt; Biz -&gt; DAO，异常结构是 Action 捕获 <em>ServiceException(BizException(DAOException("insert db error")))</em>，然后给用户展示 <em>e.getMessage()</em></p>
+<p>虽然觉得这么做不好，但是为什么不好呢。。</p>
+<hr />
+<h2>1.《Effective Java》中关于异常处理的几条建议</h2>
+<h4>1). 只针对不正常的情况才使用异常</h4>
+<p>不要用异常来控制流程。如：跳出循环 </p>
+<h4>2). 对于可恢复的条件使用被检查的异常，对于程序错误使用运行时异常</h4>
+<h4>3). 避免不必要的使用被检查的异常</h4>
+<p>如果用checked exception需要同时满足以下两点：
+1. 即使正确使用API并不能阻止异常条件的发生。
+2. 产生了异常，使用API的程序员可以采取有用的动作对程序进行处理。</p>
+<h4>4). 尽量使用标准的异常</h4>
+<table>
+<thead>
+<tr>
+<th>异常名</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IllegalArgumentException</td>
+<td>参数的值不合适</td>
+</tr>
+<tr>
+<td>IllegalStateException</td>
+<td>参数的状态不合适</td>
+</tr>
+<tr>
+<td>UnsupportedOperationException</td>
+<td>对象不支持客户请求的方法</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<td>#### 5). 抛出的异常要适合于相应的抽象</td>
+<td></td>
+</tr>
+<tr>
+<td>在Java的集合框架AbstractSequentialList的get()方法如下:</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span class="kd">public</span> <span class="n">E</span> <span class="nf">get</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">listIterator</span><span class="o">(</span><span class="n">index</span><span class="o">).</span><span class="na">next</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NoSuchElementException</span> <span class="n">exc</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">IndexOutOfBoundsException</span><span class="o">(</span><span class="s">&quot;Index: &quot;</span><span class="o">+</span><span class="n">index</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>listIterator(index)会返回ListIterator对象，调用该对象的next()方法可能会抛出NoSuchElementException异常。而在get()方法中，抛出NoSuchElementException异常会让人感到困惑。所以，get()对NoSuchElementException进行了捕获，并抛出了IndexOutOfBoundsException异常。即，相当于将NoSuchElementException转译成了IndexOutOfBoundsException异常。</p>
+<h4>6). 每个方法抛出的异常都要有文档</h4>
+<h4>7). 在细节消息中包含失败 -- 捕获消息</h4>
+<h4>8). 不要忽略异常</h4>
+<hr />
+<h2>2. exception 真的性能好低</h2>
+<p>exception 继承与 throwable，里面有个fillInStackTrace，这个方法的定义：</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">synchronized</span> <span class="kd">native</span> <span class="n">Throwable</span> <span class="nf">fillInStackTrace</span><span class="o">();</span>   
+</pre></div>
+
+
+<p>jdk的具体实现：</p>
+<div class="highlight"><pre>    <span class="n">Java_java_lang_Throwable_fillInStackTrace</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">throwable</span><span class="p">)</span>  
+    <span class="p">{</span>  
+        <span class="n">JVM_FillInStackTrace</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">throwable</span><span class="p">);</span>  
+        <span class="k">return</span> <span class="n">throwable</span><span class="p">;</span>  
+    <span class="p">}</span>  
+
+    <span class="n">JVM_ENTRY</span><span class="p">(</span><span class="kt">void</span><span class="p">,</span> <span class="n">JVM_FillInStackTrace</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">receiver</span><span class="p">))</span>  
+      <span class="n">JVMWrapper</span><span class="p">(</span><span class="s">&quot;JVM_FillInStackTrace&quot;</span><span class="p">);</span>  
+      <span class="n">Handle</span> <span class="nf">exception</span><span class="p">(</span><span class="kr">thread</span><span class="p">,</span> <span class="n">JNIHandles</span><span class="o">::</span><span class="n">resolve_non_null</span><span class="p">(</span><span class="n">receiver</span><span class="p">));</span>  
+      <span class="n">java_lang_Throwable</span><span class="o">::</span><span class="n">fill_in_stack_trace</span><span class="p">(</span><span class="n">exception</span><span class="p">);</span>  
+    <span class="n">JVM_END</span>  
+
+    <span class="kt">void</span> <span class="n">java_lang_Throwable</span><span class="o">::</span><span class="n">fill_in_stack_trace</span><span class="p">(</span><span class="n">Handle</span> <span class="n">throwable</span><span class="p">,</span> <span class="n">TRAPS</span><span class="p">)</span> <span class="p">{</span>  
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">StackTraceInThrowable</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>  
+      <span class="n">ResourceMark</span> <span class="nf">rm</span><span class="p">(</span><span class="n">THREAD</span><span class="p">);</span>  
+
+      <span class="err">………………………………………………</span><span class="p">.</span>  
+      <span class="n">BacktraceBuilder</span> <span class="n">bt</span><span class="p">(</span><span class="n">CHECK</span><span class="p">);</span>  
+      <span class="err">………………………………………………</span>  
+      <span class="k">for</span> <span class="p">(</span><span class="n">frame</span> <span class="n">fr</span> <span class="o">=</span> <span class="kr">thread</span><span class="o">-&gt;</span><span class="n">last_frame</span><span class="p">();</span> <span class="n">max_depth</span> <span class="o">!=</span> <span class="n">total_count</span><span class="p">;)</span> <span class="p">{</span>  
+        <span class="n">methodOop</span> <span class="n">method</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>  
+        <span class="kt">int</span> <span class="n">bci</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  
+      <span class="err">………………………………………………</span>  
+        <span class="n">bt</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">bci</span><span class="p">,</span> <span class="n">CHECK</span><span class="p">);</span>  
+        <span class="n">total_count</span><span class="o">++</span><span class="p">;</span>  
+      <span class="p">}</span>  
+
+      <span class="c1">// Put completed stack trace into throwable object  </span>
+      <span class="n">set_backtrace</span><span class="p">(</span><span class="n">throwable</span><span class="p">(),</span> <span class="n">bt</span><span class="p">.</span><span class="n">backtrace</span><span class="p">());</span>  
+    <span class="p">}</span>  
+</pre></div>
+
+
+<p>上面的代码中，这一系列调用可以发现，当你new一个exception的时候，jvm已经在exception里构建好了所有的stacktrace（BacktraceBuilderbt），这里花费的代价是可观的，试想一下，在web项目中，调用栈的深度可是很大的。因此，当你对stacktrace不感兴趣的时候，不需要这样的信息时，最好不要随便的new exception。</p>
+<hr />
+<p>总结1和2，虽然现在的系统异常结构不好，修改量过大，复写了fillInStackTrace，直接返回null，对程序无影响。</p>
+  </div><!-- /.entry-content -->
+</section>
+    <div id="disqus_thread"></div>
+    <footer>
+      Powered by Pelican © 2014 <a href="/author/mouer.html">Mouer</a>
+    </footer>
+  </body>
+</html>

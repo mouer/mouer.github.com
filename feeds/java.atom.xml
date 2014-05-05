@@ -1,5 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Morse Code</title><link href="/" rel="alternate"></link><link href="/feeds/java.atom.xml" rel="self"></link><id>/</id><updated>2013-04-17T21:53:00+08:00</updated><entry><title>关于Java虚拟机（JVM）</title><link href="/posts/2013/04/guan-yu-javaxu-ni-ji-jvm/" rel="alternate"></link><updated>2013-04-17T21:53:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2013-04-17:posts/2013/04/guan-yu-javaxu-ni-ji-jvm/</id><summary type="html">&lt;h3&gt;Java虚拟机&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Morse Code</title><link href="/" rel="alternate"></link><link href="/feeds/java.atom.xml" rel="self"></link><id>/</id><updated>2014-05-05T10:00:00+08:00</updated><entry><title>异常处理</title><link href="/posts/2014/05/yi-chang-chu-li/" rel="alternate"></link><updated>2014-05-05T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-05-05:posts/2014/05/yi-chang-chu-li/</id><summary type="html">&lt;hr /&gt;
+&lt;p&gt;近期接触新的项目，发现原有异常设计是这样的，每个层抛出自己的 &lt;em&gt;checked exception&lt;/em&gt; （可能包含异常信息，而且信息的格式五花八门）。
+如分为4层 Action -&amp;gt; Service -&amp;gt; Biz -&amp;gt; DAO，异常结构是 Action 捕获 &lt;em&gt;ServiceException(BizException(DAOException("insert db error")))&lt;/em&gt;，然后给用户展示 &lt;em&gt;e.getMessage()&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;虽然觉得这么做不好，但是为什么不好呢。。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;1.《Effective Java》中关于异常处理的几条建议&lt;/h2&gt;
+&lt;h4&gt;1). 只针对不正常的情况才使用异常&lt;/h4&gt;
+&lt;p&gt;不要用异常来控制流程。如：跳出循环 &lt;/p&gt;
+&lt;h4&gt;2). 对于可恢复的条件使用被检查的异常，对于程序错误使用运行时异常&lt;/h4&gt;
+&lt;h4&gt;3). 避免不必要的使用被检查的异常&lt;/h4&gt;
+&lt;p&gt;如果用checked exception需要同时满足以下两点：
+1. 即使正确使用API并不能阻止异常条件的发生。
+2. 产生了异常，使用API的程序员可以采取有用的动作对程序进行处理。&lt;/p&gt;
+&lt;h4&gt;4). 尽量使用标准的异常&lt;/h4&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;异常名&lt;/th&gt;
+&lt;th&gt;使用场景&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;IllegalArgumentException&lt;/td&gt;
+&lt;td&gt;参数的值不合适&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;IllegalStateException&lt;/td&gt;
+&lt;td&gt;参数的状态不合适&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;UnsupportedOperationException&lt;/td&gt;
+&lt;td&gt;对象不支持客户请求的方法&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;...&lt;/td&gt;
+&lt;td&gt;...&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;#### 5). 抛出的异常要适合于相应的抽象&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;在Java的集合框架AbstractSequentialList的get()方法如下:&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;E&lt;/span&gt; &lt;span class="nf"&gt;get&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;try&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nf"&gt;listIterator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;next&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="k"&gt;catch&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NoSuchElementException&lt;/span&gt; &lt;span class="n"&gt;exc&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;throw&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;IndexOutOfBoundsException&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Index: &amp;quot;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;listIterator(index)会返回ListIterator对象，调用该对象的next()方法可能会抛出NoSuchElementException异常。而在get()方法中，抛出NoSuchElementException异常会让人感到困惑。所以，get()对NoSuchElementException进行了捕获，并抛出了IndexOutOfBoundsException异常。即，相当于将NoSuchElementException转译成了IndexOutOfBoundsException异常。&lt;/p&gt;
+&lt;h4&gt;6). 每个方法抛出的异常都要有文档&lt;/h4&gt;
+&lt;h4&gt;7). 在细节消息中包含失败 -- 捕获消息&lt;/h4&gt;
+&lt;h4&gt;8). 不要忽略异常&lt;/h4&gt;
+&lt;hr /&gt;
+&lt;h2&gt;2. exception 真的性能好低&lt;/h2&gt;
+&lt;p&gt;exception 继承与 throwable，里面有个fillInStackTrace，这个方法的定义：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;synchronized&lt;/span&gt; &lt;span class="kd"&gt;native&lt;/span&gt; &lt;span class="n"&gt;Throwable&lt;/span&gt; &lt;span class="nf"&gt;fillInStackTrace&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;   
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;jdk的具体实现：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;Java_java_lang_Throwable_fillInStackTrace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;JNIEnv&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;jobject&lt;/span&gt; &lt;span class="n"&gt;throwable&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  
+    &lt;span class="p"&gt;{&lt;/span&gt;  
+        &lt;span class="n"&gt;JVM_FillInStackTrace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;throwable&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;  
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;throwable&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  
+    &lt;span class="p"&gt;}&lt;/span&gt;  
+
+    &lt;span class="n"&gt;JVM_ENTRY&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;JVM_FillInStackTrace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;JNIEnv&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;jobject&lt;/span&gt; &lt;span class="n"&gt;receiver&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;  
+      &lt;span class="n"&gt;JVMWrapper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;JVM_FillInStackTrace&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;  
+      &lt;span class="n"&gt;Handle&lt;/span&gt; &lt;span class="nf"&gt;exception&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kr"&gt;thread&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;JNIHandles&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;resolve_non_null&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;receiver&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;  
+      &lt;span class="n"&gt;java_lang_Throwable&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;fill_in_stack_trace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;exception&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;  
+    &lt;span class="n"&gt;JVM_END&lt;/span&gt;  
+
+    &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;java_lang_Throwable&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;fill_in_stack_trace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Handle&lt;/span&gt; &lt;span class="n"&gt;throwable&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;TRAPS&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;  
+      &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;StackTraceInThrowable&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  
+      &lt;span class="n"&gt;ResourceMark&lt;/span&gt; &lt;span class="nf"&gt;rm&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;THREAD&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;  
+
+      &lt;span class="err"&gt;………………………………………………&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;  
+      &lt;span class="n"&gt;BacktraceBuilder&lt;/span&gt; &lt;span class="n"&gt;bt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;CHECK&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;  
+      &lt;span class="err"&gt;………………………………………………&lt;/span&gt;  
+      &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;frame&lt;/span&gt; &lt;span class="n"&gt;fr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;thread&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;last_frame&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="n"&gt;max_depth&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;total_count&lt;/span&gt;&lt;span class="p"&gt;;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;  
+        &lt;span class="n"&gt;methodOop&lt;/span&gt; &lt;span class="n"&gt;method&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  
+        &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;bci&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  
+      &lt;span class="err"&gt;………………………………………………&lt;/span&gt;  
+        &lt;span class="n"&gt;bt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;push&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;method&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;bci&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;CHECK&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;  
+        &lt;span class="n"&gt;total_count&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  
+      &lt;span class="p"&gt;}&lt;/span&gt;  
+
+      &lt;span class="c1"&gt;// Put completed stack trace into throwable object  &lt;/span&gt;
+      &lt;span class="n"&gt;set_backtrace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;throwable&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="n"&gt;bt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;backtrace&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;  
+    &lt;span class="p"&gt;}&lt;/span&gt;  
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上面的代码中，这一系列调用可以发现，当你new一个exception的时候，jvm已经在exception里构建好了所有的stacktrace（BacktraceBuilderbt），这里花费的代价是可观的，试想一下，在web项目中，调用栈的深度可是很大的。因此，当你对stacktrace不感兴趣的时候，不需要这样的信息时，最好不要随便的new exception。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;总结1和2，虽然现在的系统异常结构不好，修改量过大，复写了fillInStackTrace，直接返回null，对程序无影响。&lt;/p&gt;</summary><category term="exception"></category></entry><entry><title>关于Java虚拟机（JVM）</title><link href="/posts/2013/04/guan-yu-javaxu-ni-ji-jvm/" rel="alternate"></link><updated>2013-04-17T21:53:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2013-04-17:posts/2013/04/guan-yu-javaxu-ni-ji-jvm/</id><summary type="html">&lt;h3&gt;Java虚拟机&lt;/h3&gt;
 &lt;p&gt;&lt;img alt="jvm-logo" src="/pic/jvm/jvm-1.gif" /&gt;&lt;/p&gt;
 &lt;h3&gt;概述&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;JVM&lt;/strong&gt;, 是让JAVA凌驾与操作系统之上的一个程序。大内总管的角色。&lt;/p&gt;
