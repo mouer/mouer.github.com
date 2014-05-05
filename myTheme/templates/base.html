@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>{% block windowtitle %}{{ SITENAME  }}{% endblock %}</title>
+    <title>{% block windowtitle %}{% if article %}{{article.title}} - {% endif %}{{ SITENAME }}{% endblock %}</title>
     <meta charset="utf-8">
-    <meta name="description" content="">
+    <meta name="description" content="{{ SITENAME  }}">
     <meta name="author" content="{{ AUTHOR }}">
+    {% if article %}
+    <meta name="keywords" content="{{ article.tags|join(', ')  }}" />
+    {% endif %}
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="stylesheet" href="/theme/css/code.css" />
     <link rel="stylesheet" type="text/css" href="/theme/css/main.css" />
