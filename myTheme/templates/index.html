@@ -3,13 +3,12 @@
 {% block content %}
   {% for year, date_year in dates|groupby( 'date.year' )|reverse %}
   <h3>{{ year }}</h3>
-  {% for month, articles in date_year|groupby( 'date.month' )|reverse %}
-    <h4>{{ articles[ 0 ].date.strftime( '%m' ) }}月</h4>
-    <ul>
-      {% for article in articles %}
-        <li><a href="{{ article.url }}">{{ article.title }}</a></li>
-      {% endfor %}
-    </ul>
-  {% endfor %}
+  <ul>
+    {% for month, articles in date_year|groupby( 'date.month' )|reverse %}
+        {% for article in articles %}
+          <li><a href="{{ article.url }}">{{ article.title }}</a></li>
+        {% endfor %}
+    {% endfor %}
+  </ul>
 {% endfor %}
 {% endblock %}
