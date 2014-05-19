@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Morse Code</title><link href="/" rel="alternate"></link><link href="/feeds/atom.xml" rel="self"></link><id>/</id><updated>2014-05-05T10:00:00+08:00</updated><entry><title>异常处理</title><link href="/posts/2014/05/yi-chang-chu-li/" rel="alternate"></link><updated>2014-05-05T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-05-05:posts/2014/05/yi-chang-chu-li/</id><summary type="html">&lt;hr /&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Morse Code</title><link href="/" rel="alternate"></link><link href="/feeds/atom.xml" rel="self"></link><id>/</id><updated>2014-05-19T10:00:00+08:00</updated><entry><title>吃掉Qcon2014北京</title><link href="/posts/2014/05/chi-diao-qcon2014bei-jing/" rel="alternate"></link><updated>2014-05-19T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-05-19:posts/2014/05/chi-diao-qcon2014bei-jing/</id><summary type="html">&lt;h3&gt;推荐系统&lt;/h3&gt;
+&lt;p&gt;这个主题的分享者是一位豆瓣的工程师，关于大数据我们目前的理解就是Hadoop，Nosql等技术的使用，其实大数据的关键是挖掘数据的价值，就算你不用Hadoop，Nosql只是工具。在互联网行业推荐功能很重要，首先用户都比较懒，要是你能把用户自己感兴趣的东西推荐给用户，这样用户会经常来你网站，其次，推荐可以帮助用户做决策。&lt;/p&gt;
+&lt;p&gt;推荐系统在一开始其实是没有太多用户偏好数据的，这时候可能是随机推荐一些数据给用户，这个阶段就是所谓的冷启动，随着用户对推荐数据的收藏，阅读，我们的推荐系统就会慢慢积累一些用户的偏好数据，这样最终的推荐结果也就越来越精确了。当用户收藏了过多的内容后，这时候我们推荐给用户内容用户都已经知道了，这样我们推荐出的内容就没有带给用户惊喜，用户就不会喜欢我们推荐出来的东西了，这是目前推荐系统中需要解决的问题。&lt;/p&gt;
+&lt;h3&gt;你应该更新的java知识&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Clean Code&lt;/li&gt;
+&lt;li&gt;函数式编程&lt;/li&gt;
+&lt;li&gt;Domain-specific Languages&lt;/li&gt;
+&lt;li&gt;Guava/Joda-Time/Mockito/Hamcrest/DropWizard&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Strom和akka&lt;/h3&gt;
+&lt;p&gt;出现频率很高的2个词。&lt;/p&gt;
+&lt;h3&gt;API单位误解造成严重的故障&lt;/h3&gt;
+&lt;p&gt;在socket编程中有一个setLiner方法，我记不清是那个类的了，单位值是秒，但是被开发误以为是毫秒，导致了一个线上故障，出现线上故障的时候注意保留现场，方便后续问题的排查。&lt;/p&gt;
+&lt;p&gt;XX:+PrintFlagsFinal 输出所有参数的名称和默认值,也可以使用jinfo -flags来查看值，使用jinfo -flag来设置值。&lt;/p&gt;
+&lt;p&gt;static代码块初始化的时候，会在类上加上一把锁。&lt;/p&gt;
+&lt;h3&gt;CPU利用率&lt;/h3&gt;
+&lt;p&gt;CPU利用率
+top -H &amp;amp;&amp;amp; jstack
+1.使用top命令查看占用cpu最高的线程ID
+2.把线程ID转换成十六进制
+3.在jstack出来的内从找线程ID相关的线程，看看线程在做什么事情。&lt;/p&gt;
+&lt;h3&gt;左耳兄ppt思考&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;还债：技术债务，时间越长，利息越多。&lt;/li&gt;
+&lt;li&gt;标准：无标准，不平台。&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="Qcon"></category></entry><entry><title>异常处理</title><link href="/posts/2014/05/yi-chang-chu-li/" rel="alternate"></link><updated>2014-05-05T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-05-05:posts/2014/05/yi-chang-chu-li/</id><summary type="html">&lt;hr /&gt;
 &lt;p&gt;近期接触新的项目，发现原有异常设计是这样的，每个层抛出自己的 &lt;em&gt;checked exception&lt;/em&gt; （可能包含异常信息，而且信息的格式五花八门）。
 如分为4层 Action -&amp;gt; Service -&amp;gt; Biz -&amp;gt; DAO，异常结构是 Action 捕获 &lt;em&gt;ServiceException(BizException(DAOException("insert db error")))&lt;/em&gt;，然后给用户展示 &lt;em&gt;e.getMessage()&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;虽然觉得这么做不好，但是为什么不好呢。。&lt;/p&gt;
