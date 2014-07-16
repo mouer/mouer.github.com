@@ -9,7 +9,7 @@ category: vim
 # 需要先安装brew
 brew install macvim
 git clone git://github.com/ywjno/vundle-vimfiles.git
-ln -s vundle-vimfiles
+ln -s vundle-vimfiles ~/.vim
 # vimfiles项目给我们提供了几个版本的vimrc
 ln -s ~/.vim/vimrc ~/.vimrc
 ln -s ~/.vim/gvimrc ~/.gvimrc
