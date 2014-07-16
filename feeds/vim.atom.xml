@@ -3,7 +3,7 @@
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# 需要先安装brew&lt;/span&gt;
 brew install macvim
 git clone git://github.com/ywjno/vundle-vimfiles.git
-ln -s vundle-vimfiles
+ln -s vundle-vimfiles ~/.vim
 &lt;span class="c"&gt;# vimfiles项目给我们提供了几个版本的vimrc&lt;/span&gt;
 ln -s ~/.vim/vimrc ~/.vimrc
 ln -s ~/.vim/gvimrc ~/.gvimrc
