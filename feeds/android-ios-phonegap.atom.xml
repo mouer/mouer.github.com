@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Morse Code</title><link href="/" rel="alternate"></link><link href="/feeds/android-ios-phonegap.atom.xml" rel="self"></link><id>/</id><updated>2014-08-10T10:00:00+08:00</updated><entry><title>ionicFramework简介</title><link href="/posts/2014/08/ionicframeworkjian-jie/" rel="alternate"></link><updated>2014-08-10T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-08-10:posts/2014/08/ionicframeworkjian-jie/</id><summary type="html">&lt;p&gt;简单说一下&lt;a href="http://ionicframework.com/"&gt;Ionic&lt;/a&gt;是一款让你可以通过H5+CSS+JS做出原生应用的前端框架。&lt;/p&gt;
+&lt;p&gt;需要用到下面的技术：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://sass-lang.com/"&gt;Sass&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://angularjs.org/"&gt;AngularJS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://cordova.apache.org/"&gt;phoneGap/Cordova&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;安装:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# 安装 cordova ionic&lt;/span&gt;
+npm install -g cordova ionic
+
+&lt;span class="c"&gt;# 需要先安装ant, 生成一个带边栏（类似知乎）的例子&lt;/span&gt;
+ionic start myApp sidemenu
+
+&lt;span class="c"&gt;# 生成android工程&lt;/span&gt;
+ionic platform add android
+ionic build android
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;下面就可以开发了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;打开intellij -&amp;gt; inport project -&amp;gt; xxx/platform/android -&amp;gt; Create project from existing sources
+-&amp;gt; 一路next -&amp;gt; modules select android -&amp;gt; sdk里面勾选 android api&lt;/li&gt;
+&lt;li&gt;工程里面编辑 android/assets/www/xxxx&lt;/li&gt;
+&lt;li&gt;AVD调试就可以了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;玩的愉快～&lt;/p&gt;</summary><category term="android"></category><category term="ios"></category><category term="phoneGap"></category></entry></feed>

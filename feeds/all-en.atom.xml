@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Morse Code</title><link href="/" rel="alternate"></link><link href="/feeds/all-en.atom.xml" rel="self"></link><id>/</id><updated>2014-05-19T10:00:00+08:00</updated><entry><title>吃掉Qcon2014北京</title><link href="/posts/2014/05/chi-diao-qcon2014bei-jing/" rel="alternate"></link><updated>2014-05-19T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-05-19:posts/2014/05/chi-diao-qcon2014bei-jing/</id><summary type="html">&lt;h3&gt;推荐系统&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Morse Code</title><link href="/" rel="alternate"></link><link href="/feeds/all-en.atom.xml" rel="self"></link><id>/</id><updated>2014-08-10T10:00:00+08:00</updated><entry><title>ionicFramework简介</title><link href="/posts/2014/08/ionicframeworkjian-jie/" rel="alternate"></link><updated>2014-08-10T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-08-10:posts/2014/08/ionicframeworkjian-jie/</id><summary type="html">&lt;p&gt;简单说一下&lt;a href="http://ionicframework.com/"&gt;Ionic&lt;/a&gt;是一款让你可以通过H5+CSS+JS做出原生应用的前端框架。&lt;/p&gt;
+&lt;p&gt;需要用到下面的技术：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://sass-lang.com/"&gt;Sass&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://angularjs.org/"&gt;AngularJS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://cordova.apache.org/"&gt;phoneGap/Cordova&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;安装:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# 安装 cordova ionic&lt;/span&gt;
+npm install -g cordova ionic
+
+&lt;span class="c"&gt;# 需要先安装ant, 生成一个带边栏（类似知乎）的例子&lt;/span&gt;
+ionic start myApp sidemenu
+
+&lt;span class="c"&gt;# 生成android工程&lt;/span&gt;
+ionic platform add android
+ionic build android
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;下面就可以开发了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;打开intellij -&amp;gt; inport project -&amp;gt; xxx/platform/android -&amp;gt; Create project from existing sources
+-&amp;gt; 一路next -&amp;gt; modules select android -&amp;gt; sdk里面勾选 android api&lt;/li&gt;
+&lt;li&gt;工程里面编辑 android/assets/www/xxxx&lt;/li&gt;
+&lt;li&gt;AVD调试就可以了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;玩的愉快～&lt;/p&gt;</summary><category term="android"></category><category term="ios"></category><category term="phoneGap"></category></entry><entry><title>吃掉Qcon2014北京</title><link href="/posts/2014/05/chi-diao-qcon2014bei-jing/" rel="alternate"></link><updated>2014-05-19T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-05-19:posts/2014/05/chi-diao-qcon2014bei-jing/</id><summary type="html">&lt;h3&gt;推荐系统&lt;/h3&gt;
 &lt;p&gt;这个主题的分享者是一位豆瓣的工程师，关于大数据我们目前的理解就是Hadoop，Nosql等技术的使用，其实大数据的关键是挖掘数据的价值，就算你不用Hadoop，Nosql只是工具。在互联网行业推荐功能很重要，首先用户都比较懒，要是你能把用户自己感兴趣的东西推荐给用户，这样用户会经常来你网站，其次，推荐可以帮助用户做决策。&lt;/p&gt;
 &lt;p&gt;推荐系统在一开始其实是没有太多用户偏好数据的，这时候可能是随机推荐一些数据给用户，这个阶段就是所谓的冷启动，随着用户对推荐数据的收藏，阅读，我们的推荐系统就会慢慢积累一些用户的偏好数据，这样最终的推荐结果也就越来越精确了。当用户收藏了过多的内容后，这时候我们推荐给用户内容用户都已经知道了，这样我们推荐出的内容就没有带给用户惊喜，用户就不会喜欢我们推荐出来的东西了，这是目前推荐系统中需要解决的问题。&lt;/p&gt;
 &lt;h3&gt;你应该更新的java知识&lt;/h3&gt;
