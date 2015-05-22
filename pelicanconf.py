@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'Mouer'
 SITENAME = u'Morse Code'
-SITE_URL = 'http://mouer.me'
+SITE_URL = 'https://mouer.github.io'
 
 PATH = 'content'
 THEME = "myTheme"
@@ -29,7 +29,7 @@ STATIC_PATHS = [u'pic', u'extra']
 EXTRA_PATH_METADATA = {
         u'extra/robots.txt': {'path': u'robots.txt'},
         u'extra/favicon.ico': {'path': u'favicon.ico'},
-        u'extra/CNAME': {'path': u'CNAME'},
+        #u'extra/CNAME': {'path': u'CNAME'},
 }
 
 
