@@ -40,7 +40,7 @@
  
   </header>
   <footer class="post-info">
-    <abbr class="published" title="2013-05-14T00:32:00">
+    <abbr class="published" title="2013-05-14T00:32:00+08:00">
       Tue 14 May 2013
     </abbr>
     <address class="vcard author">
@@ -182,19 +182,19 @@
 
 
 <p><code>app.conf</code></p>
-<div class="highlight"><pre><span class="nl">handlers:</span>
-  <span class="o">-</span> <span class="n">url</span> <span class="o">:</span> <span class="o">/</span><span class="k">static</span><span class="o">/</span><span class="p">(.</span><span class="o">*</span><span class="p">)</span>
-    <span class="nl">script:</span> <span class="o">/</span><span class="k">static</span><span class="o">/</span><span class="err">$</span><span class="mi">1</span>
+<div class="highlight"><pre>handlers:
+  - url : /static/(.*)
+    script: /static/$1
 
-  <span class="o">-</span> <span class="n">url</span> <span class="o">:</span> <span class="o">/</span><span class="p">.</span><span class="o">*</span>
-    <span class="nl">script:</span> <span class="n">index</span><span class="p">.</span><span class="n">py</span>
+  - url : /.*
+    script: index.py
 
-  <span class="o">-</span> <span class="n">expire</span> <span class="o">:</span> <span class="p">.</span><span class="n">jpg</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
-  <span class="o">-</span> <span class="n">expire</span> <span class="o">:</span> <span class="p">.</span><span class="n">swf</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
-  <span class="o">-</span> <span class="n">expire</span> <span class="o">:</span> <span class="p">.</span><span class="n">png</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
-  <span class="o">-</span> <span class="n">expire</span> <span class="o">:</span> <span class="p">.</span><span class="n">gif</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
-  <span class="o">-</span> <span class="n">expire</span> <span class="o">:</span> <span class="p">.</span><span class="n">JPG</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
-  <span class="o">-</span> <span class="n">expire</span> <span class="o">:</span> <span class="p">.</span><span class="n">ico</span> <span class="n">modify</span> <span class="mi">10</span> <span class="n">years</span>
+  - expire : .jpg modify 10 years
+  - expire : .swf modify 10 years
+  - expire : .png modify 10 years
+  - expire : .gif modify 10 years
+  - expire : .JPG modify 10 years
+  - expire : .ico modify 10 years
 </pre></div>
 
 

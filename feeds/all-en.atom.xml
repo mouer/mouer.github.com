@@ -52,8 +52,7 @@ top -H &amp;amp;&amp;amp; jstack
 &lt;ul&gt;
 &lt;li&gt;还债：技术债务，时间越长，利息越多。&lt;/li&gt;
 &lt;li&gt;标准：无标准，不平台。&lt;/li&gt;
-&lt;/ul&gt;</summary><category term="Qcon"></category></entry><entry><title>异常处理</title><link href="/posts/2014/05/yi-chang-chu-li/" rel="alternate"></link><updated>2014-05-05T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-05-05:posts/2014/05/yi-chang-chu-li/</id><summary type="html">&lt;hr /&gt;
-&lt;p&gt;近期接触新的项目，发现原有异常设计是这样的，每个层抛出自己的 &lt;em&gt;checked exception&lt;/em&gt; （可能包含异常信息，而且信息的格式五花八门）。
+&lt;/ul&gt;</summary><category term="Qcon"></category></entry><entry><title>异常处理</title><link href="/posts/2014/05/yi-chang-chu-li/" rel="alternate"></link><updated>2014-05-05T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-05-05:posts/2014/05/yi-chang-chu-li/</id><summary type="html">&lt;p&gt;近期接触新的项目，发现原有异常设计是这样的，每个层抛出自己的 &lt;em&gt;checked exception&lt;/em&gt; （可能包含异常信息，而且信息的格式五花八门）。
 如分为4层 Action -&amp;gt; Service -&amp;gt; Biz -&amp;gt; DAO，异常结构是 Action 捕获 &lt;em&gt;ServiceException(BizException(DAOException("insert db error")))&lt;/em&gt;，然后给用户展示 &lt;em&gt;e.getMessage()&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;虽然觉得这么做不好，但是为什么不好呢。。&lt;/p&gt;
 &lt;hr /&gt;
@@ -102,9 +101,9 @@ top -H &amp;amp;&amp;amp; jstack
 &lt;/table&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;E&lt;/span&gt; &lt;span class="nf"&gt;get&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;try&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nf"&gt;listIterator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;next&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;listIterator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;next&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
     &lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="k"&gt;catch&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NoSuchElementException&lt;/span&gt; &lt;span class="n"&gt;exc&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;throw&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;IndexOutOfBoundsException&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Index: &amp;quot;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+        &lt;span class="k"&gt;throw&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;IndexOutOfBoundsException&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Index: &amp;quot;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
     &lt;span class="o"&gt;}&lt;/span&gt;
 &lt;span class="o"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -173,13 +172,13 @@ git clone git://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 :BundleInstall&lt;/p&gt;
 &lt;p&gt;5分钟搞定，over～&lt;/p&gt;</summary><category term="vim"></category></entry><entry><title>常用shell备忘录</title><link href="/posts/2014/03/chang-yong-shellbei-wang-lu/" rel="alternate"></link><updated>2014-03-13T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-03-13:posts/2014/03/chang-yong-shellbei-wang-lu/</id><summary type="html">&lt;p&gt;不定时更新中&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# 查看http链接状态&lt;/span&gt;
-netstat -n | awk &lt;span class="s1"&gt;&amp;#39;/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}&amp;#39;&lt;/span&gt;
+netstat -n &lt;span class="p"&gt;|&lt;/span&gt; awk &lt;span class="s1"&gt;&amp;#39;/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}&amp;#39;&lt;/span&gt;
 
 &lt;span class="c"&gt;# 查看80使用情况&lt;/span&gt;
-netstat -an -t | grep &lt;span class="s1"&gt;&amp;#39;:80&amp;#39;&lt;/span&gt; | grep ESTABLISHED | awk &lt;span class="s1"&gt;&amp;#39;{printf &amp;quot;%s %s\n&amp;quot;, $5, $6}&amp;#39;&lt;/span&gt; | uniq | sort
+netstat -an -t &lt;span class="p"&gt;|&lt;/span&gt; grep &lt;span class="s1"&gt;&amp;#39;:80&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; grep ESTABLISHED &lt;span class="p"&gt;|&lt;/span&gt; awk &lt;span class="s1"&gt;&amp;#39;{printf &amp;quot;%s %s\n&amp;quot;, $5, $6}&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; uniq &lt;span class="p"&gt;|&lt;/span&gt; sort
 
 &lt;span class="c"&gt;# cpu数量&lt;/span&gt;
-cat /proc/cpuinfo | grep -c processor
+cat /proc/cpuinfo &lt;span class="p"&gt;|&lt;/span&gt; grep -c processor
 &lt;/pre&gt;&lt;/div&gt;</summary><category term="shell"></category></entry><entry><title>排序方式</title><link href="/posts/2013/05/pai-xu-fang-shi/" rel="alternate"></link><updated>2013-05-16T12:18:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2013-05-16:posts/2013/05/pai-xu-fang-shi/</id><summary type="html">&lt;p&gt;看到一些奇异的排序方式，记录下：&lt;/p&gt;
 &lt;h5&gt;一， 珠排序：&lt;/h5&gt;
 &lt;p&gt;在珠排序中，一行表示一个数字。如果一行里有2颗珠子，该行代表数字2；如果一行里有4颗珠子，该行代表数字4。给定一个数组，数组里有多少个数字，就要有多少行；数组里最大的数字是几，就要准备多少根杆子。&lt;/p&gt;
@@ -358,19 +357,19 @@ cat /proc/cpuinfo | grep -c processor
 
 
 &lt;p&gt;&lt;code&gt;app.conf&lt;/code&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nl"&gt;handlers:&lt;/span&gt;
-  &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;static&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;(.&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="nl"&gt;script:&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;static&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;handlers:
+  - url : /static/(.*)
+    script: /static/$1
 
-  &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;
-    &lt;span class="nl"&gt;script:&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
+  - url : /.*
+    script: index.py
 
-  &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;expire&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;jpg&lt;/span&gt; &lt;span class="n"&gt;modify&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt; &lt;span class="n"&gt;years&lt;/span&gt;
-  &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;expire&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;swf&lt;/span&gt; &lt;span class="n"&gt;modify&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt; &lt;span class="n"&gt;years&lt;/span&gt;
-  &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;expire&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;png&lt;/span&gt; &lt;span class="n"&gt;modify&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt; &lt;span class="n"&gt;years&lt;/span&gt;
-  &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;expire&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gif&lt;/span&gt; &lt;span class="n"&gt;modify&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt; &lt;span class="n"&gt;years&lt;/span&gt;
-  &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;expire&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;JPG&lt;/span&gt; &lt;span class="n"&gt;modify&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt; &lt;span class="n"&gt;years&lt;/span&gt;
-  &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;expire&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ico&lt;/span&gt; &lt;span class="n"&gt;modify&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt; &lt;span class="n"&gt;years&lt;/span&gt;
+  - expire : .jpg modify 10 years
+  - expire : .swf modify 10 years
+  - expire : .png modify 10 years
+  - expire : .gif modify 10 years
+  - expire : .JPG modify 10 years
+  - expire : .ico modify 10 years
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -607,15 +606,15 @@ cat /proc/cpuinfo | grep -c processor
 
 
 &lt;p&gt;prints:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="mi"&gt;11111111111111111111111111111111&lt;/span&gt;
-&lt;span class="mo"&gt;00000000000000000000111111111111&lt;/span&gt;
-&lt;span class="mo"&gt;00000000000011111111111111111111&lt;/span&gt;
-&lt;span class="mo"&gt;00000000000011111111000000000000&lt;/span&gt;
-&lt;span class="mi"&gt;11111111111100000000111111111111&lt;/span&gt;
-&lt;span class="mo"&gt;00000001111111111110000000011111&lt;/span&gt;
-&lt;span class="mo"&gt;00001111111111110000000011111111&lt;/span&gt;
-&lt;span class="mo"&gt;00001110000000001110000011100000&lt;/span&gt;
-&lt;span class="mi"&gt;11110001111100001110111100011111&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;11111111111111111111111111111111
+00000000000000000000111111111111
+00000000000011111111111111111111
+00000000000011111111000000000000
+11111111111100000000111111111111
+00000001111111111110000000011111
+00001111111111110000000011111111
+00001110000000001110000011100000
+11110001111100001110111100011111
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -647,7 +646,7 @@ cat /proc/cpuinfo | grep -c processor
 &lt;li&gt;META-INF/services/com.edit.service.ParseFile 写入 com.edit.service.impl.ParseXXXFileImpl&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;把补丁包放入class path 里就可以了。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;package&lt;/span&gt; &lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;ohoo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;spi&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;service&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;package&lt;/span&gt; &lt;span class="nn"&gt;com.ohoo.spi.service&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;java.util.ServiceLoader&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
 &lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt; * User: chen.qi&lt;/span&gt;
@@ -666,7 +665,7 @@ cat /proc/cpuinfo | grep -c processor
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;package&lt;/span&gt; &lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;ohoo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;spi&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;service&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;package&lt;/span&gt; &lt;span class="nn"&gt;com.ohoo.spi.service&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
 &lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt; * User: chen.qi&lt;/span&gt;
 &lt;span class="cm"&gt; * Date: 13-4-24&lt;/span&gt;
@@ -679,7 +678,7 @@ cat /proc/cpuinfo | grep -c processor
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;package&lt;/span&gt; &lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;ohoo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;spi&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;service&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;impl&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;package&lt;/span&gt; &lt;span class="nn"&gt;com.ohoo.spi.service.impl&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;com.ohoo.spi.service.ContainerService&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
 &lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt; * User: chen.qi&lt;/span&gt;
@@ -700,9 +699,9 @@ cat /proc/cpuinfo | grep -c processor
 
 
 &lt;p&gt;&lt;code&gt;META-INF/services/com.ohoo.spi.service.ContainerService&lt;/code&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ohoo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;spi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;service&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;impl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AContainerServiceImpl&lt;/span&gt;
-&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ohoo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;spi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;service&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;impl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;BContainerServiceImpl&lt;/span&gt;
-&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ohoo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;spi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;service&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;impl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CContainerServiceImpl&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;com.ohoo.spi.service.impl.AContainerServiceImpl
+com.ohoo.spi.service.impl.BContainerServiceImpl
+com.ohoo.spi.service.impl.CContainerServiceImpl
 &lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>git-flow的介绍及使用</title><link href="/posts/2013/04/git-flowde-jie-shao-ji-shi-yong/" rel="alternate"></link><updated>2013-04-23T14:12:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2013-04-23:posts/2013/04/git-flowde-jie-shao-ji-shi-yong/</id><summary type="html">&lt;h4&gt;git-flow 简介&lt;/h4&gt;
 &lt;p&gt;git-flow基于git，是根据实际经验设计出一套基于分支的开发/发布模型。&lt;/p&gt;
 &lt;p&gt;项目地址： &lt;a href="https://github.com/nvie/gitflow"&gt;https://github.com/nvie/gitflow&lt;/a&gt;&lt;/p&gt;
@@ -722,8 +721,8 @@ git flow feature start task1
 &lt;span class="c"&gt;# 当这个需求做完了。这时候会把task1的提交merge回develop中&lt;/span&gt;
 git flow feature finish task1
 &lt;span class="c"&gt;# 对于git-svn用户，那么可以提交到svn了&lt;/span&gt;
-git svn rebase;
-git svn dcommit;
+git svn rebase&lt;span class="p"&gt;;&lt;/span&gt;
+git svn dcommit&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -747,293 +746,21 @@ vim ~/.zshrc
 &lt;p&gt;所有的插件名字： &lt;a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins"&gt;https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt; 别忘了导入自己定义的PATH.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="zsh-demo1" src="/pic/oh-my-zsh/oh-my-zsh-1.jpg" /&gt;
-&lt;img alt="zsh-demo2" src="/pic/oh-my-zsh/oh-my-zsh-2.jpg" /&gt;&lt;/p&gt;</summary></entry><entry><title>关于Java虚拟机（JVM）</title><link href="/posts/2013/04/guan-yu-javaxu-ni-ji-jvm/" rel="alternate"></link><updated>2013-04-17T21:53:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2013-04-17:posts/2013/04/guan-yu-javaxu-ni-ji-jvm/</id><summary type="html">&lt;h3&gt;Java虚拟机&lt;/h3&gt;
-&lt;p&gt;&lt;img alt="jvm-logo" src="/pic/jvm/jvm-1.gif" /&gt;&lt;/p&gt;
-&lt;h3&gt;概述&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;JVM&lt;/strong&gt;, 是让JAVA凌驾与操作系统之上的一个程序。大内总管的角色。&lt;/p&gt;
-&lt;p&gt;纵观历史，感觉Java的崛起JVM功不可没，很多大牛都是被那句对外声称的“&lt;strong&gt;编写一次，到处运行&lt;/strong&gt;”勾引过来的。&lt;/p&gt;
-&lt;p&gt;近些年，JVM已经发展成一个生态圈，里面有众多语言，当然，如：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Jython &amp;gt; http://www.jython.org/&lt;/p&gt;
-&lt;p&gt;JRuby &amp;gt; http://JRuby.org/&lt;/p&gt;
-&lt;p&gt;Groovy &amp;gt; http://groovy.codehaus.org/&lt;/p&gt;
-&lt;p&gt;Scala &amp;gt; http://www.scala-lang.org/&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3&gt;哪里可以找到JVM？&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;windows&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    &lt;span class="n"&gt;jdk&lt;/span&gt;&lt;span class="sr"&gt;/jre/bin/&lt;/span&gt;&lt;span class="n"&gt;jvm&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;dll&lt;/span&gt;
-    &lt;span class="n"&gt;jdk&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;jvm&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;dll&lt;/span&gt;
-&lt;span class="n"&gt;linux&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    &lt;span class="err"&gt;没找到，官方文档没有。知道的同学可以告诉下。&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h4&gt;JRE&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;JRE&lt;/span&gt;&lt;span class="err"&gt;（&lt;/span&gt;&lt;span class="n"&gt;Java&lt;/span&gt; &lt;span class="n"&gt;Runtime&lt;/span&gt; &lt;span class="n"&gt;Environment&lt;/span&gt;&lt;span class="err"&gt;，&lt;/span&gt;&lt;span class="n"&gt;Java&lt;/span&gt;&lt;span class="err"&gt;运行环境），是运行&lt;/span&gt;&lt;span class="n"&gt;JAVA&lt;/span&gt;&lt;span class="err"&gt;程序所必须的环境的集合，包含&lt;/span&gt;&lt;span class="n"&gt;JVM&lt;/span&gt;&lt;span class="err"&gt;标准实现及&lt;/span&gt;&lt;span class="n"&gt;Java&lt;/span&gt;&lt;span class="err"&gt;核心类库。&lt;/span&gt;
-&lt;span class="err"&gt;核心类库：&lt;/span&gt;&lt;span class="n"&gt;jre&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;rt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;jar&lt;/span&gt;
-&lt;span class="n"&gt;java&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;awt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;
-&lt;span class="n"&gt;java&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lang&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;
-&lt;span class="n"&gt;java&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;io&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;
-&lt;span class="n"&gt;java&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;
-
-&lt;span class="n"&gt;javax&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;imageio&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;
-&lt;span class="n"&gt;javax&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ssl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;
-&lt;span class="n"&gt;javax&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;swing&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;
-
-&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;w3c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dom&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;所以，运行java程序，rt.jar必须包含在classPath里面。&lt;/p&gt;
-&lt;h4&gt;JDK&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;JDK&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Java&lt;/span&gt; &lt;span class="n"&gt;Development&lt;/span&gt; &lt;span class="n"&gt;Kit&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;JAVA&lt;/span&gt;&lt;span class="err"&gt;开发者工具&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;，&lt;/span&gt; &lt;span class="err"&gt;提供各种开发者工具，最主要的功能是&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;java&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;class&lt;/span&gt;
-
-&lt;span class="err"&gt;传奇&lt;/span&gt;&lt;span class="n"&gt;jar&lt;/span&gt;&lt;span class="err"&gt;包&lt;/span&gt; &lt;span class="err"&gt;：&lt;/span&gt; &lt;span class="n"&gt;jdk&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;jar&lt;/span&gt; &lt;span class="n"&gt;and&lt;/span&gt; &lt;span class="n"&gt;jdk&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;jar&lt;/span&gt;
-
-&lt;span class="err"&gt;不知道大家注意没有，在安装完&lt;/span&gt;&lt;span class="n"&gt;IDE&lt;/span&gt;&lt;span class="err"&gt;，选择完&lt;/span&gt;&lt;span class="n"&gt;jdk&lt;/span&gt;&lt;span class="err"&gt;的路径之后，&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt;&lt;span class="err"&gt;和&lt;/span&gt;&lt;span class="n"&gt;dt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;jar&lt;/span&gt;&lt;span class="err"&gt;并没有加入到环境变量里面。也就是说明，我们平时编写程序，用不到这&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="err"&gt;个&lt;/span&gt;&lt;span class="n"&gt;jar&lt;/span&gt;&lt;span class="err"&gt;包。&lt;/span&gt;
-
-&lt;span class="n"&gt;tools&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;jar&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;jdk&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="err"&gt;下比&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;jdk&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;jre&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="err"&gt;下多的功能，都是由&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt;&lt;span class="err"&gt;实现。&lt;/span&gt;
-    &lt;span class="n"&gt;mouer&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;mouer&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;MacBook&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="mo"&gt;02&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mo"&gt;02&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;Desktop&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;jdk1&lt;/span&gt;&lt;span class="mf"&gt;.7.0&lt;/span&gt;&lt;span class="n"&gt;_05&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;
-    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;du&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;
-    &lt;span class="mf"&gt;8.0&lt;/span&gt;&lt;span class="n"&gt;K&lt;/span&gt;    &lt;span class="n"&gt;javac&lt;/span&gt;
-    &lt;span class="mf"&gt;8.0&lt;/span&gt;&lt;span class="n"&gt;K&lt;/span&gt;    &lt;span class="n"&gt;javah&lt;/span&gt;
-    &lt;span class="mf"&gt;8.0&lt;/span&gt;&lt;span class="n"&gt;K&lt;/span&gt;    &lt;span class="n"&gt;javap&lt;/span&gt;
-
-    &lt;span class="err"&gt;我们看到每个命令及其的小，这是不科学的，实际上早期的&lt;/span&gt;&lt;span class="n"&gt;jdk&lt;/span&gt;&lt;span class="err"&gt;版本如&lt;/span&gt;&lt;span class="mf"&gt;1.4&lt;/span&gt;&lt;span class="err"&gt;，&lt;/span&gt;&lt;span class="n"&gt;java&lt;/span&gt;&lt;span class="err"&gt;和&lt;/span&gt;&lt;span class="n"&gt;javac&lt;/span&gt;&lt;span class="err"&gt;等命令都是可以用&lt;/span&gt;&lt;span class="n"&gt;vim&lt;/span&gt;&lt;span class="err"&gt;查看的（当然是在&lt;/span&gt;&lt;span class="n"&gt;linux&lt;/span&gt;&lt;span class="err"&gt;下）。&lt;/span&gt;
-    &lt;span class="n"&gt;javac&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;java&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;JAVA_HOME&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;jar&lt;/span&gt; &lt;span class="n"&gt;xx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Main&lt;/span&gt; &lt;span class="n"&gt;XXX&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;java&lt;/span&gt;
-    &lt;span class="err"&gt;最后把&lt;/span&gt;&lt;span class="n"&gt;java&lt;/span&gt;&lt;span class="err"&gt;便宜成&lt;/span&gt;&lt;span class="n"&gt;class&lt;/span&gt;&lt;span class="err"&gt;。&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;hr /&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;dt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;jar&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;BeanInfo&lt;/span&gt;&lt;span class="err"&gt;设计类&lt;/span&gt; &lt;span class="n"&gt;swing&lt;/span&gt; &lt;span class="err"&gt;相关，告诉&lt;/span&gt;&lt;span class="n"&gt;ide&lt;/span&gt;&lt;span class="err"&gt;，哪个属性可以设置，哪个不可以设置，在&lt;/span&gt;&lt;span class="n"&gt;NetBeans&lt;/span&gt;&lt;span class="err"&gt;下用&lt;/span&gt;&lt;span class="n"&gt;GUIDesigner&lt;/span&gt;&lt;span class="err"&gt;的时候会叫你选择，找到一篇文章，看了一遍没有理解，只知道个大概，有兴趣同学可以参考：&lt;/span&gt;
-
-&lt;span class="nl"&gt;http:&lt;/span&gt;&lt;span class="c1"&gt;//www.blogjava.net/landon/archive/2011/05/15/350285.html&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h4&gt;运行java Test.java后，java都干了什么(openJDK1.5, Oracle的没有找到)&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;Test&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;public&lt;/span&gt; &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-        &lt;span class="n"&gt;System&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;out&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;hello world!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-&lt;span class="mf"&gt;1.&lt;/span&gt; &lt;span class="err"&gt;根据$&lt;/span&gt;&lt;span class="n"&gt;PATH&lt;/span&gt;&lt;span class="err"&gt;定位&lt;/span&gt;&lt;span class="n"&gt;JAVA&lt;/span&gt;&lt;span class="err"&gt;的据对路径。&lt;/span&gt;
-&lt;span class="mf"&gt;2.&lt;/span&gt; &lt;span class="err"&gt;加载&lt;/span&gt;&lt;span class="n"&gt;JVM&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="err"&gt;文件&lt;/span&gt;
-&lt;span class="mf"&gt;3.&lt;/span&gt; &lt;span class="err"&gt;调用&lt;/span&gt;&lt;span class="n"&gt;Java_md&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="err"&gt;中的方法检查环境是否一致（平台，&lt;/span&gt;&lt;span class="n"&gt;cpu&lt;/span&gt;&lt;span class="err"&gt;架构）&lt;/span&gt;
-&lt;span class="mf"&gt;4.&lt;/span&gt; &lt;span class="err"&gt;调用系统（&lt;/span&gt;&lt;span class="n"&gt;linux&lt;/span&gt;&lt;span class="err"&gt;：&lt;/span&gt;&lt;span class="n"&gt;LoadLibray&lt;/span&gt;&lt;span class="err"&gt;）&lt;/span&gt;&lt;span class="n"&gt;api&lt;/span&gt;&lt;span class="err"&gt;装载&lt;/span&gt;&lt;span class="n"&gt;JVM&lt;/span&gt;
-&lt;span class="mf"&gt;5.&lt;/span&gt; &lt;span class="err"&gt;初始化&lt;/span&gt;&lt;span class="n"&gt;JVM&lt;/span&gt;&lt;span class="err"&gt;，获得&lt;/span&gt;&lt;span class="n"&gt;JNI&lt;/span&gt;&lt;span class="err"&gt;调用接口&lt;/span&gt;
-&lt;span class="mf"&gt;6.&lt;/span&gt; &lt;span class="err"&gt;调用&lt;/span&gt;&lt;span class="n"&gt;java&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="err"&gt;的&lt;/span&gt;&lt;span class="n"&gt;LoadClass&lt;/span&gt;&lt;span class="err"&gt;加载&lt;/span&gt;&lt;span class="n"&gt;Test&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;class&lt;/span&gt;
-&lt;span class="mf"&gt;7.&lt;/span&gt; &lt;span class="err"&gt;解释执行。&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;运行时数据区域&lt;/h3&gt;
-&lt;p&gt;&lt;img alt="jvm-yunxing" src="/pic/jvm/jvm-2.jpg" /&gt;&lt;/p&gt;
-&lt;h4&gt;程序计数器&lt;/h4&gt;
-&lt;p&gt;对于一个运行中的Java程序而言，其中的每一个线程都有它自己的PC（程序计数器），在线程启动时创建。 大小是一个字长。它的作用可以看作是当前线程所执行的字节码的行号指示器。字节码解释器工作的时候就是通过改变这个计数器的值来选取下一条要执行的字节码命令，如分支，循环，跳转，异常处理，线程恢复。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;在规范中唯一没有规定OutOfMemoryError情况的区域。&lt;/strong&gt;&lt;/p&gt;
-&lt;h4&gt;虚拟机栈&lt;/h4&gt;
-&lt;p&gt;java栈由许多栈帧(stack frame)组成的，栈帧主要包含局部变量表，存放了编译可知的各种基本数据类型(boolean, byte, char, short, int, float, long, double)，对象引用类型(d, ints) &lt;strong&gt;32位机器占4个字节，64位机器占8个字节&lt;/strong&gt;。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;ints&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ArrayUtils&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;EMPTY_INT_ARRAY&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;Deal&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;dealService&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getDeal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;66666&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;当一个线程调用java方法时，虚拟机压入一个新的栈帧到java栈中，当方法返回的时候，这个栈帧被从java栈弹出并被抛弃。&lt;/p&gt;
-&lt;p&gt;&lt;img alt="jvm-stack" src="/pic/jvm/jvm-3.jpg" /&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;方法调用：&lt;/span&gt;
-&lt;span class="err"&gt;线程一：&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="err"&gt;线程二：&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="err"&gt;线程三：&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;native&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;&lt;strong&gt;在这个区域，规范中定义了StackOverflowError和OutOfMemoryError。&lt;/strong&gt;&lt;/p&gt;
-&lt;h4&gt;本地方法栈&lt;/h4&gt;
-&lt;p&gt;本地方法栈，顾名思义，用来存放本地方法，和虚拟机栈工作原理相同。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;貌似 Sun HotSpot 将虚拟机栈和本地方法栈合二为一了， 在网站上没有找到相关介绍，待验证。&lt;/strong&gt;&lt;/p&gt;
-&lt;h4&gt;Java堆&lt;/h4&gt;
-&lt;p&gt;是jvm所管理的内存中最大的一块。java堆是被所有线程&lt;strong&gt;共享&lt;/strong&gt;的一块区域.&lt;/p&gt;
-&lt;p&gt;jvm规范中是这么描述的，The heap is the runtime data area from which memory for &lt;strong&gt;all class instances and arrays&lt;/strong&gt; is allocated. （所有的对象和数组都在这个区域）&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;不过，在&lt;/span&gt;&lt;span class="n"&gt;jdk1&lt;/span&gt;&lt;span class="mf"&gt;.6&lt;/span&gt;&lt;span class="err"&gt;中，加入了一项功能，在代码运行的时候，进行逃逸分析（&lt;/span&gt;&lt;span class="n"&gt;Escape&lt;/span&gt; &lt;span class="n"&gt;Analysis&lt;/span&gt;&lt;span class="err"&gt;），&lt;/span&gt; &lt;span class="err"&gt;功能很多，其中一个作用是，如果能够证明别的方法或者线程不能通过任何途径访问道一个对象。那么这个对象将在栈上分配。打破了栈和堆的限制。有兴趣的同学可以研究下。&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;&lt;a href="http://dl.acm.org/citation.cfm?id=320386"&gt;http://dl.acm.org/citation.cfm?id=320386&lt;/a&gt;  Escape analysis for Java - Choi&lt;/p&gt;
-&lt;h4&gt;方法区&lt;/h4&gt;
-&lt;p&gt;和java堆一样，是各个线程共享的内存区域，它用于存储已被jvm加载的信息，常量，静态变量。&lt;/p&gt;
-&lt;p&gt;摘抄（未验证）：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;对于习惯在&lt;/span&gt;&lt;span class="n"&gt;HotSopt&lt;/span&gt;&lt;span class="err"&gt;虚拟机上开发和部署程序的开发者来说，很多人愿意把方法区成为“永久代”，本质上两者不相等，仅仅是因为&lt;/span&gt;&lt;span class="n"&gt;HotSpot&lt;/span&gt;&lt;span class="err"&gt;虚拟机的设计团队把&lt;/span&gt;&lt;span class="n"&gt;GC&lt;/span&gt;&lt;span class="err"&gt;分代筹集扩致方法区，或者说使用永久代来实现方法区而已，对于其他团队（&lt;/span&gt;&lt;span class="n"&gt;BEA&lt;/span&gt;&lt;span class="err"&gt;，&lt;/span&gt;&lt;span class="n"&gt;IBM&lt;/span&gt;&lt;span class="err"&gt;）来说是不存在永久代的概念的。即使&lt;/span&gt;&lt;span class="n"&gt;HotSpot&lt;/span&gt;&lt;span class="err"&gt;虚拟机本身，根据官方发布的路线图信息，现在也有放弃永久代并“搬家”至&lt;/span&gt;&lt;span class="n"&gt;Native&lt;/span&gt; &lt;span class="n"&gt;Memory&lt;/span&gt;&lt;span class="err"&gt;来实现方法去的规划了。&lt;/span&gt;
-
-&lt;span class="err"&gt;这说明在我们用的&lt;/span&gt;&lt;span class="n"&gt;jvm&lt;/span&gt;&lt;span class="err"&gt;中，方法区存在于堆中，和一般网上说的信息相符。&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h4&gt;运行时常量&lt;/h4&gt;
-&lt;p&gt;存放String， 是方法区的一部分， 看资料说HotSopt放在堆中。&lt;/p&gt;
-&lt;h4&gt;直接内存&lt;/h4&gt;
-&lt;p&gt;非jvm控制， 但是超过物理内存的限制，会抛出OutOfMemoryError，jdk1.4 NIO 中的 Channel 和 Buffer 的io方式。&lt;/p&gt;
-&lt;h3&gt;各种异常&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
-&lt;span class="cm"&gt; * VM Args: -Xms10m -Xmx10m&lt;/span&gt;
-&lt;span class="cm"&gt; * 结果：java.lang.OutOfMemoryError: Java heap space堆超过10m抛出。&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Test&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;List&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;ArrayList&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="o"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;){&lt;/span&gt;
-        &lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-            &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;add&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Object&lt;/span&gt;&lt;span class="o"&gt;());&lt;/span&gt;
-        &lt;span class="o"&gt;}&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;span class="cm"&gt;/**&lt;/span&gt;
-&lt;span class="cm"&gt; * VM Args: -Xss128k&lt;/span&gt;
-&lt;span class="cm"&gt; * 结果：java.lang.StackOverflowError栈深度大于jvm允许的深度，抛出之。&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Test&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="o"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;){&lt;/span&gt;
-        &lt;span class="n"&gt;SOF&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;SOF&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;SOF&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-    &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="n"&gt;SOF&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="nf"&gt;SOF&lt;/span&gt;&lt;span class="o"&gt;(){&lt;/span&gt;
-        &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;SOF&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;span class="cm"&gt;/**&lt;/span&gt;
-&lt;span class="cm"&gt; * VM Args: -Xss2m&lt;/span&gt;
-&lt;span class="cm"&gt; * 结果：java.lang.OutOfMemoryError: unable to create new native thread慎用，死机。。。。！！！！&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Test&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="o"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;){&lt;/span&gt;
-        &lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-            &lt;span class="n"&gt;Thread&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Thread&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Runnable&lt;/span&gt;&lt;span class="o"&gt;(){&lt;/span&gt;
-                &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;run&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-                    &lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-                        &lt;span class="c1"&gt;// doNothing...&lt;/span&gt;
-                    &lt;span class="o"&gt;}&lt;/span&gt;
-                &lt;span class="o"&gt;}&lt;/span&gt;
-            &lt;span class="o"&gt;});&lt;/span&gt;
-            &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;start&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
-        &lt;span class="o"&gt;}&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;span class="cm"&gt;/**&lt;/span&gt;
-&lt;span class="cm"&gt; * 常量池溢出&lt;/span&gt;
-&lt;span class="cm"&gt; * VM Args: -XX:PermSize=5m -XX:MaxPermSize=5m&lt;/span&gt;
-&lt;span class="cm"&gt; * 结果：java.lang.OutOfMemoryError: PermGen space&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Test&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="o"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;){&lt;/span&gt;
-        &lt;span class="n"&gt;List&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;ArrayList&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;();&lt;/span&gt;
-        &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-        &lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-            &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;add&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++);&lt;/span&gt;
-        &lt;span class="o"&gt;}&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;span class="cm"&gt;/**&lt;/span&gt;
-&lt;span class="cm"&gt; * VM Args: -XX:MaxDirectMemorySize=5m -Xmx10m&lt;/span&gt;
-&lt;span class="cm"&gt; * 结果：java.lang.OutOfMemoryError&lt;/span&gt;
-&lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Test&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="o"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;){&lt;/span&gt;
-        &lt;span class="n"&gt;Field&lt;/span&gt; &lt;span class="n"&gt;field&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Test&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;class&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getDeclaredFields&lt;/span&gt;&lt;span class="o"&gt;()[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;];&lt;/span&gt;
-        &lt;span class="n"&gt;field&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;setAccessible&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
-        &lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-            &lt;span class="n"&gt;field&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;get&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;null&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;allocateMemory&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1024&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mi"&gt;1024&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
-        &lt;span class="o"&gt;}&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;垃圾收集器&lt;/h3&gt;
-&lt;h4&gt;Serial 收集器&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Serial&lt;/span&gt; &lt;span class="err"&gt;收集器是最基本、历史最悠久的收集器，单线程的方式收集新生代的收集器，进行收集工作时会停止用户所有的工作线程（&lt;/span&gt;&lt;span class="n"&gt;Stop&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;world&lt;/span&gt;&lt;span class="err"&gt;），比较适合运行在&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;Client&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt; &lt;span class="err"&gt;模式下的虚拟机。&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h4&gt;ParNew 收集器&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Serial&lt;/span&gt; &lt;span class="err"&gt;收集器的多线程版本，是运行在&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;Server&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt; &lt;span class="err"&gt;模式下虚拟机首选的新生代收集器，可以使用&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;XX&lt;/span&gt;&lt;span class="o"&gt;:+&lt;/span&gt;&lt;span class="n"&gt;UseParNewGC&lt;/span&gt; &lt;span class="err"&gt;选项来强制指定它。&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h4&gt;Parallel Scavenge 收集器&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;使用了复制算法的新生代收集器，和&lt;/span&gt; &lt;span class="n"&gt;ParNew&lt;/span&gt; &lt;span class="err"&gt;一样，也是多线程实现的，他们的区别在于：&lt;/span&gt;&lt;span class="n"&gt;Parallel&lt;/span&gt; &lt;span class="n"&gt;Scavenge&lt;/span&gt; &lt;span class="err"&gt;收集器关注的是尽可能地达到一个可控的吞吐量，如虚拟机总共运行了&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="err"&gt;分钟，其中垃圾收集花掉&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="err"&gt;分钟，则吞吐量就是&lt;/span&gt;&lt;span class="mi"&gt;99&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="err"&gt;。&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h4&gt;Serial Old 收集器&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Serial&lt;/span&gt; &lt;span class="err"&gt;收集器的老年代版本，使用“标记&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="err"&gt;整理”算法，比较时候在&lt;/span&gt; &lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="err"&gt;模式的虚拟机使用。&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h4&gt;Parallel Old 收集器&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Parallel&lt;/span&gt; &lt;span class="n"&gt;Scavenge&lt;/span&gt; &lt;span class="err"&gt;收集器的老年代版本，使用多线程的“标记&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="err"&gt;整理”算法。&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h4&gt;CMS （Concurrent Mark Sweep）收集器&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;CMS&lt;/span&gt; &lt;span class="err"&gt;收集器是一种以获取最短回收停顿时间为目标的收集器，基于“标记&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="err"&gt;清除”算法。&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h4&gt;G1 (Garbage First) 收集器&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;理论上的下一代收集器。&lt;/span&gt;&lt;span class="n"&gt;jdk1&lt;/span&gt;&lt;span class="mf"&gt;.6&lt;/span&gt; &lt;span class="n"&gt;update14&lt;/span&gt; &lt;span class="err"&gt;后，跟随一个测试版，&lt;/span&gt;&lt;span class="n"&gt;jdk1&lt;/span&gt;&lt;span class="mf"&gt;.7&lt;/span&gt;&lt;span class="err"&gt;默认收集器。&lt;/span&gt;
-&lt;span class="err"&gt;牛逼的它号称不会产生碎片，适合长时间运行，取消新生代和老年代的定义，划分成固定大小的独立空间。&lt;/span&gt;
-&lt;span class="err"&gt;后台有个优先级的列表，清理垃圾最多的块（这可能是名字的由来）&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h4&gt;各种垃圾收集器搭配的方式&lt;/h4&gt;
-&lt;p&gt;&lt;img alt="jvm-gc" src="/pic/jvm/jvm-4.jpg" /&gt;&lt;/p&gt;
-&lt;p&gt;官方推荐搭配：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;Parallel&lt;/span&gt; &lt;span class="n"&gt;Scavenge&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;Parallel&lt;/span&gt; &lt;span class="n"&gt;Old&lt;/span&gt;
-&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;ParNew&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;CMS&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;一般来说，如果能使用 Parallel Scavenge + Parallel Old 的话就不要用 CMS，因为 Parallel 的吞吐量率更高，只要停顿时间不是太长的话，就不需要使用CMS收集器。&lt;/p&gt;
-&lt;h3&gt;优化建议&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="s-Atom"&gt;建议用64位操作系统，Linux下64位的jdk比32位jdk要慢一些，但是吃得内存更多，吞吐量更大。&lt;/span&gt;
-&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nv"&gt;XMX&lt;/span&gt;&lt;span class="s-Atom"&gt;和XMS设置一样大，MaxPermSize和MinPermSize设置一样大，这样可以减轻伸缩堆大小带来的压力。&lt;/span&gt;
-&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="s-Atom"&gt;调试的时候设置一些打印参数，如&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;XX&lt;/span&gt;&lt;span class="s-Atom"&gt;:+&lt;/span&gt;&lt;span class="nv"&gt;PrintClassHistogram&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;XX&lt;/span&gt;&lt;span class="s-Atom"&gt;:+&lt;/span&gt;&lt;span class="nv"&gt;PrintGCDetails&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;XX&lt;/span&gt;&lt;span class="s-Atom"&gt;:+&lt;/span&gt;&lt;span class="nv"&gt;PrintGCTimeStamps&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;XX&lt;/span&gt;&lt;span class="s-Atom"&gt;:+&lt;/span&gt;&lt;span class="nv"&gt;PrintHeapAtGC&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;Xloggc&lt;/span&gt;&lt;span class="s-Atom"&gt;:log&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="s-Atom"&gt;gc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="s-Atom"&gt;log，这样可以从gc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="s-Atom"&gt;log里看出一些端倪出来。&lt;/span&gt;
-&lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="s-Atom"&gt;系统停顿的时候可能是GC的问题也可能是程序的问题，多用jmap和jstack查看。&lt;/span&gt;
-&lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="s-Atom"&gt;仔细了解自己的应用，如果用了缓存，那么年老代应该大一些，缓存的HashMap不应该无限制长，建议采用LRU算法的Map做缓存，LRUMap的最大长度也要根据实际情况设定。&lt;/span&gt;
-&lt;span class="m"&gt;6&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="s-Atom"&gt;不管怎样，永久代还是会逐渐变满，所以隔三差五重起java服务器是必要的。&lt;/span&gt;
-&lt;span class="m"&gt;7&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="s-Atom"&gt;采用并发回收时，年轻代小一点，年老代要大，因为年老大用的是并发回收，即使时间长点也不会影响其他程序继续运行，网站不会停顿。&lt;/span&gt;
-
-&lt;span class="s-Atom"&gt;在Resin论坛看到这样一个配置，据说比较牛B，8个G的情况下：&lt;/span&gt;
-&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;JAVA_ARGS&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot; -Dresin.home=$SERVER_ROOT -server&lt;/span&gt;
-&lt;span class="s2"&gt;-Xms6000M -Xmx6000M -Xmn500M -XX:PermSize=500M -XX:MaxPermSize=500M&lt;/span&gt;
-&lt;span class="s2"&gt;-XX:SurvivorRatio=65536 -XX:MaxTenuringThreshold=0 -Xnoclassgc&lt;/span&gt;
-&lt;span class="s2"&gt;-XX:+DisableExplicitGC -XX:+UseParNewGC -XX:+UseConcMarkSweepGC&lt;/span&gt;
-&lt;span class="s2"&gt;-XX:+UseCMSCompactAtFullCollection -XX:CMSFullGCsBeforeCompaction=0&lt;/span&gt;
-&lt;span class="s2"&gt;-XX:+CMSClassUnloadingEnabled -XX:-CMSParallelRemarkEnabled&lt;/span&gt;
-&lt;span class="s2"&gt;-XX:CMSInitiatingOccupancyFraction=90 -XX:SoftRefLRUPolicyMSPerMB=0&lt;/span&gt;
-&lt;span class="s2"&gt;-XX:+PrintClassHistogram -XX:+PrintGCDetails -XX:+PrintGCTimeStamps&lt;/span&gt;
-&lt;span class="s2"&gt;-XX:+PrintHeapAtGC -Xloggc:log/gc.log &amp;quot;&lt;/span&gt;
-
-&lt;span class="nf"&gt;要满足：&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;Xmx&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;Xmn&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="s-Atom"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;100&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;CMSInitiatingOccupancyFraction&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;100&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;=&lt;/span&gt;&lt;span class="nv"&gt;Xmn&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="java"></category><category term="jvm"></category><category term="gc"></category></entry><entry><title>使用Octopress搭建github博客</title><link href="/posts/2012/12/shi-yong-octopressda-jian-githubbo-ke/" rel="alternate"></link><updated>2012-12-15T21:53:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2012-12-15:posts/2012/12/shi-yong-octopressda-jian-githubbo-ke/</id><summary type="html">&lt;p&gt;因为gfw的原因，Google App Engine当真实蛋疼的紧，有不想花钱弄主机，就在这里搞的blog吧，记录下安装步骤。&lt;/p&gt;
+&lt;img alt="zsh-demo2" src="/pic/oh-my-zsh/oh-my-zsh-2.jpg" /&gt;&lt;/p&gt;</summary></entry><entry><title>使用Octopress搭建github博客</title><link href="/posts/2012/12/shi-yong-octopressda-jian-githubbo-ke/" rel="alternate"></link><updated>2012-12-15T21:53:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2012-12-15:posts/2012/12/shi-yong-octopressda-jian-githubbo-ke/</id><summary type="html">&lt;p&gt;因为gfw的原因，Google App Engine当真实蛋疼的紧，有不想花钱弄主机，就在这里搞的blog吧，记录下安装步骤。&lt;/p&gt;
 &lt;h3&gt;安装&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;bash&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;stable&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;curl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer) # 安装RVM&lt;/span&gt;
-&lt;span class="n"&gt;echo&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;[[&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;$HOME/.rvm/scripts/rvm&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;$HOME/.rvm/scripts/rvm&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bash_profile&lt;/span&gt;    &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;添加环境变量到&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bash_profile&lt;/span&gt;
-&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bash_profile&lt;/span&gt;  &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="err"&gt;一下，让它起作用&lt;/span&gt;
-&lt;span class="n"&gt;rvm&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="mf"&gt;1.9.3&lt;/span&gt;    &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;安装&lt;/span&gt;&lt;span class="n"&gt;ruby1&lt;/span&gt;&lt;span class="mf"&gt;.9.3&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rvm&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="mf"&gt;1.9.3&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;with&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;gcc&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;clang&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;rvm&lt;/span&gt; &lt;span class="mf"&gt;1.9.3&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;  &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;设置&lt;/span&gt;&lt;span class="n"&gt;ruby&lt;/span&gt;&lt;span class="err"&gt;默认版本为&lt;/span&gt;&lt;span class="mf"&gt;1.9.3&lt;/span&gt;
-&lt;span class="n"&gt;ruby&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;version&lt;/span&gt;       &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;查看当前&lt;/span&gt;&lt;span class="n"&gt;ruby&lt;/span&gt;&lt;span class="err"&gt;版本是否已经被设置&lt;/span&gt;&lt;span class="mf"&gt;1.9.3&lt;/span&gt;
-&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/imathis/octopress.git octopress  #从github clone octopress的源代码&lt;/span&gt;
-&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;octopress&lt;/span&gt;
-&lt;span class="cp"&gt;### 安装一些依赖&lt;/span&gt;
-&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;bundler&lt;/span&gt;
-&lt;span class="n"&gt;bundle&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt;
-&lt;span class="n"&gt;rake&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt;  &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;安装主题&lt;/span&gt;
-&lt;span class="n"&gt;rake&lt;/span&gt; &lt;span class="n"&gt;preview&lt;/span&gt;  &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;本地预览&lt;/span&gt; &lt;span class="err"&gt;（&lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//localhost:4000/）&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="x"&gt;bash -s stable &amp;lt; &amp;lt;(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer) &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt; 安装RVM&lt;/span&gt;
+&lt;span class="x"&gt;echo &amp;#39;[[ -s &amp;quot;&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/.rvm/scripts/rvm&amp;quot; ]] &amp;amp;&amp;amp; . &amp;quot;&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/.rvm/scripts/rvm&amp;quot; &amp;#39; &amp;gt;&amp;gt; ~/.bash_profile    &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt; 添加环境变量到 ~/.bash_profile&lt;/span&gt;
+&lt;span class="x"&gt;source ~/.bash_profile  &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt; source 一下，让它起作用&lt;/span&gt;
+&lt;span class="x"&gt;rvm install 1.9.3    &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt; 安装ruby1.9.3 (rvm install 1.9.3 --with-gcc=clang)&lt;/span&gt;
+&lt;span class="x"&gt;rvm 1.9.3 --default  &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt; 设置ruby默认版本为1.9.3&lt;/span&gt;
+&lt;span class="x"&gt;ruby --version       &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt; 查看当前ruby版本是否已经被设置1.9.3&lt;/span&gt;
+&lt;span class="x"&gt;git clone git://github.com/imathis/octopress.git octopress  &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt;从github clone octopress的源代码&lt;/span&gt;
+&lt;span class="x"&gt;cd octopress&lt;/span&gt;
+&lt;span class="cp"&gt;##&lt;/span&gt;&lt;span class="c"&gt;# 安装一些依赖&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;span class="x"&gt;gem install bundler&lt;/span&gt;
+&lt;span class="x"&gt;bundle install&lt;/span&gt;
+&lt;span class="x"&gt;rake install  &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt; 安装主题&lt;/span&gt;
+&lt;span class="x"&gt;rake preview  &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt; 本地预览 （http://localhost:4000/）&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1041,53 +768,53 @@ vim ~/.zshrc
 &lt;p&gt;如果有同学觉得 &lt;strong&gt;gem&lt;/strong&gt; 或者 &lt;strong&gt;rvm&lt;/strong&gt; 使用缓慢可以尝试淘宝的ruby源。
 &lt;a href="http://ruby.taobao.org/"&gt;taoBaoRuby&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;把blog部署到github&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;octopress&lt;/span&gt;
-&lt;span class="n"&gt;rake&lt;/span&gt; &lt;span class="n"&gt;setup_github_pages&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;和&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="err"&gt;创建关联&lt;/span&gt;
-&lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;your_username&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;your_username&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt;   &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;提示输入&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt; &lt;span class="n"&gt;URL&lt;/span&gt;
-&lt;span class="n"&gt;rake&lt;/span&gt; &lt;span class="n"&gt;generate&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;把你所有编辑的内容生成你的&lt;/span&gt;&lt;span class="n"&gt;Blog&lt;/span&gt;&lt;span class="err"&gt;静态页面&lt;/span&gt;
-&lt;span class="n"&gt;rake&lt;/span&gt; &lt;span class="n"&gt;deploy&lt;/span&gt;   &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;如果检查没有任何问题就可以&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="err"&gt;你的&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt; &lt;span class="err"&gt;到&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt; &lt;span class="n"&gt;branch&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;cd octopress
+rake setup_github_pages # 和github创建关联
+git@github.com:your_username/your_username.github.com.git   # 提示输入github URL
+rake generate # 把你所有编辑的内容生成你的Blog静态页面
+rake deploy   # 如果检查没有任何问题就可以 push 你的 blog 到 github master branch
 
-&lt;span class="cp"&gt;### 状态检查&lt;/span&gt;
-&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;octopress&lt;/span&gt;
-&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;status&lt;/span&gt;   &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;应该显示&lt;/span&gt; &lt;span class="n"&gt;On&lt;/span&gt; &lt;span class="n"&gt;branch&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;
-&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;_deploy&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;  &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;应该显示&lt;/span&gt; &lt;span class="n"&gt;On&lt;/span&gt; &lt;span class="n"&gt;branch&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt;
+### 状态检查
+cd ~/octopress
+git status   # 应该显示 On branch source
+cd _deploy/  # 应该显示 On branch master
 
-&lt;span class="cp"&gt;### 最后提交到source branch&lt;/span&gt;
-&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;
-&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt; &lt;span class="n"&gt;commit&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;如果这一步出错，请再次检查仓库名称是否按要求命名，同时检查&lt;/span&gt;&lt;span class="n"&gt;Admin&lt;/span&gt;&lt;span class="err"&gt;面板下&lt;/span&gt;&lt;span class="n"&gt;Default&lt;/span&gt; &lt;span class="n"&gt;Branch&lt;/span&gt;&lt;span class="err"&gt;是否为&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt;
+### 最后提交到source branch
+git add .
+git commit -m &amp;#39;first commit&amp;#39;
+git push origin source # 如果这一步出错，请再次检查仓库名称是否按要求命名，同时检查Admin面板下Default Branch是否为 master
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;更新Octopress&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;pull&lt;/span&gt; &lt;span class="n"&gt;octopress&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt;     &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;Get&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;latest&lt;/span&gt; &lt;span class="n"&gt;Octopress&lt;/span&gt;
-&lt;span class="n"&gt;bundle&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt;                &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;Keep&lt;/span&gt; &lt;span class="n"&gt;gems&lt;/span&gt; &lt;span class="n"&gt;updated&lt;/span&gt;
-&lt;span class="n"&gt;rake&lt;/span&gt; &lt;span class="n"&gt;update_source&lt;/span&gt;            &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;template&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;
-&lt;span class="n"&gt;rake&lt;/span&gt; &lt;span class="n"&gt;update_style&lt;/span&gt;             &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;template&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;style&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git pull octopress master     # Get the latest Octopress
+bundle install                # Keep gems updated
+rake update_source            # update the template&amp;#39;s source
+rake update_style             # update the template&amp;#39;s style
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;新建文章&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;rake&lt;/span&gt; &lt;span class="n"&gt;new_post&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;title&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;         &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;yyyy&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;MM&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dd&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;md&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;rake new_post[&amp;quot;title&amp;quot;]         # yyyy-MM-dd-post-title.md
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;分类方式&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nl"&gt;categories:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;octopreess&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;categories: [octopreess, github]
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;如果已经存在了github上面的Octopress，取回本地的操作&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;octopress&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="n"&gt;code&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;source&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;branch&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;octopress&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;
-&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;octopress&lt;/span&gt;
-&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;_deploy&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="n"&gt;pages&lt;/span&gt; &lt;span class="n"&gt;content&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;master&amp;quot;&lt;/span&gt;&lt;span class="n"&gt;branch&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;cotopress&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git clone -b source git@github.com:username/username.github.com.git octopress # get the source code from your &amp;quot;source&amp;quot; branch of your octopress on github
+cd octopress
+git clone git@github.com:username/username.github.com.git _deploy # get your static pages content from your &amp;quot;master&amp;quot;branch of your cotopress on github
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;一般操作&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="mf"&gt;1.&lt;/span&gt; &lt;span class="n"&gt;rake&lt;/span&gt; &lt;span class="n"&gt;new_post&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;title&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-&lt;span class="mf"&gt;2.&lt;/span&gt; &lt;span class="err"&gt;快乐的点东西&lt;/span&gt;
-&lt;span class="mf"&gt;3.&lt;/span&gt; &lt;span class="n"&gt;rake&lt;/span&gt; &lt;span class="n"&gt;generate&lt;/span&gt;
-&lt;span class="mf"&gt;4.&lt;/span&gt; &lt;span class="n"&gt;rake&lt;/span&gt; &lt;span class="n"&gt;deploy&lt;/span&gt;
-&lt;span class="mf"&gt;5.&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;am&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;     &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;把写的文件备份到&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="err"&gt;分支&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;1. rake new_post[&amp;quot;title&amp;quot;]
+2. 快乐的点东西
+3. rake generate
+4. rake deploy
+5. git add . &amp;amp;&amp;amp; git commit -am &amp;#39;blog&amp;#39; &amp;amp;&amp;amp; git push origin source     # 把写的文件备份到source分支
 &lt;/pre&gt;&lt;/div&gt;</summary><category term="Octopress"></category><category term="github"></category></entry></feed>

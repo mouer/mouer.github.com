@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Morse Code</title><link href="/" rel="alternate"></link><link href="/feeds/atom.xml" rel="self"></link><id>/</id><updated>2014-08-10T10:00:00+08:00</updated><entry><title>ionicFramework简介</title><link href="/posts/2014/08/ionicframeworkjian-jie/" rel="alternate"></link><updated>2014-08-10T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-08-10:posts/2014/08/ionicframeworkjian-jie/</id><summary type="html">&lt;p&gt;简单说一下&lt;a href="http://ionicframework.com/"&gt;Ionic&lt;/a&gt;是一款让你可以通过H5+CSS+JS做出原生应用的前端框架。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Morse Code</title><link href="/" rel="alternate"></link><link href="/feeds/mouer.atom.xml" rel="self"></link><id>/</id><updated>2014-08-10T10:00:00+08:00</updated><entry><title>ionicFramework简介</title><link href="/posts/2014/08/ionicframeworkjian-jie/" rel="alternate"></link><updated>2014-08-10T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-08-10:posts/2014/08/ionicframeworkjian-jie/</id><summary type="html">&lt;p&gt;简单说一下&lt;a href="http://ionicframework.com/"&gt;Ionic&lt;/a&gt;是一款让你可以通过H5+CSS+JS做出原生应用的前端框架。&lt;/p&gt;
 &lt;p&gt;需要用到下面的技术：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://sass-lang.com/"&gt;Sass&lt;/a&gt;&lt;/li&gt;

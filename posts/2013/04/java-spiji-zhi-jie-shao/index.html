@@ -40,7 +40,7 @@
  
   </header>
   <footer class="post-info">
-    <abbr class="published" title="2013-04-24T22:20:00">
+    <abbr class="published" title="2013-04-24T22:20:00+08:00">
       Wed 24 April 2013
     </abbr>
     <address class="vcard author">
@@ -56,7 +56,7 @@
 <li>META-INF/services/com.edit.service.ParseFile 写入 com.edit.service.impl.ParseXXXFileImpl</li>
 </ul>
 <p>把补丁包放入class path 里就可以了。</p>
-<div class="highlight"><pre><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">ohoo</span><span class="o">.</span><span class="na">spi</span><span class="o">.</span><span class="na">service</span><span class="o">;</span>
+<div class="highlight"><pre><span class="kn">package</span> <span class="nn">com.ohoo.spi.service</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.ServiceLoader</span><span class="o">;</span>
 <span class="cm">/**</span>
 <span class="cm"> * User: chen.qi</span>
@@ -75,7 +75,7 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">ohoo</span><span class="o">.</span><span class="na">spi</span><span class="o">.</span><span class="na">service</span><span class="o">;</span>
+<div class="highlight"><pre><span class="kn">package</span> <span class="nn">com.ohoo.spi.service</span><span class="o">;</span>
 <span class="cm">/**</span>
 <span class="cm"> * User: chen.qi</span>
 <span class="cm"> * Date: 13-4-24</span>
@@ -88,7 +88,7 @@
 </pre></div>
 
 
-<div class="highlight"><pre><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">ohoo</span><span class="o">.</span><span class="na">spi</span><span class="o">.</span><span class="na">service</span><span class="o">.</span><span class="na">impl</span><span class="o">;</span>
+<div class="highlight"><pre><span class="kn">package</span> <span class="nn">com.ohoo.spi.service.impl</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">com.ohoo.spi.service.ContainerService</span><span class="o">;</span>
 <span class="cm">/**</span>
 <span class="cm"> * User: chen.qi</span>
@@ -109,9 +109,9 @@
 
 
 <p><code>META-INF/services/com.ohoo.spi.service.ContainerService</code></p>
-<div class="highlight"><pre><span class="n">com</span><span class="p">.</span><span class="n">ohoo</span><span class="p">.</span><span class="n">spi</span><span class="p">.</span><span class="n">service</span><span class="p">.</span><span class="n">impl</span><span class="p">.</span><span class="n">AContainerServiceImpl</span>
-<span class="n">com</span><span class="p">.</span><span class="n">ohoo</span><span class="p">.</span><span class="n">spi</span><span class="p">.</span><span class="n">service</span><span class="p">.</span><span class="n">impl</span><span class="p">.</span><span class="n">BContainerServiceImpl</span>
-<span class="n">com</span><span class="p">.</span><span class="n">ohoo</span><span class="p">.</span><span class="n">spi</span><span class="p">.</span><span class="n">service</span><span class="p">.</span><span class="n">impl</span><span class="p">.</span><span class="n">CContainerServiceImpl</span>
+<div class="highlight"><pre>com.ohoo.spi.service.impl.AContainerServiceImpl
+com.ohoo.spi.service.impl.BContainerServiceImpl
+com.ohoo.spi.service.impl.CContainerServiceImpl
 </pre></div>
   </div><!-- /.entry-content -->
 </section>

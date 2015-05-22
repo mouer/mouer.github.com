@@ -40,7 +40,7 @@
  
   </header>
   <footer class="post-info">
-    <abbr class="published" title="2014-03-13T10:00:00">
+    <abbr class="published" title="2014-03-13T10:00:00+08:00">
       Thu 13 March 2014
     </abbr>
     <address class="vcard author">
@@ -50,13 +50,13 @@
   <div class="entry-content">
     <p>不定时更新中</p>
 <div class="highlight"><pre><span class="c"># 查看http链接状态</span>
-netstat -n | awk <span class="s1">&#39;/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}&#39;</span>
+netstat -n <span class="p">|</span> awk <span class="s1">&#39;/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}&#39;</span>
 
 <span class="c"># 查看80使用情况</span>
-netstat -an -t | grep <span class="s1">&#39;:80&#39;</span> | grep ESTABLISHED | awk <span class="s1">&#39;{printf &quot;%s %s\n&quot;, $5, $6}&#39;</span> | uniq | sort
+netstat -an -t <span class="p">|</span> grep <span class="s1">&#39;:80&#39;</span> <span class="p">|</span> grep ESTABLISHED <span class="p">|</span> awk <span class="s1">&#39;{printf &quot;%s %s\n&quot;, $5, $6}&#39;</span> <span class="p">|</span> uniq <span class="p">|</span> sort
 
 <span class="c"># cpu数量</span>
-cat /proc/cpuinfo | grep -c processor
+cat /proc/cpuinfo <span class="p">|</span> grep -c processor
 </pre></div>
   </div><!-- /.entry-content -->
 </section>
