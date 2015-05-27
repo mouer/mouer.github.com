@@ -57,6 +57,15 @@ netstat -an -t <span class="p">|</span> grep <span class="s1">&#39;:80&#39;</spa
 
 <span class="c"># cpu数量</span>
 cat /proc/cpuinfo <span class="p">|</span> grep -c processor
+
+<span class="c"># 在vim中保存没有权限的修改</span>
+:w !sudo tee %
+
+<span class="c"># 显示ascii码表</span>
+man ascii
+
+<span class="c"># 在远程机器上执行一个本地脚本</span>
+ssh user@server bash &lt; /path/to/local/script.sh
 </pre></div>
   </div><!-- /.entry-content -->
 </section>

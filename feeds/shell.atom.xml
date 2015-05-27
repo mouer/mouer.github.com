@@ -8,4 +8,13 @@ netstat -an -t &lt;span class="p"&gt;|&lt;/span&gt; grep &lt;span class="s1"&gt;
 
 &lt;span class="c"&gt;# cpu数量&lt;/span&gt;
 cat /proc/cpuinfo &lt;span class="p"&gt;|&lt;/span&gt; grep -c processor
+
+&lt;span class="c"&gt;# 在vim中保存没有权限的修改&lt;/span&gt;
+:w !sudo tee %
+
+&lt;span class="c"&gt;# 显示ascii码表&lt;/span&gt;
+man ascii
+
+&lt;span class="c"&gt;# 在远程机器上执行一个本地脚本&lt;/span&gt;
+ssh user@server bash &amp;lt; /path/to/local/script.sh
 &lt;/pre&gt;&lt;/div&gt;</summary><category term="shell"></category></entry></feed>
