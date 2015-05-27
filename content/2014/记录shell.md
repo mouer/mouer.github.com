@@ -17,5 +17,13 @@ netstat -an -t | grep ':80' | grep ESTABLISHED | awk '{printf "%s %s\n", $5, $6}
 # cpu数量
 cat /proc/cpuinfo | grep -c processor
 
+# 在vim中保存没有权限的修改
+:w !sudo tee %
+
+# 显示ascii码表
+man ascii
+
+# 在远程机器上执行一个本地脚本
+ssh user@server bash < /path/to/local/script.sh
 
 ```
