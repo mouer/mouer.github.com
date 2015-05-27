@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Morse Code</title><link href="/" rel="alternate"></link><link href="/feeds/mouer.atom.xml" rel="self"></link><id>/</id><updated>2014-08-10T10:00:00+08:00</updated><entry><title>ionicFramework简介</title><link href="/posts/2014/08/ionicframeworkjian-jie/" rel="alternate"></link><updated>2014-08-10T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-08-10:posts/2014/08/ionicframeworkjian-jie/</id><summary type="html">&lt;p&gt;简单说一下&lt;a href="http://ionicframework.com/"&gt;Ionic&lt;/a&gt;是一款让你可以通过H5+CSS+JS做出原生应用的前端框架。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Morse Code</title><link href="/" rel="alternate"></link><link href="/feeds/mouer.atom.xml" rel="self"></link><id>/</id><updated>2014-08-12T10:00:00+08:00</updated><entry><title>python打印stacktrace</title><link href="/posts/2014/08/pythonda-yin-stacktrace/" rel="alternate"></link><updated>2014-08-12T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-08-12:posts/2014/08/pythonda-yin-stacktrace/</id><summary type="html">&lt;p&gt;java程序如果因为失败了退出，都会打印一个stacktrace出来，便于排查问题。&lt;/p&gt;
+&lt;p&gt;对于正在运行的程序也可以用jstack来打印。&lt;/p&gt;
+&lt;p&gt;在python里面如果对于将正在运行的python程序打印stacktrace呢？（比如你想知道你的程序卡在哪里了，你不可能在每个可能卡的地方都加一个调试信息）&lt;/p&gt;
+&lt;p&gt;python自己没有提供类似于jstack这样的工具，因此我们只有自己实现。&lt;/p&gt;
+&lt;p&gt;trace.py&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;code&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;traceback&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;signal&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;listen&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+     &lt;span class="n"&gt;signal&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;signal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;signal&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SIGUSR1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;lambda&lt;/span&gt; &lt;span class="n"&gt;sig&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;stack&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;traceback&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;print_stack&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;stack&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;函数listen的意思就是，对kill信号加入响应函数，然后在响应函数中打印当前的stacktrace。&lt;/p&gt;
+&lt;p&gt;因此在正式脚本里面，只要执行这段函数，然后在对进场发个SIGUSR1的信号，它就会将他当前正在执行的代码打印出来。&lt;/p&gt;
+&lt;p&gt;main.py&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;trace&lt;/span&gt;
+        &lt;span class="n"&gt;trace&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;listen&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="k"&gt;except&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;pass&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;使用&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;kill&lt;/span&gt; -SIGUSR1 &lt;span class="nv"&gt;$PID&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="python"></category></entry><entry><title>ionicFramework简介</title><link href="/posts/2014/08/ionicframeworkjian-jie/" rel="alternate"></link><updated>2014-08-10T10:00:00+08:00</updated><author><name>Mouer</name></author><id>tag:,2014-08-10:posts/2014/08/ionicframeworkjian-jie/</id><summary type="html">&lt;p&gt;简单说一下&lt;a href="http://ionicframework.com/"&gt;Ionic&lt;/a&gt;是一款让你可以通过H5+CSS+JS做出原生应用的前端框架。&lt;/p&gt;
 &lt;p&gt;需要用到下面的技术：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://sass-lang.com/"&gt;Sass&lt;/a&gt;&lt;/li&gt;

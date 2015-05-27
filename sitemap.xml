@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
+<loc>https://mouer.github.io/posts/2014/08/pythonda-yin-stacktrace/</loc>
+<priority>0.8</priority>
+</url>
+
+<url>
 <loc>https://mouer.github.io/posts/2014/08/ionicframeworkjian-jie/</loc>
 <priority>0.8</priority>
 </url>
